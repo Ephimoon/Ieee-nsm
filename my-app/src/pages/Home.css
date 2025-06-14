@@ -187,9 +187,14 @@ body, html {
 
 /* Membership Form */
 .membership-form {
-  padding: 4rem;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   background-color: #3385AD;
-  max-width: 1200px;
+  padding: 4rem 1rem;
+}
+
+.form-inner {
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -206,8 +211,8 @@ body, html {
 
 .form-row {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 1.5rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
   flex-direction: column;
 }
 

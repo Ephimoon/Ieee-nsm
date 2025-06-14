@@ -14,22 +14,19 @@ const officers = [
     id: 2,
     name: 'Vincent DyCruz',
     position: 'Vice President',
-    imageUrl: '/images/officers/jane-smith.jpg',
-    description: 'Assists the president and manages internal affairs'
+    imageUrl: '/images/officers/jane-smith.jpg'
   },
   {
     id: 3,
     name: 'Sam Khudairi',
     position: 'Treasurer',
-    imageUrl: '/images/officers/mike-johnson.jpg',
-    description: 'Handles all financial matters and budgeting'
+    imageUrl: '/images/officers/mike-johnson.jpg'
   },
   {
     id: 4,
     name: 'Sarah Williams',
     position: 'Secretary',
-    imageUrl: '/images/officers/sarah-williams.jpg',
-    description: 'Manages records and communications'
+    imageUrl: '/images/officers/sarah-williams.jpg'
   },
   // Add more officers as needed
 ];

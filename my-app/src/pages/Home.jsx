@@ -79,6 +79,7 @@ function Home() {
         </section>
         {/* Membership Form */}
         <section className="membership-form">
+          <div className ="form-inner">
           <h3>Contact Us</h3>
           <form>
             <div className="form-row">
@@ -91,7 +92,7 @@ function Home() {
                 <input type="email" id="email" required />
               </div>
             </div>
-            
+
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="role">I am...</label>
@@ -112,6 +113,7 @@ function Home() {
               <button type="submit" className="submit-btn">Send</button>
             </div>
           </form>
+          </div>
         </section>
       </div>
     </Layout>
