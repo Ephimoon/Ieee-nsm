@@ -1,0 +1,49 @@
+.calendar-container {
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.custom-calendar .rbc-event {
+    background-color: #e53935;
+    color: white;
+    border: none;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.custom-calendar .rbc-today {
+    background-color: #fff3e0;
+}
+
+.custom-calendar .rbc-toolbar-label {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.custom-calendar .rbc-off-range-bg {
+    background-color: #f5f5f5;
+}
+
+
+.timezone-label {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.add-calendar-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: #4285f4;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.add-calendar-button:hover {
+    background-color: #3367d6;
+}

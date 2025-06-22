@@ -1,35 +1,10 @@
 import React from 'react';
 import './Home.css';
-import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
-import format from 'date-fns/format';
-import parse from 'date-fns/parse';
-import startOfWeek from 'date-fns/startOfWeek';
-import getDay from 'date-fns/getDay';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import CalendarComponent from '../components/CalendarComponent.jsx';
 import Layout from '../components/Layout';
 import banner from '../images/ieee nsm banner (1).png';
 import olivia from '../images/Olivia holding image (1).png';
 import friends from '../images/smiling friends (1).png';
-
-const locales = {
-  'en-US': require('date-fns/locale/en-US'),
-};
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek,
-  getDay,
-  locales,
-});
-
-const events = [
-  {
-    title: 'Meeting',
-    start: new Date(2025, 6, 15, 10, 0), // month is 0-indexed (10 = November)
-    end: new Date(2025, 6, 15, 12, 0),
-  },
-];
 
 function Home() {
   return (
@@ -63,20 +38,15 @@ function Home() {
           </div>
           <button>Become a Member</button>
         </section>
+
         {/*Events Section*/}
-        <section class="events-section">
+        <section className="events-section">
           <h1>Don't Miss Out on Our Upcoming Events</h1>
-          <div class="calendar-container">
-            <Calendar
-              localizer={localizer}
-              events={events}
-              startAccessor="start"
-              endAccessor="end"
-              views={['month', 'week', 'day']}
-              defaultView="month"
-            />
-          </div>
+          
+            <CalendarComponent />
+
         </section>
+
         {/* Membership Form */}
         <section className="membership-form">
           <div className ="form-inner">
