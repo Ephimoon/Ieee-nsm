@@ -21,13 +21,16 @@ h1 {
 .officer-card {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   padding: 20px;
-  background: white;
+  background: #3385ad;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  max-height: 300px;
+  overflow: hidden;
 }
 
 .officer-card:hover {
@@ -41,6 +44,7 @@ h1 {
   overflow: hidden;
   border: 3px solid #f0f0f0;
   margin-bottom: 15px;
+  flex-shrink: 0;
 }
 
 .officer-image {
@@ -51,13 +55,13 @@ h1 {
 
 .officer-name {
   margin: 10px 0 5px;
-  color: #2c3e50;
+  color: #fdfdfd;
   font-size: 1.2rem;
 }
 
 .officer-position {
   margin: 0 0 10px;
-  color: #e74c3c;
+  color: #fdfdfd;
   font-weight: bold;
   font-size: 0.9rem;
 }
@@ -68,15 +72,120 @@ h1 {
   line-height: 1.4;
 }
 
+.linkedin-link {
+  margin: -2px 0 6px;
+  display: inline-block;
+}
+
+.linkedin-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.linkedin-icon:hover {
+  transform: scale(1.1);
+}
+
+.discord-container {
+  position: relative;
+  display: inline-block;
+  margin: -2px 0 6px;
+}
+
+.discord-icon {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.discord-icon:hover {
+  transform: scale(1.1);
+}
+
+.discord-popup {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #004b96;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 100;
+  pointer-events: auto;
+  user-select: text;
+  cursor: text;
+}
+
+.copied-tooltip {
+  background-color: #00b894;
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.discord-container:hover .discord-popup,
+.discord-popup:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+.discord-popup {
+  cursor: text;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .officer-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
   }
-  
+
   .officer-image-container {
     width: 120px;
     height: 120px;
+  }
+}
+@media (max-width: 768px) {
+  .officer-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .officer-image-container {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .officer-card {
+    max-height: 240px;
+    height: auto;
+    padding: 15px;
+  }
+
+  .officer-image-container {
+    width: 100px;
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+  }
+
+  .officer-name {
+    font-size: 1rem;
+  }
+
+  .officer-position {
+    font-size: 0.85rem;
+  }
+
+  .discord-popup {
+    font-size: 0.75rem;
+    top: 30px;
   }
 }
