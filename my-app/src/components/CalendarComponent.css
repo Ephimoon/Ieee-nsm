@@ -6,25 +6,126 @@
 }
 
 .custom-calendar .rbc-event {
-    background-color: #e53935;
-    color: white;
+    background-color: transparent;
     border: none;
     padding: 4px;
     border-radius: 4px;
 }
 
-.custom-calendar .rbc-today {
-    background-color: #fff3e0;
+.custom-calendar .rbc-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #004B96;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
+/* center label: June 2025 */
 .custom-calendar .rbc-toolbar-label {
-    font-weight: bold;
-    font-size: 1.25rem;
+  color: white;
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: 'Merriweather', Georgia, serif;
 }
 
-.custom-calendar .rbc-off-range-bg {
-    background-color: #f5f5f5;
+/* Style the view switcher group */
+.custom-calendar .rbc-btn-group {
+  background-color: #fdfdfd;
+  border-radius: 9999px;
+  overflow: hidden;
 }
+
+/* All buttons inside the view switcher */
+.custom-calendar .rbc-btn-group button {
+  background: transparent;
+  border: none;
+  color: #000;
+  font-weight: 500;
+  padding: 8px 18px;
+  transition: all 0.2s ease;
+  border-radius: 0;
+  font-family: 'Merriweather', Georgia, serif;
+}
+
+/* Rounded corners for first and last buttons */
+.custom-calendar .rbc-btn-group button:first-child {
+  border-top-left-radius: 9999px;
+  border-bottom-left-radius: 9999px;
+}
+
+.custom-calendar .rbc-btn-group button:last-child {
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+}
+
+/* Hover effect */
+.custom-calendar .rbc-btn-group button:hover {
+  background-color: #b8ebd0;
+}
+
+/* Selected (active) button */
+.custom-calendar .rbc-btn-group button.rbc-active {
+  background-color: #aaffe5; 
+}
+
+
+/* grid */
+
+/* Round outer corners of the month view */
+.custom-calendar .rbc-month-view {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #d9d9d9; /* optional soft border */
+}
+
+/* Remove default sharp borders */
+.custom-calendar .rbc-month-row {
+  border: none;
+}
+
+.custom-calendar .rbc-day-bg {
+  border: none;
+}
+
+/* Optional: pad each day cell to make corners visible */
+.custom-calendar .rbc-month-row .rbc-day-bg {
+  margin: 1px;
+  border-radius: 8px;
+}
+
+/* weekdays */
+.custom-calendar .rbc-month-view .rbc-header {
+  background-color: #004B96;
+  color: white;
+  font-family: 'Merriweather', Georgia, serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 0;
+  text-align: center;
+}
+
+/* numbers */
+.custom-calendar .rbc-date-cell {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #004B96;
+  padding-right: 4px;
+  text-align: right;
+}
+
+/* background */
+.custom-calendar .rbc-month-view .rbc-day-bg {
+  background-color: #fdfdfd;
+  border: 0.2px solid #b8ebd0;
+}
+
+/* today */
+.custom-calendar .rbc-today {
+  background-color: #b8ebd0 !important;
+}
+
 
 
 .timezone-label {
@@ -37,7 +138,7 @@
     display: inline-block;
     margin-top: 1rem;
     padding: 0.5rem 1rem;
-    background-color: #4285f4;
+    background-color: #004B96;
     color: white;
     text-decoration: none;
     border-radius: 4px;
@@ -45,5 +146,43 @@
 }
 
 .add-calendar-button:hover {
-    background-color: #3367d6;
+    background-color: #3385AD; 
+}
+
+
+
+
+
+/* event modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 95%;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
