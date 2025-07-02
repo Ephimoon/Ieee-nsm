@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import "./Officer.css";
 import linkedinLogo from "../images/image 10.png";
@@ -22,6 +22,7 @@ import MaryamImage from "../images/officer-images/MaryamImage.jpg";
 import JoshImage from "../images/officer-images/JoshImage.jpg";
 import PavanImage from "../images/officer-images/PavankumarImage.jpg";
 import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
+import classroomImage from "../images/classroom.png";
 
 class OfficerInfo {
   constructor(
@@ -237,43 +238,61 @@ function DiscordIcon({ username }) {
 function Officer() {
   return (
     <Layout>
-      <div id="white"></div>
-      <h1>Meet Our Officers</h1>
-      <section className="officer-grid">
-        {officers.map((officer) => (
-          <div key={officer.id} className="officer-card">
-            <div className="officer-image-container">
-              <img
-                src={officer.imageUrl}
-                alt={officer.name}
-                className="officer-image"
-              />
-            </div>
-            <h3 className="officer-name">{officer.name}</h3>
-            <p className="officer-position">{officer.position}</p>
-
-            {officer.linkedinUrl ? (
-              <a
-                className="linkedin-link"
-                href={officer.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={linkedinLogo}
-                  alt="LinkedIn Profile"
-                  className="linkedin-icon"
-                />
-              </a>
-            ) : officer.discordUsername ? (
-              <DiscordIcon username={officer.discordUsername} />
-            ) : null}
-
-            {}
-            <p className="officer-description">{officer.description}</p>
+      <div id="officer-page" style={{ backgroundColor: "#f0f0f0" }}>
+        <div id="parent">
+          <div id="left">
+            <h1>Who We Are</h1>
+            <p>
+              We’re IEEE NSM — a student-led organization for CS students in the
+              Natural Sciences and Math college at UH. We host coding
+              competitions, workshops, and help connect students with research
+              opportunities. Whether you’re new to code or training for ICPC,
+              we’re here to help you grow your skills, explore your passions,
+              and meet like-minded students.
+            </p>
           </div>
-        ))}
-      </section>
+          <div id="right">
+            <img src={classroomImage} alt="classroom" />
+          </div>
+        </div>
+        <div id="white"></div>
+        <h1>Meet Our Officers</h1>
+        <section className="officer-grid">
+          {officers.map((officer) => (
+            <div key={officer.id} className="officer-card">
+              <div className="officer-image-container">
+                <img
+                  src={officer.imageUrl}
+                  alt={officer.name}
+                  className="officer-image"
+                />
+              </div>
+              <h3 className="officer-name">{officer.name}</h3>
+              <p className="officer-position">{officer.position}</p>
+
+              {officer.linkedinUrl ? (
+                <a
+                  className="linkedin-link"
+                  href={officer.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={linkedinLogo}
+                    alt="LinkedIn Profile"
+                    className="linkedin-icon"
+                  />
+                </a>
+              ) : officer.discordUsername ? (
+                <DiscordIcon username={officer.discordUsername} />
+              ) : null}
+
+              {}
+              <p className="officer-description">{officer.description}</p>
+            </div>
+          ))}
+        </section>
+      </div>
     </Layout>
   );
 }
