@@ -89,21 +89,33 @@ function formatDateForGoogle(start, end) {
 const EventModal = ({ event, onClose }) => {
   if (!event) return null;
 
+  const { title, start, end, description, location, allDay } = event;
+
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button className="close-button" onClick={onClose}>×</button>
-        <h2>{event.title}</h2>
-        <p><strong>{event.start.toLocaleString()}</strong></p>
-        <p>{event.description || 'No description available.'}</p>
+        <h2>{title}</h2>
 
-        <ul>
-          <li><strong>Location:</strong> {event.location || 'N/A'}</li>
-          <li><strong>All Day:</strong> {event.allDay ? 'Yes' : 'No'}</li>
-        </ul>
+        {start && <p><strong>{start.toLocaleString()}</strong></p>}
+
+        {description && description.trim() !== '' && (
+          <p>{description}</p>
+        )}
+
+        {(location || allDay !== undefined) && (
+          <ul>
+            {location && (
+              <li><strong>Location:</strong> {location}</li>
+            )}
+            {allDay !== undefined && (
+              <li><strong>All Day:</strong> {allDay ? 'Yes' : 'No'}</li>
+            )}
+          </ul>
+        )}
 
         <a
-          href={`https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(event.title)}&dates=${formatDateForGoogle(event.start, event.end)}&details=${encodeURIComponent(event.description || '')}&location=${encodeURIComponent(event.location || '')}`}
+          href={`https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(title)}&dates=${formatDateForGoogle(start, end)}&details=${encodeURIComponent(description || '')}&location=${encodeURIComponent(location || '')}`}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -113,6 +125,7 @@ const EventModal = ({ event, onClose }) => {
     </div>
   );
 };
+
 
 
 const CalendarComponent = () => {
@@ -138,56 +151,62 @@ const CalendarComponent = () => {
   };
 
   return (
-    <div className="calendar-container">
-      <Calendar
-        defaultView="month"
-        views={['month', 'week', 'day', 'agenda']}
-        view={view}
-        onView={(newView) => setView(newView)}
-        date={date}
-        onNavigate={(newDate) => setDate(newDate)}
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 800 }}
-        className="custom-calendar"
-        onSelectEvent={handleEventClick}
-        eventPropGetter={(event) => {
-          if (event.allDay) {
-            return {
-              className: 'all-day-event',
-              style: {
-                backgroundColor: '#3385AD',
-              },
-            };
-          } else {
-            return {
-              className: 'timed-event',
-              style: {
-                color: '#004B96',
-              },
-            };
-          }
-        }}
-      />
+    <div className="calendar-outer-wrapper">
+      <div className="calendar-container">
+        <h1>Don't Miss Out on Our Upcoming Events</h1>
+        <Calendar
+          defaultView="month"
+          views={['month', 'week', 'day', 'agenda']}
+          view={view}
+          onView={(newView) => setView(newView)}
+          date={date}
+          onNavigate={(newDate) => setDate(newDate)}
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 800 }}
+          className="custom-calendar"
+          onSelectEvent={handleEventClick}
+          eventPropGetter={(event) => {
+            if (event.allDay) {
+              return {
+                className: 'all-day-event',
+                style: {
+                  backgroundColor: '#3385AD',
+                },
+              };
+            } else {
+              return {
+                className: 'timed-event',
+                style: {
+                  color: '#004B96',
+                },
+              };
+            }
+          }}
+        />
 
-      <EventModal event={selectedEvent} onClose={closeModal} />
+        <EventModal event={selectedEvent} onClose={closeModal} />
 
-      <div className="timezone-label">
-        Showing events in your local time zone: <strong>{userTimeZone}</strong>
+        <div className="calendar-footer">
+          <div className="timezone-label">
+            Showing events in your local time zone: <strong>{userTimeZone}</strong>
+          </div>
+
+          <a
+            href={`https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(
+              process.env.REACT_APP_GOOGLE_CALENDAR_ID
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="add-calendar-button"
+          >
+            Add This Calendar to Your Google Calendar
+          </a>
+        </div>
+
       </div>
-
-      <a
-        href={`https://calendar.google.com/calendar/u/0/r?cid=${encodeURIComponent(
-          process.env.REACT_APP_GOOGLE_CALENDAR_ID
-        )}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="add-calendar-button"
-      >
-        Add This Calendar to Your Google Calendar
-      </a>
     </div>
   );
 };

@@ -41,8 +41,6 @@ function Home() {
 
         {/*Events Section*/}
         <section className="events-section">
-          <h1>Don't Miss Out on Our Upcoming Events</h1>
-          
             <CalendarComponent />
 
         </section>

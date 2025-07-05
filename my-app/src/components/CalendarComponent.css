@@ -1,8 +1,37 @@
+.calendar-outer-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .calendar-container {
-    padding: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 1rem;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    overflow: hidden;
+}
+
+.calendar-container h1 {
+  font-size: 2rem;
+  color: #3385AD;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: "Merriweather", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.custom-calendar .rbc-month-header {
+  border: none;
+}
+
+.custom-calendar .rbc-header {
+  border: none;
 }
 
 .custom-calendar .rbc-event {
@@ -77,7 +106,7 @@
 .custom-calendar .rbc-month-view {
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #d9d9d9; /* optional soft border */
+  border: transparent
 }
 
 /* Remove default sharp borders */
@@ -89,7 +118,6 @@
   border: none;
 }
 
-/* Optional: pad each day cell to make corners visible */
 .custom-calendar .rbc-month-row .rbc-day-bg {
   margin: 1px;
   border-radius: 8px;
@@ -113,6 +141,7 @@
   color: #004B96;
   padding-right: 4px;
   text-align: right;
+  padding: 6px 8px;
 }
 
 /* background */
@@ -127,16 +156,24 @@
 }
 
 
+/* calendar footer */
+.calendar-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+}
+
 
 .timezone-label {
-    margin-bottom: 0.5rem;
     font-size: 0.95rem;
     color: #333;
 }
 
 .add-calendar-button {
     display: inline-block;
-    margin-top: 1rem;
     padding: 0.5rem 1rem;
     background-color: #004B96;
     color: white;
