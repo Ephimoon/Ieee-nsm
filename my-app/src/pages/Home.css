@@ -175,7 +175,6 @@ body, html {
   height: 50%;
   object-fit: cover;
 }
-
 /* Image Overlay */
 .image-overlay {
   position: absolute;
@@ -244,13 +243,14 @@ body, html {
 }
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 2px solid black;
   border-radius: 4px;
   font-size: 1rem;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .submit-btn {
@@ -267,6 +267,14 @@ body, html {
 
 .submit-btn:hover {
   background-color: #004f7a;
+}
+
+.form-row button{
+  width: 100%;
+}
+
+.membership-form label{
+  color: white;
 }
 
 @media (min-width: 2000px) {

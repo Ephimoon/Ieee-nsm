@@ -4,6 +4,8 @@ import CalendarComponent from '../components/CalendarComponent.jsx';
 import Layout from '../components/Layout';
 import banner from '../images/ieee nsm banner (1).png';
 import olivia from '../images/Olivia holding image (1).png';
+import bluediscord from '../images/discord.png'
+import bluelinkedin from '../images/linkedin.png';
 import friends from '../images/smiling friends (1).png';
 
 function Home() {
@@ -36,6 +38,7 @@ function Home() {
             
             <img src={olivia} alt="IEEE Member" />
           </div>
+          
           <button>Become a Member</button>
         </section>
 
@@ -49,22 +52,23 @@ function Home() {
         <section className="membership-form">
           <div className ="form-inner">
           <h3>Contact Us</h3>
-          <form>
+          <form action="https://formsubmit.co/nsm.ieeeuh@gmail.com" method="POST">
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="name">Name (required)</label>
-                <input type="text" id="name" required />
+                <input type="text" name="name" id="name" required />
+                <input type="hidden" name="_subject" value="New submission!"></input>
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email (required)</label>
-                <input type="email" id="email" required />
+                <input type="email" name="email" id="email" required />
               </div>
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="role">I am...</label>
-                <select id="role">
+                <select type="role" name="role" id="role">
                   <option value="">Select...</option>
                   <option value="student">A Student</option>
                   <option value="professional">An Alum</option>
@@ -74,7 +78,7 @@ function Home() {
               </div>
               <div className="form-group">
                 <label>Message</label>
-                <textarea>
+                <textarea name="message">
 
                 </textarea>
               </div>
