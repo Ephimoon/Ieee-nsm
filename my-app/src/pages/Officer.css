@@ -14,19 +14,17 @@ h1 {
 
 #parent {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   max-width: 1240px;
   margin: 0 auto;
+  padding: 20px;
+  gap: 30px;
 }
 
 #left {
   width: 50%;
   padding: 20px;
-}
-
-#right {
-  display: flex;
-  width: 50%;
-  justify-content: center;
 }
 
 #left h1 {
@@ -45,12 +43,109 @@ h1 {
   line-height: 1.359em;
 }
 
-#right img {
-  width: 60%;
-  height: 60%;
-  max-width: 500px;
-  border-radius: 10px;
-  margin-top: 15%;
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+
+  margin: auto;
+  aspect-ratio: 4 / 3;
+  transform: translateY(23px);
+}
+
+.classroom-image {
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.officer-title-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.officer-title-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 40px auto 10px;
+  width: fit-content;
+}
+
+.officer-title-shadow {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 100%;
+  height: 100%;
+  background-color: #aaffff;
+  z-index: 1;
+}
+
+.officer-title-box {
+  position: relative;
+  background-color: white;
+  padding: 12px 20px;
+  font-size: 2rem;
+  font-weight: 600;
+  z-index: 2;
+  display: inline-block;
+  border-radius: 0;
+}
+
+@media (max-width: 600px) {
+  .image-wrapper {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .classroom-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .officer-title-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+
+  .officer-section {
+    background-color: #3385ad;
+    padding: 40px 0 60px 0;
+  }
+
+  .officer-title-box {
+    font-size: 1.5rem;
+    padding: 10px 16px;
+  }
+
+  .officer-title-shadow {
+    top: 6px;
+    left: 6px;
+  }
+}
+
+.officer-title-bold {
+  color: black;
+  font-weight: 700;
+}
+
+.officer-title-blue {
+  color: #004b96;
+  font-weight: 700;
+}
+
+.officer-section {
+  background-color: #3385ad;
+  padding: 40px 0;
 }
 
 .officer-grid {
@@ -71,14 +166,17 @@ h1 {
   padding: 20px;
   background: #3385ad;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 255, 255, 0.05);
   transition: transform 0.3s ease;
   max-height: 300px;
   overflow: hidden;
+  border: 3px solid #fdfdfd;
 }
 
 .officer-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25),
+    0 0 10px rgba(255, 255, 255, 0.08);
 }
 
 .officer-image-container {
@@ -178,10 +276,6 @@ h1 {
   opacity: 1;
 }
 
-.discord-popup {
-  cursor: text;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .officer-grid {
@@ -193,20 +287,43 @@ h1 {
     width: 120px;
     height: 120px;
   }
-}
-@media (max-width: 768px) {
-  .officer-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
+
+  #left {
+    padding-left: 3px;
+    padding-right: 10px;
   }
 
-  .officer-image-container {
-    width: 120px;
-    height: 120px;
+  .image-wrapper {
+    padding-left: 3px;
+    padding-right: 10px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #left p {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .classroom-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  #left h1 {
+    font-size: 2rem;
+    text-align: center;
   }
 }
 
 @media (max-width: 480px) {
+  .image-wrapper {
+    margin-top: 5px;
+  }
+
   .officer-card {
     max-height: 240px;
     height: auto;
@@ -231,5 +348,31 @@ h1 {
   .discord-popup {
     font-size: 0.75rem;
     top: 30px;
+  }
+}
+
+@media (max-width: 1020px) {
+  #parent {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #left {
+    width: 100%;
+    text-align: center;
+  }
+
+  #left h1 {
+    text-align: center;
+  }
+
+  #left p {
+    width: 90%;
+    margin: 0 auto 10px;
+  }
+
+  .image-wrapper {
+    transform: none;
+    margin-top: -10px;
   }
 }

@@ -22,7 +22,7 @@ import MaryamImage from "../images/officer-images/MaryamImage.jpg";
 import JoshImage from "../images/officer-images/JoshImage.jpg";
 import PavanImage from "../images/officer-images/PavankumarImage.jpg";
 import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
-import classroomImage from "../images/classroom.png";
+import classroomImage from "../images/classroom-with-background.png";
 
 class OfficerInfo {
   constructor(
@@ -251,47 +251,61 @@ function Officer() {
               and meet like-minded students.
             </p>
           </div>
-          <div id="right">
-            <img src={classroomImage} alt="classroom" />
+          <div className="image-wrapper">
+            <img
+              src={classroomImage}
+              alt="classroom"
+              className="classroom-image"
+            />
           </div>
         </div>
         <div id="white"></div>
-        <h1>Meet Our Officers</h1>
-        <section className="officer-grid">
-          {officers.map((officer) => (
-            <div key={officer.id} className="officer-card">
-              <div className="officer-image-container">
-                <img
-                  src={officer.imageUrl}
-                  alt={officer.name}
-                  className="officer-image"
-                />
+        <div className="officer-section">
+          <div className="officer-title-container">
+            <div className="officer-title-wrapper">
+              <div className="officer-title-shadow"></div>
+              <div className="officer-title-box">
+                <span className="officer-title-bold">Meet the </span>
+                <span className="officer-title-blue">Executive Board</span>
               </div>
-              <h3 className="officer-name">{officer.name}</h3>
-              <p className="officer-position">{officer.position}</p>
-
-              {officer.linkedinUrl ? (
-                <a
-                  className="linkedin-link"
-                  href={officer.linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <img
-                    src={linkedinLogo}
-                    alt="LinkedIn Profile"
-                    className="linkedin-icon"
-                  />
-                </a>
-              ) : officer.discordUsername ? (
-                <DiscordIcon username={officer.discordUsername} />
-              ) : null}
-
-              {}
-              <p className="officer-description">{officer.description}</p>
             </div>
-          ))}
-        </section>
+          </div>
+          <section className="officer-grid">
+            {officers.map((officer) => (
+              <div key={officer.id} className="officer-card">
+                <div className="officer-image-container">
+                  <img
+                    src={officer.imageUrl}
+                    alt={officer.name}
+                    className="officer-image"
+                  />
+                </div>
+                <h3 className="officer-name">{officer.name}</h3>
+                <p className="officer-position">{officer.position}</p>
+
+                {officer.linkedinUrl ? (
+                  <a
+                    className="linkedin-link"
+                    href={officer.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src={linkedinLogo}
+                      alt="LinkedIn Profile"
+                      className="linkedin-icon"
+                    />
+                  </a>
+                ) : officer.discordUsername ? (
+                  <DiscordIcon username={officer.discordUsername} />
+                ) : null}
+
+                {}
+                <p className="officer-description">{officer.description}</p>
+              </div>
+            ))}
+          </section>
+        </div>
       </div>
     </Layout>
   );
