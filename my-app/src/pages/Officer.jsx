@@ -1,9 +1,9 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import "./Officer.css";
 import linkedinLogo from "../images/image 10.png";
 import discordIcon from "../images/discord-icon.png";
-import defaultImage from "../images/officer-images/DefaultImage.jpg";
+import defaultImage from "../images/white ieensm logo (1).png";
 import livImage from "../images/officer-images/LivImage.jpg";
 import vincentImage from "../images/officer-images/VincentImage.jpg";
 import samImage from "../images/officer-images/SamImage.jpg";
@@ -22,6 +22,9 @@ import MaryamImage from "../images/officer-images/MaryamImage.jpg";
 import JoshImage from "../images/officer-images/JoshImage.jpg";
 import PavanImage from "../images/officer-images/PavankumarImage.jpg";
 import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
+import AngelaImage from "../images/officer-images/AngelaImage.jpg";
+import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
+import classroomImage from "../images/classroom-with-background.png";
 
 class OfficerInfo {
   constructor(
@@ -113,7 +116,7 @@ const officers = [
   ),
   new OfficerInfo(
     11,
-    "Outreach Coordinator, Events Committee",
+    "Events Committee",
     "Erin Bryant",
     ErinImage,
     "https://www.linkedin.com/in/eebryant/"
@@ -193,6 +196,12 @@ const officers = [
   ),
 ];
 
+const coogChallengers = [
+  new OfficerInfo(101, "Technical Director", "Jacqueline Tran", JacquelineImage, "https://www.linkedin.com/in/jacqueline-tran-319a28288/", ""),
+  new OfficerInfo(102, "Competitions Chair", "Angela Abrea", AngelaImage, "https://www.linkedin.com/in/angelam-abrea/", ""),
+  new OfficerInfo(103, "Data Structures Lead", "Gabriela Romero Ramirez", GabrielaImage, "https://www.linkedin.com/in/gabriela-romero-ramirez/", ""),
+];
+
 function DiscordIcon({ username }) {
   const [showPopup, setShowPopup] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -234,46 +243,103 @@ function DiscordIcon({ username }) {
   );
 }
 
+function OfficerCard({ officer }) {
+  return (
+    <div className="officer-card">
+      <div className="officer-image-container">
+        <img
+          src={officer.imageUrl}
+          alt={officer.name}
+          className="officer-image"
+        />
+      </div>
+      <h3 className="officer-name">{officer.name}</h3>
+      <p className="officer-position">{officer.position}</p>
+      <div className="icon-corner bottom-right">
+        {officer.linkedinUrl && (
+          <a
+            className="linkedin-link"
+            href={officer.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={linkedinLogo}
+              alt="LinkedIn Profile"
+              className="linkedin-icon"
+            />
+          </a>
+        )}
+        {officer.discordUsername && (
+          <DiscordIcon username={officer.discordUsername} />
+        )}
+      </div>
+    </div>
+  );
+}
+
 function Officer() {
   return (
     <Layout>
-      <div id="white"></div>
-      <h1>Meet Our Officers</h1>
-      <section className="officer-grid">
-        {officers.map((officer) => (
-          <div key={officer.id} className="officer-card">
-            <div className="officer-image-container">
-              <img
-                src={officer.imageUrl}
-                alt={officer.name}
-                className="officer-image"
-              />
-            </div>
-            <h3 className="officer-name">{officer.name}</h3>
-            <p className="officer-position">{officer.position}</p>
-
-            {officer.linkedinUrl ? (
-              <a
-                className="linkedin-link"
-                href={officer.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={linkedinLogo}
-                  alt="LinkedIn Profile"
-                  className="linkedin-icon"
-                />
-              </a>
-            ) : officer.discordUsername ? (
-              <DiscordIcon username={officer.discordUsername} />
-            ) : null}
-
-            {}
-            <p className="officer-description">{officer.description}</p>
+      <div id="officer-page" style={{ backgroundColor: "#f0f0f0" }}>
+        <div id="parent">
+          <div id="left">
+            <h1>Who We Are</h1>
+            <p>
+              We’re IEEE NSM — a student-led organization for CS students in the
+              Natural Sciences and Math college at UH. We host coding
+              competitions, workshops, and help connect students with research
+              opportunities. Whether you’re new to code or training for ICPC,
+              we’re here to help you grow your skills, explore your passions,
+              and meet like-minded students.
+            </p>
           </div>
-        ))}
-      </section>
+          <div className="image-wrapper">
+            <img
+              src={classroomImage}
+              alt="classroom"
+              className="classroom-image"
+            />
+          </div>
+        </div>
+        <div id="white"></div>
+
+        {/* Executive Board Section */}
+        <div className="officer-section">
+          <div className="officer-title-container">
+            <div className="officer-title-wrapper">
+              <div className="officer-title-shadow"></div>
+              <div className="officer-title-box">
+                <span className="officer-title-bold">Meet the </span>
+                <span className="officer-title-blue">Officers</span>
+              </div>
+            </div>
+          </div>
+          <section className="officer-grid">
+            {officers.map((officer) => (
+              <OfficerCard key={officer.id} officer={officer} />
+            ))}
+          </section>
+        </div>
+
+        {/* CoogChallengers Section */}
+        <div className="officer-section">
+          <div className="officer-title-container">
+            <div className="officer-title-wrapper">
+              <div className="officer-title-shadow"></div>
+              <div className="officer-title-box">
+                <span className="officer-title-bold">Meet the </span>
+                <span className="officer-title-blue">CoogChallengers</span>
+              </div>
+            </div>
+          </div>
+          <section className="officer-grid">
+            {coogChallengers.map((officer) => (
+              <OfficerCard key={officer.id} officer={officer} />
+            ))}
+          </section>
+        </div>
+      </div>
     </Layout>
   );
 }
