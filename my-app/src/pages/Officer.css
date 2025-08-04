@@ -1,5 +1,3 @@
-/* Officer.css */
-
 @import url("https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=Gloock&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Noto+Sans+Mono:wdth,wght@75,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
 
 #white {
@@ -47,7 +45,6 @@ h1 {
   position: relative;
   width: 100%;
   max-width: 420px;
-
   margin: auto;
   aspect-ratio: 4 / 3;
   transform: translateY(23px);
@@ -98,41 +95,6 @@ h1 {
   border-radius: 0;
 }
 
-@media (max-width: 600px) {
-  .image-wrapper {
-    max-width: 100%;
-    padding: 0 10px;
-  }
-
-  .classroom-image {
-    width: 100%;
-    height: auto;
-  }
-
-  .officer-title-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 40px;
-  }
-
-  .officer-section {
-    background-color: #3385ad;
-    padding: 40px 0 60px 0;
-  }
-
-  .officer-title-box {
-    font-size: 1.5rem;
-    padding: 10px 16px;
-  }
-
-  .officer-title-shadow {
-    top: 6px;
-    left: 6px;
-  }
-}
-
 .officer-title-bold {
   color: black;
   font-weight: 700;
@@ -158,6 +120,7 @@ h1 {
 }
 
 .officer-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -169,7 +132,7 @@ h1 {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 255, 255, 0.05);
   transition: transform 0.3s ease;
   max-height: 300px;
-  overflow: hidden;
+  overflow: visible;
   border: 3px solid #fdfdfd;
 }
 
@@ -214,8 +177,23 @@ h1 {
   line-height: 1.4;
 }
 
+.icon-corner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 3;
+}
+
+.icon-corner.bottom-right {
+  bottom: 10px;
+  right: 10px;
+  flex-direction: row-reverse;
+}
+
 .linkedin-link {
-  margin: -2px 0 6px;
+  margin: 0;
   display: inline-block;
 }
 
@@ -232,7 +210,6 @@ h1 {
 .discord-container {
   position: relative;
   display: inline-block;
-  margin: -2px 0 6px;
 }
 
 .discord-icon {
@@ -248,9 +225,10 @@ h1 {
 
 .discord-popup {
   position: absolute;
-  top: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 5%;
+  left: auto;
+  right: calc(100% + 8px);
+  transform: translateY(-50%);
   background-color: #004b96;
   color: white;
   padding: 5px 10px;
@@ -258,7 +236,7 @@ h1 {
   white-space: nowrap;
   font-size: 0.8rem;
   font-weight: bold;
-  z-index: 100;
+  z-index: 9999;
   pointer-events: auto;
   user-select: text;
   cursor: text;
@@ -274,105 +252,4 @@ h1 {
 .discord-popup:hover {
   visibility: visible;
   opacity: 1;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .officer-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-  }
-
-  .officer-image-container {
-    width: 120px;
-    height: 120px;
-  }
-
-  #left {
-    padding-left: 3px;
-    padding-right: 10px;
-  }
-
-  .image-wrapper {
-    padding-left: 3px;
-    padding-right: 10px;
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  #left p {
-    margin-left: 0;
-    margin-right: 0;
-    text-align: center;
-  }
-
-  .classroom-image {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    height: auto;
-  }
-
-  #left h1 {
-    font-size: 2rem;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .image-wrapper {
-    margin-top: 5px;
-  }
-
-  .officer-card {
-    max-height: 240px;
-    height: auto;
-    padding: 15px;
-  }
-
-  .officer-image-container {
-    width: 100px;
-    height: 100px;
-    margin-top: 10px;
-    margin-bottom: 6px;
-  }
-
-  .officer-name {
-    font-size: 1rem;
-  }
-
-  .officer-position {
-    font-size: 0.85rem;
-  }
-
-  .discord-popup {
-    font-size: 0.75rem;
-    top: 30px;
-  }
-}
-
-@media (max-width: 1020px) {
-  #parent {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #left {
-    width: 100%;
-    text-align: center;
-  }
-
-  #left h1 {
-    text-align: center;
-  }
-
-  #left p {
-    width: 90%;
-    margin: 0 auto 10px;
-  }
-
-  .image-wrapper {
-    transform: none;
-    margin-top: -10px;
-  }
 }
