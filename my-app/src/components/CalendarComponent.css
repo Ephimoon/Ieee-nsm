@@ -1,3 +1,4 @@
+/* === Layout === */
 .calendar-outer-wrapper {
   display: flex;
   justify-content: center;
@@ -5,42 +6,26 @@
 }
 
 .calendar-container {
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-bottom: 1rem;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    overflow: hidden;
+  padding: 2rem 1.5rem 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1200px;
+  overflow-x: auto;
 }
 
+/* Heading */
 .calendar-container h1 {
   font-size: 2rem;
   color: #3385AD;
   margin-bottom: 2rem;
   text-align: center;
   font-family: "Merriweather", serif;
-  font-optical-sizing: auto;
   font-weight: 500;
-  font-style: normal;
 }
 
-.custom-calendar .rbc-month-header {
-  border: none;
-}
-
-.custom-calendar .rbc-header {
-  border: none;
-}
-
-.custom-calendar .rbc-event {
-    background-color: transparent;
-    border: none;
-    padding: 4px;
-    border-radius: 4px;
-}
-
+/* ============= Toolbar ===================================== */
 .custom-calendar .rbc-toolbar {
   display: flex;
   justify-content: space-between;
@@ -49,9 +34,10 @@
   padding: 0.75rem 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-/* center label: June 2025 */
 .custom-calendar .rbc-toolbar-label {
   color: white;
   font-size: 1.3rem;
@@ -59,14 +45,15 @@
   font-family: 'Merriweather', Georgia, serif;
 }
 
-/* Style the view switcher group */
 .custom-calendar .rbc-btn-group {
   background-color: #fdfdfd;
   border-radius: 9999px;
   overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 0.25rem; */
 }
 
-/* All buttons inside the view switcher */
 .custom-calendar .rbc-btn-group button {
   background: transparent;
   border: none;
@@ -74,11 +61,17 @@
   font-weight: 500;
   padding: 8px 18px;
   transition: all 0.2s ease;
-  border-radius: 0;
   font-family: 'Merriweather', Georgia, serif;
 }
 
-/* Rounded corners for first and last buttons */
+.custom-calendar .rbc-btn-group button:hover {
+  background-color: #b8ebd0;
+}
+
+.custom-calendar .rbc-btn-group button.rbc-active {
+  background-color: #aaffe5;
+}
+
 .custom-calendar .rbc-btn-group button:first-child {
   border-top-left-radius: 9999px;
   border-bottom-left-radius: 9999px;
@@ -89,108 +82,232 @@
   border-bottom-right-radius: 9999px;
 }
 
-/* Hover effect */
-.custom-calendar .rbc-btn-group button:hover {
-  background-color: #b8ebd0;
-}
-
-/* Selected (active) button */
-.custom-calendar .rbc-btn-group button.rbc-active {
-  background-color: #aaffe5; 
-}
-
-
-/* grid */
-
-/* Round outer corners of the month view */
-.custom-calendar .rbc-month-view {
-  border-radius: 12px;
-  overflow: hidden;
-  border: transparent
-}
-
-/* Remove default sharp borders */
-.custom-calendar .rbc-month-row {
+/* ======= Month Grid ========================== */
+.custom-calendar.view-month .rbc-month-header,
+.custom-calendar.view-month .rbc-header {
   border: none;
-}
-
-.custom-calendar .rbc-day-bg {
-  border: none;
-}
-
-.custom-calendar .rbc-month-row .rbc-day-bg {
-  margin: 1px;
-  border-radius: 8px;
-}
-
-/* weekdays */
-.custom-calendar .rbc-month-view .rbc-header {
   background-color: #004B96;
   color: white;
   font-family: 'Merriweather', Georgia, serif;
   font-weight: 600;
   font-size: 0.95rem;
-  padding: 0.75rem 0;
+  padding: 0.4rem 0;
   text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-/* numbers */
-.custom-calendar .rbc-date-cell {
+.custom-calendar.view-month .rbc-month-header {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Add padding between the header row and the day cells */
+.custom-calendar.view-month .rbc-month-header {
+  margin-bottom: 4px; /* space below the days of week */
+}
+
+.custom-calendar.view-month .rbc-date-cell {
   font-weight: bold;
   font-size: 0.9rem;
   color: #004B96;
-  padding-right: 4px;
-  text-align: right;
   padding: 6px 8px;
+  text-align: right;
 }
 
-/* background */
-.custom-calendar .rbc-month-view .rbc-day-bg {
+/* Day background */
+.custom-calendar.view-month .rbc-month-view .rbc-day-bg {
   background-color: #fdfdfd;
   border: 0.2px solid #b8ebd0;
+  margin: 1px;
+  border-radius: 8px;
 }
 
-/* today */
-.custom-calendar .rbc-today {
+.custom-calendar.view-month .rbc-today {
   background-color: #b8ebd0 !important;
 }
 
-
-/* calendar footer */
-.calendar-footer {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 0.1rem;
-    padding-right: 0.1rem;
+/* Remove unwanted borders */
+.custom-calendar.view-month .rbc-month-view,
+.custom-calendar.view-month .rbc-month-row,
+.custom-calendar.view-month .rbc-day-bg {
+  border: none;
 }
 
+.custom-calendar.view-month .rbc-month-row {
+  min-height: 100px;
+}
+
+/* Events */
+.custom-calendar.view-month .rbc-event {
+  background-color: transparent;
+  border: none;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* ================== Week View ==================== */
+
+
+/* events in the timed grid */
+.custom-calendar.view-week .rbc-time-view .rbc-event {
+  background:#3385AD;            /* card color */
+  color:#fff;
+  border: none;
+  border-radius:10px;
+  padding:6px 8px;
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.128);
+}
+.custom-calendar.view-week .rbc-time-view .rbc-event:hover {
+  box-shadow:0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ===== Week: time gutter (left column) ===== */
+.custom-calendar.view-week .rbc-time-header-gutter,
+.custom-calendar.view-week .rbc-time-gutter {
+  background:#004B96;
+  color:#fff;
+  font-family: "Merriweather", serif;
+  font-weight:700;
+  font-size:0.95rem;
+  font-variant-numeric: tabular-nums;  /* perfectly aligned digits */
+  white-space:nowrap;                  /* prevent wrapping */
+  /* border-right:1px solid #b8ebd0; */
+  width:86px;                          /* or min-width:86px; */
+}
+
+.custom-calendar.view-week .rbc-time-gutter .rbc-label {
+  padding-right: 10px;
+  text-transform: lowercase;
+    display: inline-block;      /* so transform applies cleanly */
+  line-height: 1;             /* keep the label box tight */
+  transform: translateY(5px); /* ← adjust 1–5px to taste */
+}
+
+
+
+/* Week: header bar behind the day names */
+.custom-calendar.view-week .rbc-time-header {
+  background: #f7fbff;           /* soft panel */
+  border-bottom: 0;               /* you removed the seam earlier */
+  box-shadow: none;
+  border-radius: 8px 8px 0 0;
+}
+
+/* Week: each day header cell */
+.custom-calendar.view-week .rbc-time-header-content .rbc-header {
+  background: transparent;        /* sits on the panel above */
+  color: #111;
+  font-family: "Merriweather", serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-align: center;
+  padding: 8px 4px;               /* vertical breathing room */
+  border: 0;                      /* remove default borders */
+}
+
+/* subtle vertical separators between days */
+.custom-calendar.view-week .rbc-time-header-content .rbc-header + .rbc-header {
+  box-shadow: inset 1px 0 0 rgba(0,0,0,.06);
+}
+
+/* round the outer corners of the first/last header cells */
+.custom-calendar.view-week .rbc-time-header-content .rbc-header:first-child {
+  border-top-left-radius: 8px;
+  overflow: hidden;
+}
+.custom-calendar.view-week .rbc-time-header-content .rbc-header:last-child {
+  border-top-right-radius: 8px;
+  overflow: hidden;
+}
+
+/* (if you used the two-line label) make the day number bolder visually */
+.custom-calendar.view-week .rbc-time-header-content .rbc-header {
+  letter-spacing: .2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* now line */
+.custom-calendar.view-week .rbc-current-time-indicator {
+  background:#ff6b6b;
+  height:2px;
+}
+
+
+/* =================== Agenda view ==================== */
+
+/* ================ Footer ===================== */
+.calendar-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0.1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
 
 .timezone-label {
-    font-size: 0.95rem;
-    color: #333;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #555;
 }
 
-.add-calendar-button {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    background-color: #004B96;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
+.timezone-label .tz-clock {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  opacity: 0.85;
 }
 
-.add-calendar-button:hover {
-    background-color: #3385AD; 
+.add-to-calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background-color: #004B96;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(0,0,0,.12);
+  transition: transform .06s ease, background-color .2s ease;
 }
 
+.add-to-calendar-btn:hover {
+  background-color: #3385AD;
+}
 
+.add-to-calendar-btn:active {
+  transform: translateY(1px);
+}
 
+.add-to-calendar-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
 
-
-/* event modal */
+/* === Modal === */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -222,4 +339,130 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px 0;
+}
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.badge {
+  background: #e8f7ff;
+  color: #004B96;
+  border: 1px solid #cfe9ff;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* --- Info rows with icons (date, location, etc.) --- */
+.modal-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+  color: #222;
+}
+.modal-row svg {
+  width: 18px;
+  height: 18px;
+  fill: #004B96;
+  flex: 0 0 18px;
+}
+.modal-content .link {
+  color: #004B96;
+  font-weight: 600;
+  text-decoration: none;
+}
+.modal-content .link:hover {
+  text-decoration: underline;
+}
+
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:9999px;
+  background:#eef7ff;color:#004B96;font-weight:700;
+  text-decoration:none;box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+.btn-secondary:hover{ background:#d9efff; }
+
+/* --- Description block --- */
+.modal-description {
+  margin: 12px 0 4px;
+  white-space: pre-wrap; /* keep line breaks from the description */
+  color: #333;
+}
+
+/* --- Action area --- */
+.modal-actions {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Reuse primary button in a compact size inside modals */
+.add-to-calendar-btn--compact {
+  padding: 8px 12px;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+}
+.add-to-calendar-btn--compact svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* a bit wider modal on large screens */
+@media (min-width: 768px) {
+  .modal-content { max-width: 560px; }
+}
+
+/* === Responsive (keep desktop layout, just smaller) === */
+@media (max-width: 768px) {
+  /* Keep toolbar horizontal + centered */
+  .custom-calendar .rbc-toolbar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .custom-calendar .rbc-toolbar-label {
+    font-size: 1.15rem;      /* smaller title */
+    text-align: center;   /* stay centered */
+  }
+
+  /* Tighter nav + view buttons */
+  .custom-calendar .rbc-btn-group button {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+  /* Day-of-week header + cells smaller */
+  .custom-calendar .rbc-header {
+    font-size: 0.8rem;
+  }
+  .custom-calendar .rbc-event {
+    font-size: 0.75rem;
+    padding: 2px 4px;
+  }
+  .custom-calendar .rbc-date-cell {
+    font-size: 0.75rem;
+    padding: 4px;
+  }
+
+  .calendar-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-calendar-button {
+    width: 100%;
+  }
 }
