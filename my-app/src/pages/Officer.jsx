@@ -24,6 +24,7 @@ import PavanImage from "../images/officer-images/PavankumarImage.png";
 import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
 import AngelaImage from "../images/officer-images/AngelaImage.jpg";
 import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
+import TanImage from "../images/officer-images/TanImage.jpg";
 import classroomImage from "../images/classroom-with-background.png";
 
 class OfficerInfo {
@@ -199,7 +200,7 @@ const officers = [
 const coogChallengers = [
   new OfficerInfo(
     101,
-    "Technical Director",
+    "Event Coordinator",
     "Jacqueline Tran",
     JacquelineImage,
     "https://www.linkedin.com/in/jacqueline-tran-319a28288/",
@@ -207,7 +208,7 @@ const coogChallengers = [
   ),
   new OfficerInfo(
     102,
-    "Competitions Chair",
+    "Social Media Director",
     "Angela Abrea",
     AngelaImage,
     "https://www.linkedin.com/in/angelam-abrea/",
@@ -221,7 +222,30 @@ const coogChallengers = [
     "https://www.linkedin.com/in/gabriela-romero-ramirez/",
     ""
   ),
-  
+  new OfficerInfo(
+    104,
+    "Data Structures Lead",
+    "Maryam Ahmed",
+    MaryamImage,
+    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
+    ""
+  ),
+  new OfficerInfo(
+    105,
+    "Data Science Coordinator",
+    "Tan Ngo",
+    TanImage,
+    "https://www.linkedin.com/in/tanng0/",
+    ""
+  ),
+  new OfficerInfo(
+    106,
+    "Technical Director",
+    "Jacqueline Sanchez",
+    defaultImage,
+    "",
+    "jupiter.js"
+  ),
 ];
 
 function DiscordIcon({ username }) {
@@ -324,7 +348,7 @@ function Officer() {
             />
           </div>
         </div>
-        <div id="white"></div>
+        <div id="f0f0f0"></div>
 
         {/* Executive Board Section */}
         <div className="officer-section">
