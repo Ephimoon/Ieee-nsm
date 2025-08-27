@@ -120,7 +120,7 @@ html {
   content: "";
   position: absolute;
   top: 0;
-  left: 1.4em;
+  left: 1.7em;
   width: 1em;
   height: 1em;
   background-image: url("../images/top-double-quotes.png");
@@ -133,7 +133,7 @@ html {
   content: "";
   position: absolute;
   bottom: 0;
-  right: 1.4em;
+  right: 1.7em;
   width: 1em;
   height: 1em;
   background-image: url("../images/bottom-double-quotes.png");
@@ -318,6 +318,16 @@ html {
 
 .membership-form label {
   color: white;
+}
+
+.desktop-break {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .desktop-break {
+    display: inline;
+  }
 }
 
 @media (min-width: 2000px) {

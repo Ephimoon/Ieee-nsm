@@ -27,9 +27,12 @@ function Home() {
           <div className="mission-content">
             <h3>Our Mission</h3>
             <p>
-              IEEE's core purpose is to foster technological innovation and <br />
-              excellence for the benefit of humanity. We strive to create a <br />
-              space where students can find community and more accessible <br />
+              IEEE's core purpose is to foster technological innovation and{" "}
+              <br className="desktop-break" />
+              excellence for the benefit of humanity. We strive to create a{" "}
+              <br className="desktop-break" />
+              space where students can find community and more accessible{" "}
+              <br className="desktop-break" />
               opportunities for research and competitions.
             </p>
           </div>
