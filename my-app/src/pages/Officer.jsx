@@ -20,7 +20,7 @@ import FarihaImage from "../images/officer-images/FarihaImage.jpg";
 import MelanieImage from "../images/officer-images/MelanieImage.jpg";
 import MaryamImage from "../images/officer-images/MaryamImage.jpg";
 import JoshImage from "../images/officer-images/JoshImage.jpg";
-import PavanImage from "../images/officer-images/PavankumarImage.jpg";
+import PavanImage from "../images/officer-images/PavankumarImage.png";
 import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
 import AngelaImage from "../images/officer-images/AngelaImage.jpg";
 import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
@@ -197,9 +197,31 @@ const officers = [
 ];
 
 const coogChallengers = [
-  new OfficerInfo(101, "Technical Director", "Jacqueline Tran", JacquelineImage, "https://www.linkedin.com/in/jacqueline-tran-319a28288/", ""),
-  new OfficerInfo(102, "Competitions Chair", "Angela Abrea", AngelaImage, "https://www.linkedin.com/in/angelam-abrea/", ""),
-  new OfficerInfo(103, "Data Structures Lead", "Gabriela Romero Ramirez", GabrielaImage, "https://www.linkedin.com/in/gabriela-romero-ramirez/", ""),
+  new OfficerInfo(
+    101,
+    "Technical Director",
+    "Jacqueline Tran",
+    JacquelineImage,
+    "https://www.linkedin.com/in/jacqueline-tran-319a28288/",
+    ""
+  ),
+  new OfficerInfo(
+    102,
+    "Competitions Chair",
+    "Angela Abrea",
+    AngelaImage,
+    "https://www.linkedin.com/in/angelam-abrea/",
+    ""
+  ),
+  new OfficerInfo(
+    103,
+    "Data Structures Lead",
+    "Gabriela Romero Ramirez",
+    GabrielaImage,
+    "https://www.linkedin.com/in/gabriela-romero-ramirez/",
+    ""
+  ),
+  
 ];
 
 function DiscordIcon({ username }) {
