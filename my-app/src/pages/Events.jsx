@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Layout from '../components/Layout';
-import heroImg from '../images/events-hero.JPG';
+import heroImg from '../images/events-hero.jpg';
 import './Events.css';
 
 const EVENTS_JSON_URL = process.env.REACT_APP_EVENTS_JSON_URL;
