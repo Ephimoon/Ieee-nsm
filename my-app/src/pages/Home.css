@@ -328,6 +328,8 @@ html {
   .desktop-break {
     display: inline;
   }
+}
+
 .form-result-text {
   color: white;
   margin: auto;
