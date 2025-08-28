@@ -1,14 +1,196 @@
-.events-grid{
-  display:grid; gap:16px;
-  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+/* --- Banner --- */
+/* Centered hero container with rounded corners */
+.events-hero {
+  /* width and centering */
+  max-width: 1200px;          /* tweak to your taste: 1100–1400 looks good */
+  width: calc(100% - 3rem);   /* gives side breathing room on small screens */
+  margin: 1.5rem auto 2rem;   /* space from navbar + section below */
+
+  /* shape & depth */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12); /* optional, matches mock vibe */
+  background: #e9eef2; /* subtle backdrop while image loads */
 }
-.event-card{
-  background:#fff; border-radius:12px; padding:14px;
-  box-shadow:0 2px 10px rgba(0,0,0,.08);
+
+/* Image fills the hero box, stays cropped nicely */
+.events-hero-img {
+  display: block;
+  width: 100%;
+  height: clamp(220px, 32vw, 420px);  /* responsive height like screenshot */
+  object-fit: cover;
+  object-position: center;            /* keeps focus centered */
 }
-.event-cover{ width:100%; height:160px; object-fit:cover; border-radius:10px; }
-.event-title{ margin:10px 0 4px; }
-.event-meta{ margin:0 0 8px; color:#555; }
-.event-summary{ margin:0 0 10px; }
-.event-gallery{ display:flex; gap:8px; flex-wrap:wrap; }
-.event-gallery img{ width:90px; height:90px; object-fit:cover; border-radius:8px; }
+
+/* If your navbar is fixed, ensure content doesn't hide behind it */
+body.has-fixed-nav .events-hero {
+  margin-top: calc(var(--nav-height, 64px) + 1rem);
+}
+
+/* Small screens: keep the same look with a bit more side padding */
+@media (max-width: 640px) {
+  .events-hero { width: calc(100% - 2rem); border-radius: 16px; }
+  .events-hero-img { height: clamp(180px, 40vw, 300px); }
+}
+
+/* --- Headings --- */
+.events-heading {
+  font-family: "Merriweather", serif;
+  font-size: clamp(2rem, 2.5vw + 1rem, 3rem);
+  color: #0a4b8c; /* deep blue */
+  text-align: center;
+  margin: 1.25rem 0 1rem;
+}
+.events-heading--inverse {
+  color: #fff;
+}
+
+/* --- Upcoming section (3 visible with vertical paging) --- */
+.up-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: stretch;
+  gap: 0.75rem;
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+}
+
+.up-nav {
+  align-self: center;
+  background: #0a4b8c;
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  font-size: 1.15rem;
+  cursor: pointer;
+  opacity: 0.95;
+}
+.up-nav[disabled] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.up-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.up-card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+
+.up-date {
+  display: grid;
+  place-items: center;
+  border-right: 2px dashed rgba(0,0,0,.08);
+  padding-right: .5rem;
+}
+.up-date-month { font-weight: 600; color: #0a4b8c; letter-spacing: .04em; }
+.up-date-day   { font-size: 1.8rem; line-height: 1; font-weight: 700; }
+.up-date-year  { color: #6b7280; font-size: .9rem; }
+
+.up-title { margin: 0 0 .25rem; font-size: 1.25rem; }
+.up-meta  { margin: 0 0 .35rem; color: #4b5563; font-weight: 500; }
+.up-summary { margin: 0 0 .4rem; color: #374151; }
+.up-link {
+  display: inline-block;
+  font-weight: 600;
+  color: #0a4b8c;
+  text-decoration: none;
+}
+
+/* --- Split background strip --- */
+.events-split {
+  margin: 2.5rem 0 0;
+  height: 40px;
+  border-radius: 16px 16px 0 0;
+  background: #1f7aa7; /* teal/blue strip, leads into previous section */
+}
+
+/* --- Previous section (horizontal cards) --- */
+.past-section {
+  background: #1f7aa7;
+  padding: 1.25rem 0 2.5rem;
+}
+
+.past-rail {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: .75rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.past-arrow {
+  background: #0b456f;
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.past-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 320px);
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: .5rem .25rem 1rem;
+}
+.past-track::-webkit-scrollbar { height: 10px; }
+.past-track::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.35);
+  border-radius: 999px;
+}
+
+.past-card {
+  scroll-snap-align: start;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  display: grid;
+  grid-template-rows: 180px auto;
+  min-height: 320px;
+}
+.past-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.past-content {
+  padding: .9rem .95rem 1rem;
+}
+.past-title {
+  margin: 0 0 .15rem;
+  font-size: 1rem;
+}
+.past-meta {
+  font-size: .9rem;
+  color: #6b7280;
+  margin-bottom: .4rem;
+}
+.past-summary {
+  font-size: .95rem;
+  color: #334155;
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 700px) {
+  .events-hero-img { height: 200px; }
+  .up-card { grid-template-columns: 68px 1fr; }
+  .past-track { grid-auto-columns: 78vw; }
+}
