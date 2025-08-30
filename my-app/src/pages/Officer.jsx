@@ -21,6 +21,7 @@ import MelanieImage from "../images/officer-images/MelanieImage.jpg";
 import MaryamImage from "../images/officer-images/MaryamImage.jpg";
 import JoshImage from "../images/officer-images/JoshImage.jpg";
 import PavanImage from "../images/officer-images/PavankumarImage.png";
+import JaysonImage from "../images/officer-images/JaysonImage.jpg";
 import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
 import AngelaImage from "../images/officer-images/AngelaImage.jpg";
 import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
@@ -132,23 +133,23 @@ const officers = [
   new OfficerInfo(
     13,
     "Webmaster",
+    "Melanie Escobar Marulanda",
+    MelanieImage,
+    "https://www.linkedin.com/in/melanie-escobar-marulanda/"
+  ),
+  new OfficerInfo(
+    14,
+    "Co-Webmaster",
     "Oreoluwapo Oyede",
     OreImage,
     "https://www.linkedin.com/in/oreoyede/"
   ),
   new OfficerInfo(
-    14,
+    15,
     "Co-Webmaster",
     "Fariha Adil",
     FarihaImage,
     "https://www.linkedin.com/in/fariha-adil-844496277/"
-  ),
-  new OfficerInfo(
-    15,
-    "Co-Webmaster",
-    "Melanie Escobar Marulanda",
-    MelanieImage,
-    "https://www.linkedin.com/in/melanie-escobar-marulanda/"
   ),
   new OfficerInfo(
     16,
@@ -188,30 +189,23 @@ const officers = [
     PavanImage,
     "https://www.linkedin.com/in/pavankumar-gali/"
   ),
-  new OfficerInfo(
-    21,
-    "Co-Competitions Chair",
-    "Jacqueline Tran",
-    JacquelineImage,
-    "https://www.linkedin.com/in/jacqueline-tran-319a28288/"
-  ),
 ];
 
 const coogChallengers = [
   new OfficerInfo(
     101,
-    "Event Coordinator",
-    "Jacqueline Tran",
+    "Technical Director",
+    "Jacqueline Sanchez",
     JacquelineImage,
-    "https://www.linkedin.com/in/jacqueline-tran-319a28288/",
+    "https://www.linkedin.com/in/jacquelinesa7/",
     ""
   ),
   new OfficerInfo(
     102,
-    "Social Media Director",
-    "Angela Abrea",
-    AngelaImage,
-    "https://www.linkedin.com/in/angelam-abrea/",
+    "Data Science Lead",
+    "Tan Tran",
+    TanImage,
+    "https://www.linkedin.com/in/tan-h-tran/",
     ""
   ),
   new OfficerInfo(
@@ -225,26 +219,25 @@ const coogChallengers = [
   new OfficerInfo(
     104,
     "Data Structures Lead",
-    "Maryam Ahmed",
-    MaryamImage,
-    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
+    "Jayson Luong",
+    JaysonImage,
+    "https://www.linkedin.com/in/jaysonluong/",
     ""
   ),
   new OfficerInfo(
     105,
-    "Data Science Coordinator",
-    "Tan Ngo",
-    TanImage,
-    "https://www.linkedin.com/in/tanng0/",
+    "Competitions Chair",
+    "Angela Abrea",
+    AngelaImage,
+    "https://www.linkedin.com/in/angelam-abrea/",
     ""
   ),
   new OfficerInfo(
     106,
-    "Technical Director",
-    "Jacqueline Sanchez",
-    defaultImage,
-    "",
-    "jupiter.js"
+    "Outreach & Engagement Director",
+    "Sam Khudairi",
+    samImage,
+    "https://www.linkedin.com/in/sam-khudairi-b51b74317/"
   ),
 ];
 
