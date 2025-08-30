@@ -66,6 +66,8 @@
   display: flex;
   gap: 1.5rem;
   padding-right: 20px;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 500;
 }
 
 .nav-link {
@@ -74,7 +76,6 @@
   transition: text-decoration 0.2s;
   font-family: "Kantumruy Pro", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 400;
   font-style: normal;
 }
 
