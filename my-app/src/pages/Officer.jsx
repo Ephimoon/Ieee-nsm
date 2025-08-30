@@ -366,7 +366,7 @@ function Officer() {
           <div className="officer-title-container">
             <div className="officer-title-wrapper">
               <div className="officer-title-shadow"></div>
-              <div className="officer-title-box">
+              <div className="coogchallengers-officer-title-box">
                 <span className="officer-title-bold">Meet the </span>
                 <span className="officer-title-blue">CoogChallengers</span>
               </div>
