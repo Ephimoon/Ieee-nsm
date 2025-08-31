@@ -31,7 +31,7 @@ function Home() {
         }),
       });
       console.log(result);
-      if (result.status == 200) setContactFormResponse("Message Sent!");
+      if (result.status === 200) setContactFormResponse("Message Sent!");
       else setContactFormResponse(result.statusText);
     } catch (e) {
       setContactFormResponse(
