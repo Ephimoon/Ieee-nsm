@@ -27,6 +27,7 @@ import AngelaImage from "../images/officer-images/AngelaImage.jpg";
 import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
 import TanImage from "../images/officer-images/TanImage.jpg";
 import classroomImage from "../images/classroom-with-background.png";
+import MohamedImage from "../images/officer-images/MohamedImage.jpg";
 
 class OfficerInfo {
   constructor(
@@ -234,6 +235,14 @@ const coogChallengers = [
   ),
   new OfficerInfo(
     106,
+    "Co-Competitions Chair",
+    "Mohamed Abdelrahman",
+    MohamedImage,
+    "https://www.linkedin.com/in/msabdelrahman02/",
+    ""
+  ),
+  new OfficerInfo(
+    107,
     "Outreach & Engagement Director",
     "Sam Khudairi",
     samImage,
