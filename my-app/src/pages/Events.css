@@ -1,90 +1,75 @@
-/* --- Banner --- */
-/* Centered hero container with rounded corners */
+/* =========================================================
+   Banner
+   ========================================================= */
 .events-hero {
-  /* width and centering */
-  max-width: 1200px;          /* tweak to your taste: 1100–1400 looks good */
-  width: calc(100% - 3rem);   /* gives side breathing room on small screens */
-  margin: 1.5rem auto 2rem;   /* space from navbar + section below */
-
-  /* shape & depth */
+  max-width: 1200px;
+  width: calc(100% - 3rem);
+  margin: 1.5rem auto 2rem;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.12); /* optional, matches mock vibe */
-  background: #e9eef2; /* subtle backdrop while image loads */
+  box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+  background: #e9eef2;
 }
-
-/* Image fills the hero box, stays cropped nicely */
 .events-hero-img {
   display: block;
   width: 100%;
-  height: clamp(220px, 32vw, 420px);  /* responsive height like screenshot */
+  height: clamp(220px, 32vw, 420px);
   object-fit: cover;
-  object-position: center;            /* keeps focus centered */
+  object-position: center;
 }
-
-/* If your navbar is fixed, ensure content doesn't hide behind it */
 body.has-fixed-nav .events-hero {
   margin-top: calc(var(--nav-height, 64px) + 1rem);
 }
 
-/* Small screens: keep the same look with a bit more side padding */
-@media (max-width: 640px) {
-  .events-hero { width: calc(100% - 2rem); border-radius: 16px; }
-  .events-hero-img { height: clamp(180px, 40vw, 300px); }
-}
-
-/* --- Headings --- */
+/* =========================================================
+   Headings
+   ========================================================= */
 .events-heading {
   font-family: "Merriweather", serif;
   font-size: clamp(2rem, 2.5vw + 1rem, 3rem);
-  color: #0a4b8c; /* deep blue */
+  color: #0a4b8c;
   text-align: center;
-  margin: 1.25rem 0 1rem;
+  margin: 1rem 0 1rem 0;
 }
-.events-heading--inverse {
-  color: #fff;
+.events-heading--inverse { color: #fff; }
+.past-section .events-heading {
+  margin-top: .25rem;
+  margin-bottom: 1rem;
 }
 
-/* --- Upcoming section (3 visible with vertical paging) --- */
-.up-wrapper {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: stretch;
-  gap: 0.75rem;
+/* =========================================================
+   Upcoming (3-per-page vertical viewport)
+   ========================================================= */
+.up-viewport {
   max-width: 1000px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 1.5rem;
+  /* height is set inline by JS to the height of one .up-page */
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+  padding-right: .25rem;
 }
-
-.up-nav {
-  align-self: center;
-  background: #0a4b8c;
-  color: #fff;
-  border: 0;
-  border-radius: 12px;
-  width: 42px;
-  height: 42px;
-  font-size: 1.15rem;
-  cursor: pointer;
-  opacity: 0.95;
-}
-.up-nav[disabled] {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.up-list {
+.up-page {
+  scroll-snap-align: start;
   display: grid;
-  gap: 1rem;
+  gap: 2rem;             /* spacing between the 3 cards on a page */
+  padding: .5rem 0 1rem;
 }
 
 .up-card {
   display: grid;
+  position: relative;
   grid-template-columns: 80px 1fr;
   gap: 1rem;
   padding: 1rem 1.1rem;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  border-radius: 12px;
+}
+.up-card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 22px; right: 22px; bottom: -1rem;
+  height: 2px; background: #0a4b8c; opacity: .45; border-radius: 999px;
 }
 
 .up-date {
@@ -107,7 +92,7 @@ body.has-fixed-nav .events-hero {
   text-decoration: none;
 }
 
-/* Empty state for upcoming */
+/* Empty state */
 .up-empty {
   display: grid;
   place-items: center;
@@ -115,39 +100,34 @@ body.has-fixed-nav .events-hero {
   padding: 2rem 1.25rem;
   min-height: 140px;
 }
-.up-empty h3 {
-  margin: 0 0 .35rem;
-  font-size: 1.15rem;
-  color: #0a4b8c;
-}
-.up-empty p {
-  margin: 0 0 .5rem;
-  color: #4b5563;
-}
+.up-empty h3 { margin: 0 0 .35rem; font-size: 1.15rem; color: #0a4b8c; }
+.up-empty p  { margin: 0 0 .5rem; color: #4b5563; }
 .up-empty-link {
   font-weight: 600;
   color: #0a4b8c;
   text-decoration: none;
 }
 
-/* --- Split background strip --- */
+/* =========================================================
+   Split strip between sections
+   ========================================================= */
 .events-split {
-  margin: 2.5rem 0 0;
-  height: 40px;
+  margin-top: 2rem;
+  height: 10px;
   background: #1f7aa7;
 }
 
-/* --- Previous section (horizontal cards) --- */
+/* =========================================================
+   Previous (horizontal scroll of cards)
+   ========================================================= */
 .past-section {
   background: #1f7aa7;
-  padding: 1.25rem 0 2.5rem;
+  padding-top: .5rem;
+  padding-bottom: 2rem;
 }
 
+/* simple centered container (no arrow columns anymore) */
 .past-rail {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: .75rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -177,44 +157,30 @@ body.has-fixed-nav .events-hero {
   grid-template-rows: 180px auto;
   min-height: 320px;
 }
-.past-cover {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.past-content {
-  padding: .9rem .95rem 1rem;
-}
-.past-title {
-  margin: 0 0 .15rem;
-  font-size: 1rem;
-}
-.past-meta {
-  font-size: .9rem;
-  color: #6b7280;
-  margin-bottom: .4rem;
-}
-.past-summary {
-  font-size: .95rem;
-  color: #334155;
-}
+.past-cover { width: 100%; height: 100%; object-fit: cover; }
+.past-content { padding: .9rem .95rem 1rem; }
+.past-title { margin: 0 0 .15rem; font-size: 1rem; }
+.past-meta  { font-size: .9rem; color: #6b7280; margin-bottom: .4rem; }
+.past-summary { font-size: .95rem; color: #334155; }
 
-/* --- Responsive tweaks --- */
-@media (max-width: 700px) {
-  .events-hero-img { height: 200px; }
-  .up-card { grid-template-columns: 68px 1fr; }
-  .past-track { grid-auto-columns: 78vw; }
+/* Empty previous section placeholder */
+.past-empty {
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  text-align: center;
 }
+.past-empty-text { color: #475569; margin: .25rem 0 0; }
 
-
-
-
-/* make cards feel clickable */
+/* =========================================================
+   Interactions
+   ========================================================= */
 .is-clickable { cursor: pointer; transition: transform .06s ease, box-shadow .06s ease; }
 .is-clickable:focus { outline: 2px solid #0a4b8c; outline-offset: 2px; }
 .is-clickable:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,.12); }
 
-/* modal */
+/* =========================================================
+   Modal
+   ========================================================= */
 .modal-overlay {
   position: fixed; inset: 0; z-index: 80;
   background: rgba(0,0,0,.45);
@@ -233,30 +199,15 @@ body.has-fixed-nav .events-hero {
   border: 0; background: transparent; font-size: 1.75rem; line-height: 1;
   cursor: pointer; color: #334155;
 }
-.modal-title { margin: .25rem 2rem 1rem .25rem; font-size: 2rem; }
-.modal-meta  { margin: 0 0 .75rem .25rem; color: #475569; font-weight: 500; }
+.modal-title   { margin: .25rem 2rem 1rem .25rem; font-size: 2rem; }
 .modal-summary { margin: 0 0 1rem .25rem; color: #374151; }
 
-.modal-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: .75rem;
-}
-.modal-gallery img {
-  width: 100%; height: 180px; object-fit: cover;
-  border-radius: 10px; background: #e5e7eb;
-}
-@media (max-width: 640px) {
-  .modal { padding: 1rem .75rem; }
-  .modal-gallery img { height: 150px; }
-}
-
-/* meta rows with icons (inside modal) */
+/* meta rows with icons */
 .meta-list { display: grid; gap: .4rem; margin: .25rem 0 .75rem .25rem; }
-.meta-row { display: grid; grid-template-columns: 22px 1fr; align-items: center; gap: .5rem; color: #475569; }
-.meta-icon { width: 18px; height: 18px; color: #64748B; } /* slate-500 */
+.meta-row  { display: grid; grid-template-columns: 22px 1fr; align-items: center; gap: .5rem; color: #475569; }
+.meta-icon { width: 18px; height: 18px; color: #64748B; }
 
-/* big image carousel */
+/* large image carousel inside modal */
 .modal-carousel { position: relative; margin-top: .75rem; }
 .carousel-img {
   width: 100%;
@@ -266,7 +217,6 @@ body.has-fixed-nav .events-hero {
   background: #e5e7eb;
   box-shadow: 0 8px 20px rgba(0,0,0,.12);
 }
-
 .carousel-btn {
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 40px; height: 40px; border-radius: 999px;
@@ -290,3 +240,17 @@ body.has-fixed-nav .events-hero {
 }
 .carousel-dots .dot.is-active { background: #0a4b8c; }
 
+/* =========================================================
+   Responsive tweaks
+   ========================================================= */
+@media (max-width: 700px) {
+  .events-hero-img { height: 200px; }
+  .up-card { grid-template-columns: 68px 1fr; }
+  .up-card:not(:last-child)::after { left: 14px; right: 14px; bottom: -.75rem; }
+  .past-track { grid-auto-columns: 78vw; }
+}
+@media (max-width: 640px) {
+  .events-hero { width: calc(100% - 2rem); border-radius: 16px; }
+  .events-hero-img { height: clamp(180px, 40vw, 300px); }
+  .modal { padding: 1rem .75rem; }
+}
