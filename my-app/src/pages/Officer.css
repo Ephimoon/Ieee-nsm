@@ -103,6 +103,20 @@
   text-wrap: balance;
 }
 
+.officer-title-link {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+.officer-title-link:hover,
+.officer-title-link:focus {
+  text-decoration: underline;
+  text-decoration-color: #004b96;
+  outline: none;
+}
+
+
 .officer-title-bold {
   color: black;
   font-weight: 700;

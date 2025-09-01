@@ -367,8 +367,16 @@ function Officer() {
             <div className="officer-title-wrapper">
               <div className="officer-title-shadow"></div>
               <div className="coogchallengers-officer-title-box">
-                <span className="officer-title-bold">Meet the </span>
-                <span className="officer-title-blue">CoogChallengers</span>
+                <a
+                  href="https://coogchallengers.github.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Meet the CoogChallengers"
+                  className="officer-title-link"
+                >
+                  <span className="officer-title-bold">Meet the </span>
+                  <span className="officer-title-blue">CoogChallengers</span>
+                </a>
               </div>
             </div>
           </div>
