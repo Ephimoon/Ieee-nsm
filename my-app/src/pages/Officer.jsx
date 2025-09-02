@@ -119,7 +119,7 @@ const officers = [
   ),
   new OfficerInfo(
     11,
-    "Events Committee",
+    "Resources Coordinator",
     "Erin Bryant",
     ErinImage,
     "https://www.linkedin.com/in/eebryant/"
