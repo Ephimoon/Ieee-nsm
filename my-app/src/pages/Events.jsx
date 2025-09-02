@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useLayoutEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Layout from '../components/Layout';
 import heroImg from '../images/events-hero.jpg';
 import './Events.css';
@@ -70,6 +71,18 @@ const fmtTimeOnly = (startIso, endIso) => {
   if (hasStartTime && hasEndTime)   return `${start.toLocaleTimeString([], timeFmt)} – ${endDate}, ${end.toLocaleTimeString([], timeFmt)}`;
   if (hasStartTime)                 return `${start.toLocaleTimeString([], timeFmt)} – ${endDate}`;
   return `Ends ${endDate}, ${end.toLocaleTimeString([], timeFmt)}`;
+};
+
+const useIsMobile = (bp = 700) => {
+  const [is, setIs] = useState(false);
+  useEffect(() => {
+    const m = window.matchMedia(`(max-width: ${bp}px)`);
+    const on = () => setIs(m.matches);
+    on();
+    m.addEventListener?.('change', on);
+    return () => m.removeEventListener?.('change', on);
+  }, [bp]);
+  return is;
 };
 
 /* =============== small components =============== */
@@ -174,9 +187,12 @@ function EventModal({ ev, onClose, fmtDateRange, fmtTimeOnly }) {
   );
 }
 
-const UpcomingCard = React.memo(function UpcomingCard({ ev, onOpen }) {
+const UpcomingCard = React.memo(function UpcomingCard({ ev, onOpen, isPast = false }) {
   const displaySummary = ev.short_summary?.trim() || clamp3(ev.summary || '');
   const onKey = (e) => (e.key === 'Enter' || e.key === ' ') && onOpen(ev);
+  const metaLine = isPast
+    ? fmtDateTimeRange(ev.start_iso, ev.end_iso)
+    : fmtTimeOnly(ev.start_iso, ev.end_iso);
 
   return (
     <article
@@ -197,7 +213,7 @@ const UpcomingCard = React.memo(function UpcomingCard({ ev, onOpen }) {
       <div className="up-body">
         <h3 className="up-title">{ev.title}</h3>
         <p className="up-meta">
-          {fmtTimeOnly(ev.start_iso, ev.end_iso)}
+          {metaLine}
           {ev.location ? ` • ${ev.location}` : ''}
         </p>
         {displaySummary && <p className="up-summary">{displaySummary}</p>}
@@ -210,6 +226,7 @@ const UpcomingCard = React.memo(function UpcomingCard({ ev, onOpen }) {
     </article>
   );
 });
+
 
 const PastCard = React.memo(function PastCard({ ev, onOpen }) {
   const displaySummary = ev.short_summary?.trim() || clamp3(ev.summary || '');
@@ -253,6 +270,7 @@ const Events = () => {
   const [rows, setRows] = useState([]);
   const [selected, setSelected] = useState(null);
   const viewportRef = useRef(null);
+  const isMobile = useIsMobile(700);
 
   // fetch + cache
   useEffect(() => {
@@ -315,45 +333,88 @@ const Events = () => {
   // lock body scroll when modal open
   useEffect(() => {
     if (!selected) return;
-    const onKey = (e) => (e.key === 'Escape') && setSelected(null);
+
+    const onKey = (e) => e.key === 'Escape' && setSelected(null);
     document.addEventListener('keydown', onKey);
-    const prev = document.body.style.overflow;
+
+    // robust page lock
+    const scrollY = window.scrollY || window.pageYOffset || 0;
+    const prev = {
+      overflow: document.body.style.overflow,
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+    };
+
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    // reduce scroll chaining at the root
+    document.documentElement.style.overscrollBehavior = 'none';
+
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prev.overflow;
+      document.body.style.position = prev.position;
+      document.body.style.top = prev.top;
+      document.body.style.width = prev.width;
+      document.documentElement.style.overscrollBehavior = '';
+      window.scrollTo(0, scrollY);
     };
   }, [selected]);
 
+
   // make viewport exactly height of first page (so only 3 visible)
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (isMobile) return; // don't do pager math on mobile
+
     const node = viewportRef.current;
     if (!node) return;
 
     const measure = () => {
       const firstPage = node.querySelector('.up-page');
-      if (firstPage) {
-        const h = firstPage.getBoundingClientRect().height;
-        node.style.height = `${h}px`;
-      }
+      if (!firstPage) return;
+      const h = firstPage.getBoundingClientRect().height;
+      node.style.height = `${h}px`;
     };
 
+    // initial + a couple of follow-ups for late layout/images/fonts
     measure();
+    const raf = requestAnimationFrame(measure);
+    const t1 = setTimeout(measure, 0);
+    const t2 = setTimeout(measure, 150);
+    document.fonts?.ready?.then(measure);
+
+    // observe first page + its cards for dynamic size changes
     const ro = new ResizeObserver(measure);
     const firstPage = node.querySelector('.up-page');
-    if (firstPage) ro.observe(firstPage);
+    if (firstPage) {
+      ro.observe(firstPage);
+      firstPage.querySelectorAll('.up-card').forEach(el => ro.observe(el));
+    }
 
+    // respond to viewport changes
     window.addEventListener('resize', measure);
-    const t = setTimeout(measure, 0);
 
     return () => {
-      clearTimeout(t);
-      window.removeEventListener('resize', measure);
+      cancelAnimationFrame(raf);
+      clearTimeout(t1);
+      clearTimeout(t2);
       ro.disconnect();
+      window.removeEventListener('resize', measure);
     };
-  }, [upPages.length]);
+  }, [isMobile, upPages.length]);
 
   const hasPast = past.length > 0;
+
+  const feed = useMemo(() => {
+    if (!isMobile) return [];
+    return [
+      ...upcoming.map(ev => ({ ...ev, _isPast: false })),
+      ...past.map(ev => ({ ...ev, _isPast: true })),
+    ];
+  }, [isMobile, upcoming, past]);
 
   return (
     <Layout>
@@ -362,56 +423,102 @@ const Events = () => {
         <img src={heroImg} alt="Events banner" className="events-hero-img" />
       </div>
 
-      {/* Upcoming */}
-      <h1 className="events-heading">Upcoming Events</h1>
+      {isMobile ? (
+        <>
+          <h1 className="events-heading">IEEE-NSM Events</h1>
 
-      <div ref={viewportRef} className="up-viewport" aria-label="Upcoming events (paged)">
-        {upPages.length ? (
-          upPages.map((page, idx) => (
-            <section className="up-page" key={idx}>
-              {page.map(ev => (
-                <UpcomingCard key={ev.slug} ev={ev} onOpen={setSelected} />
-              ))}
-            </section>
-          ))
-        ) : (
-          <div className="up-empty">
-            <h3>No upcoming events yet</h3>
-            <p>We’re planning the next ones. Check back soon.</p>
-            {hasPast && <a className="up-empty-link" href="#previous">See previous events ↓</a>}
+          {/* --- Upcoming (mobile) --- */}
+          <h2 className="events-heading">Upcoming Events</h2>
+          <div className="feed-list" aria-label="Upcoming events">
+            {upcoming.length ? (
+              upcoming.map(ev => (
+                <UpcomingCard
+                  key={'u-' + ev.slug}
+                  ev={ev}
+                  isPast={false}
+                  onOpen={setSelected}
+                />
+              ))
+            ) : (
+              <div className="up-empty">
+                <h3>No upcoming events yet</h3>
+                <p>We’re planning the next ones. Check back soon.</p>
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      {/* Split background strip */}
-      {hasPast && <div className="events-split" />}
-
-      {/* Previous */}
-      {hasPast ? (
-        <section id="previous" className="past-section">
-          <h2 className="events-heading events-heading--inverse">Previous Events</h2>
-          <div className="past-rail">
-            <div className="past-track">
-              {past.map(ev => (
-                <PastCard key={ev.slug} ev={ev} onOpen={setSelected} />
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : (
-        <section id="previous" className="past-empty">
+          {/* --- Previous (mobile) --- */}
           <h2 className="events-heading">Previous Events</h2>
-          <p className="past-empty-text">No previous events yet. We’ll post recaps after our first one.</p>
-        </section>
+          <div className="feed-list" aria-label="Previous events">
+            {past.length ? (
+              past.map(ev => (
+                <UpcomingCard
+                  key={'p-' + ev.slug}
+                  ev={ev}
+                  isPast={true}
+                  onOpen={setSelected}
+                />
+              ))
+            ) : (
+              <div className="past-empty">
+                <p className="past-empty-text">No previous events yet. We’ll post recaps after our first one.</p>
+              </div>
+            )}
+          </div>
+        </>
+      ) : (
+        /* keep your existing desktop/tablet block exactly as you have it */
+        <>
+          <h1 className="events-heading">Upcoming Events</h1>
+          <div ref={viewportRef} className="up-viewport" aria-label="Upcoming events (paged)">
+            {upPages.length ? (
+              upPages.map((page, idx) => (
+                <section className="up-page" key={idx}>
+                  {page.map(ev => (
+                    <UpcomingCard key={ev.slug} ev={ev} onOpen={setSelected} />
+                  ))}
+                </section>
+              ))
+            ) : (
+              <div className="up-empty">
+                <h3>No upcoming events yet</h3>
+                <p>We’re planning the next ones. Check back soon.</p>
+                {hasPast && <a className="up-empty-link" href="#previous">See previous events ↓</a>}
+              </div>
+            )}
+          </div>
+
+          {hasPast && <div className="events-split" />}
+
+          {hasPast ? (
+            <section id="previous" className="past-section">
+              <h2 className="events-heading events-heading--inverse">Previous Events</h2>
+              <div className="past-rail">
+                <div className="past-track">
+                  {past.map(ev => (
+                    <PastCard key={ev.slug} ev={ev} onOpen={setSelected} />
+                  ))}
+                </div>
+              </div>
+            </section>
+          ) : (
+            <section id="previous" className="past-empty">
+              <h2 className="events-heading">Previous Events</h2>
+              <p className="past-empty-text">No previous events yet. We’ll post recaps after our first one.</p>
+            </section>
+          )}
+        </>
       )}
 
-      {selected && (
+
+      {selected && createPortal(
         <EventModal
           ev={selected}
           onClose={() => setSelected(null)}
           fmtDateRange={fmtDateRange}
           fmtTimeOnly={fmtTimeOnly}
-        />
+        />,
+        document.body
       )}
     </Layout>
   );

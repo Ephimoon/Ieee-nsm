@@ -65,11 +65,22 @@ body.has-fixed-nav .events-hero {
   padding: 1rem 1.1rem;
   border-radius: 12px;
 }
-.up-card:not(:last-child)::after {
+
+.up-card::after {
   content: "";
   position: absolute;
-  left: 22px; right: 22px; bottom: -1rem;
-  height: 2px; background: #0a4b8c; opacity: .45; border-radius: 999px;
+  left: 22px;
+  right: 22px;
+  bottom: -1rem;
+  height: 2px;
+  background: #0a4b8c;
+  opacity: .45;
+  border-radius: 999px;
+}
+
+/* remove line only from the true last card */
+.up-page:last-of-type .up-card:last-of-type::after {
+  content: none;
 }
 
 .up-date {
@@ -246,7 +257,11 @@ body.has-fixed-nav .events-hero {
 @media (max-width: 700px) {
   .events-hero-img { height: 200px; }
   .up-card { grid-template-columns: 68px 1fr; }
-  .up-card:not(:last-child)::after { left: 14px; right: 14px; bottom: -.75rem; }
+  .up-card::after {
+    left: 14px;
+    right: 14px;
+    bottom: -.75rem;
+  }
   .past-track { grid-auto-columns: 78vw; }
 }
 @media (max-width: 640px) {
@@ -254,3 +269,115 @@ body.has-fixed-nav .events-hero {
   .events-hero-img { height: clamp(180px, 40vw, 300px); }
   .modal { padding: 1rem .75rem; }
 }
+
+
+.feed-list {
+  max-width: 1000px;
+  margin: 0 auto 1.5rem;
+  display: grid;
+  gap: 1rem;
+  padding: .5rem 0 1rem;
+}
+
+.feed-list .up-card::after {
+  content: "";
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: -1rem;
+  height: 2px;
+  background: #0a4b8c;
+  opacity: .45;
+  border-radius: 999px;
+}
+
+.feed-list .up-card:last-of-type::after {
+  content: none;
+}
+
+@media (max-width: 700px) {
+  .feed-list .up-card { grid-template-columns: 68px 1fr; }
+  .feed-list .up-card::after { left: 14px; right: 14px; bottom: -.75rem; }
+}
+
+
+/* ===== Mobile header sizing & spacing ===== */
+@media (max-width: 700px) {
+  /* Main page title */
+  h1.events-heading {
+    font-size: clamp(1.75rem, 4.5vw + 1rem, 2.25rem);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  /* Section headers (Upcoming / Previous) */
+  h2.events-heading {
+    font-size: clamp(1.125rem, 2.2vw + 0.9rem, 1.5rem);
+    font-weight: 600;
+    color: #0a4b8c;
+    text-align: center;          /* smaller + left-aligned to feel subordinate */
+    margin: 0.25rem auto 0.5rem;
+    width: calc(100% - 3rem);  /* align with feed width */
+    max-width: 1000px;
+  }
+
+  /* Slightly tighter feed spacing on mobile */
+  .feed-list {
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+@media (min-width: 701px) {
+  .up-card { padding-bottom: 1rem; }
+  .up-card::after { bottom: 0; }   /* was -1rem */
+  .up-page { scroll-snap-stop: always; }
+}
+
+
+/* ===== Full-screen modal on mobile ===== */
+@media (max-width: 700px) {
+  .modal-overlay {
+    padding: 0;                 /* remove gutter */
+    display: block;             /* no centering grid */
+  }
+
+  .modal {
+    width: 100%;
+    height: 100dvh;             /* mobile-safe viewport */
+    max-width: none;
+    max-height: none;
+    border-radius: 0;           /* edge-to-edge */
+    box-shadow: none;           /* looks like its own page */
+    padding: calc(env(safe-area-inset-top) + 16px) 16px
+             calc(env(safe-area-inset-bottom) + 16px);
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* keep the close button always reachable */
+  .modal-close {
+    position: fixed;            /* independent of scroll */
+    top: calc(env(safe-area-inset-top) + 12px);
+    right: 12px;
+    z-index: 2;
+    width: 44px; height: 44px;  /* comfy tap target */
+    line-height: 44px;
+  }
+
+  /* tighten title + spacing on small screens */
+  .modal-title {
+    font-size: clamp(1.35rem, 4.5vw + .6rem, 1.9rem);
+    margin: 0 2.75rem .75rem .25rem; /* space for fixed X */
+  }
+  .meta-list { margin-bottom: .75rem; }
+
+  /* optional: cap image height so content below is visible */
+  .carousel-img {
+    height: min(40dvh, 360px);
+  }
+}
+
+/* Ensure modal overlays site header */
+.modal-overlay { z-index: 10000; overscroll-behavior: contain; }
+.modal-close  { z-index: 10001; } /* fixed close stays above content */
