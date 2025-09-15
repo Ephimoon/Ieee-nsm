@@ -28,6 +28,10 @@ import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
 import TanImage from "../images/officer-images/TanImage.jpg";
 import classroomImage from "../images/classroom-with-background.png";
 import MohamedImage from "../images/officer-images/MohamedImage.jpg";
+import DanImage from "../images/officer-images/DanImage.jpg";
+import GraceImage from "../images/officer-images/GraceImage.jpg";
+import EthanImage from "../images/officer-images/EthanImage.jpg";
+import RishanImage from "../images/officer-images/RishanImage.jpg";
 
 class OfficerInfo {
   constructor(
@@ -98,6 +102,13 @@ const officers = [
     "https://www.linkedin.com/in/dominic-mcdonald-uh/"
   ),
   new OfficerInfo(
+    21,
+    "Operations Manager",
+    "Ethan Ma",
+    EthanImage,
+    "https://www.linkedin.com/in/etanma"
+  ),
+  new OfficerInfo(
     8,
     "Marketing Committee",
     "Nikolaos Polycrates",
@@ -133,37 +144,44 @@ const officers = [
   ),
   new OfficerInfo(
     13,
-    "Webmaster",
+    "Lead Webmaster",
     "Melanie Escobar Marulanda",
     MelanieImage,
     "https://www.linkedin.com/in/melanie-escobar-marulanda/"
   ),
   new OfficerInfo(
     14,
-    "Co-Webmaster",
+    "Webmaster",
     "Oreoluwapo Oyede",
     OreImage,
     "https://www.linkedin.com/in/oreoyede/"
   ),
   new OfficerInfo(
     15,
-    "Co-Webmaster",
+    "Webmaster",
     "Fariha Adil",
     FarihaImage,
     "https://www.linkedin.com/in/fariha-adil-844496277/"
   ),
   new OfficerInfo(
+    22,
+    "Webmaster Intern",
+    "Rishan Sivakumar",
+    RishanImage,
+    "https://www.linkedin.com/in/rishan-sivakumar-b99a25330/"
+  ),
+  new OfficerInfo(
     16,
     "Activities Director",
     "Grace Roper",
-    defaultImage,
+    GraceImage,
     "https://www.linkedin.com/in/grace-roper-443206364/"
   ),
   new OfficerInfo(
     17,
     "Events Committee",
     "Dan Bizman",
-    defaultImage,
+    DanImage,
     "",
     "@iamdanjamin"
   ),
@@ -190,6 +208,7 @@ const officers = [
     PavanImage,
     "https://www.linkedin.com/in/pavankumar-gali/"
   ),
+  
 ];
 
 const coogChallengers = [
