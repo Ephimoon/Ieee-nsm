@@ -21,7 +21,6 @@ import MelanieImage from "../images/officer-images/MelanieImage.jpg";
 import MaryamImage from "../images/officer-images/MaryamImage.jpg";
 import JoshImage from "../images/officer-images/JoshImage.jpg";
 import PavanImage from "../images/officer-images/PavankumarImage.png";
-import JaysonImage from "../images/officer-images/JaysonImage.jpg";
 import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
 import AngelaImage from "../images/officer-images/AngelaImage.jpg";
 import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
@@ -67,18 +66,18 @@ const officers = [
     "https://www.linkedin.com/in/vincent-dycruz/"
   ),
   new OfficerInfo(
-    3,
-    "Treasurer",
-    "Sam Khudairi",
-    samImage,
-    "https://www.linkedin.com/in/sam-khudairi-b51b74317/"
-  ),
-  new OfficerInfo(
     4,
     "Secretary",
     "Carl Aguinaldo",
     carlImage,
     "https://www.linkedin.com/in/carl425/"
+  ),
+  new OfficerInfo(
+    3,
+    "Treasurer",
+    "Sam Khudairi",
+    samImage,
+    "https://www.linkedin.com/in/sam-khudairi-b51b74317/"
   ),
   new OfficerInfo(
     5,
@@ -88,13 +87,6 @@ const officers = [
     "https://www.linkedin.com/in/dillianemiaborbon/"
   ),
   new OfficerInfo(
-    6,
-    "Executive Advisor",
-    "Gabriel Galvez",
-    gabrielImage,
-    "https://www.linkedin.com/in/gabriel-galvez-/"
-  ),
-  new OfficerInfo(
     7,
     "Executive Advisor",
     "Dominic McDonald",
@@ -102,31 +94,18 @@ const officers = [
     "https://www.linkedin.com/in/dominic-mcdonald-uh/"
   ),
   new OfficerInfo(
-    21,
-    "Operations Manager",
-    "Ethan Ma",
-    EthanImage,
-    "https://www.linkedin.com/in/etanma"
+    6,
+    "Executive Advisor",
+    "Gabriel Galvez",
+    gabrielImage,
+    "https://www.linkedin.com/in/gabriel-galvez-/"
   ),
   new OfficerInfo(
-    8,
-    "Marketing Committee",
-    "Nikolaos Polycrates",
-    defaultImage
-  ),
-  new OfficerInfo(
-    9,
-    "Marketing Chair",
-    "Emma Nguyen",
-    EmmaImage,
-    "https://www.linkedin.com/in/emma-nguyen05/"
-  ),
-  new OfficerInfo(
-    10,
-    "Marketing Chair",
-    "Isabella Truong",
-    IsabellaImage,
-    "https://www.linkedin.com/in/isabella-truong/"
+    16,
+    "Events Chair",
+    "Grace Roper",
+    GraceImage,
+    "https://www.linkedin.com/in/grace-roper-443206364/"
   ),
   new OfficerInfo(
     11,
@@ -136,15 +115,44 @@ const officers = [
     "https://www.linkedin.com/in/eebryant/"
   ),
   new OfficerInfo(
-    12,
-    "Collaborations Director",
-    "Naomi Thomas",
-    NaomiImage,
-    "https://www.linkedin.com/in/naomi-thomas-625385291/"
+    18,
+    "Events Committee",
+    "Maryam Ahmed",
+    MaryamImage,
+    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
+    ""
+  ),
+  new OfficerInfo(
+    17,
+    "Events Committee",
+    "Dan Bizman",
+    DanImage,
+    "",
+    "@iamdanjamin"
+  ),
+  new OfficerInfo(
+    10,
+    "Marketing Chair",
+    "Isabella Truong",
+    IsabellaImage,
+    "https://www.linkedin.com/in/isabella-truong/"
+  ),
+  new OfficerInfo(
+    9,
+    "Marketing Chair",
+    "Emma Nguyen",
+    EmmaImage,
+    "https://www.linkedin.com/in/emma-nguyen05/"
+  ),
+  new OfficerInfo(
+    8,
+    "Marketing Committee",
+    "Nikolaos Polycrates",
+    defaultImage
   ),
   new OfficerInfo(
     13,
-    "Lead Webmaster",
+    "Webmaster Lead",
     "Melanie Escobar Marulanda",
     MelanieImage,
     "https://www.linkedin.com/in/melanie-escobar-marulanda/"
@@ -171,27 +179,11 @@ const officers = [
     "https://www.linkedin.com/in/rishan-sivakumar-b99a25330/"
   ),
   new OfficerInfo(
-    16,
-    "Activities Director",
-    "Grace Roper",
-    GraceImage,
-    "https://www.linkedin.com/in/grace-roper-443206364/"
-  ),
-  new OfficerInfo(
-    17,
-    "Events Committee",
-    "Dan Bizman",
-    DanImage,
-    "",
-    "@iamdanjamin"
-  ),
-  new OfficerInfo(
-    18,
-    "Events Committee",
-    "Maryam Ahmed",
-    MaryamImage,
-    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
-    ""
+    12,
+    "Collaborations Director",
+    "Naomi Thomas",
+    NaomiImage,
+    "https://www.linkedin.com/in/naomi-thomas-625385291/"
   ),
   new OfficerInfo(
     19,
@@ -213,19 +205,19 @@ const officers = [
 
 const coogChallengers = [
   new OfficerInfo(
-    101,
-    "Technical Director",
-    "Jacqueline Sanchez",
-    JacquelineImage,
-    "https://www.linkedin.com/in/jacquelinesa7/",
-    ""
-  ),
-  new OfficerInfo(
     102,
     "Data Science Lead",
     "Tan Tran",
     TanImage,
     "https://www.linkedin.com/in/tan-h-tran/",
+    ""
+  ),
+  new OfficerInfo(
+    105,
+    "Competitions Chair",
+    "Angela Abrea",
+    AngelaImage,
+    "https://www.linkedin.com/in/angelam-abrea/",
     ""
   ),
   new OfficerInfo(
@@ -237,20 +229,19 @@ const coogChallengers = [
     ""
   ),
   new OfficerInfo(
-    104,
-    "Data Structures Lead",
-    "Jayson Luong",
-    JaysonImage,
-    "https://www.linkedin.com/in/jaysonluong/",
+    109,
+    "Coorporate Relations",
+    "Ashmal Macknojia",
+    defaultImage,
+    "https://www.linkedin.com/in/gabriela-romero-ramirez/",
     ""
   ),
   new OfficerInfo(
-    105,
-    "Competitions Chair",
-    "Angela Abrea",
-    AngelaImage,
-    "https://www.linkedin.com/in/angelam-abrea/",
-    ""
+    108,
+    "Operations Manager",
+    "Ethan Ma",
+    EthanImage,
+    "https://www.linkedin.com/in/etanma"
   ),
   new OfficerInfo(
     106,
@@ -266,6 +257,14 @@ const coogChallengers = [
     "Sam Khudairi",
     samImage,
     "https://www.linkedin.com/in/sam-khudairi-b51b74317/"
+  ),
+  new OfficerInfo(
+    101,
+    "Technical Director",
+    "Jacqueline Sanchez",
+    JacquelineImage,
+    "https://www.linkedin.com/in/jacquelinesa7/",
+    ""
   ),
 ];
 
