@@ -31,6 +31,7 @@ import DanImage from "../images/officer-images/DanImage.jpg";
 import GraceImage from "../images/officer-images/GraceImage.jpg";
 import EthanImage from "../images/officer-images/EthanImage.jpg";
 import RishanImage from "../images/officer-images/RishanImage.jpg";
+import AshmalImage from "../images/officer-images/AshmalImage.jpg";
 
 class OfficerInfo {
   constructor(
@@ -232,7 +233,7 @@ const coogChallengers = [
     109,
     "Coorporate Relations",
     "Ashmal Macknojia",
-    defaultImage,
+    AshmalImage,
     "https://www.linkedin.com/in/gabriela-romero-ramirez/",
     ""
   ),
