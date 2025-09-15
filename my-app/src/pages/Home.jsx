@@ -78,9 +78,9 @@ function Home() {
               <h4 id="pillar-research">Research</h4>
               <p>Connect students to research opportunities and help them take their first steps into academia</p>
               <ul>
-                <li>professor connections</li>
-                <li>Provide peer support (undergrads & PhDs) from students currently publishing their first papers</li>
-                <li>workshops to demystify research</li>
+                <li>work directly with professors</li>
+                <li>gain hands-on experience</li>
+                <li>workshops to demystify research and assist throughout research process</li>
               </ul>
             </article>
 
@@ -90,11 +90,11 @@ function Home() {
                 <svg viewBox="0 0 24 24"><polyline points="9 18 3 12 9 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><polyline points="15 6 21 12 15 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
               </div>
               <h4 id="pillar-cp">Competitive Programming</h4>
-              <p>Sharpen problem-solving and core DS&A with hands-on practice.</p>
+              <p>Sharpen problem-solving and core DS&A skills</p>
               <ul>
-                <li>CoogChallengers</li>
+                <li>LeetCode Support Group to learn patterns and how to conquer LeetCode problems</li>
                 <li>LeetCode support group</li>
-                <li>ICPC</li>
+                <li>ICPC preparation and support</li>
               </ul>
             </article>
 
@@ -104,11 +104,11 @@ function Home() {
                 <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="16" cy="8" r="3" fill="none" stroke="currentColor" strokeWidth="2"/><path d="M3 20c0-3 3-5 5-5s5 2 5 5" fill="none" stroke="currentColor" strokeWidth="2"/><path d="M11 20c0-3 3-5 5-5s5 2 5 5" fill="none" stroke="currentColor" strokeWidth="2"/></svg>
               </div>
               <h4 id="pillar-community">Community & Mentorship</h4>
-              <p>Small, supportive organization focused on helping you grow while we grow</p>
+              <p>We're a small, supportive organization focused on helping you grow while we grow</p>
               <ul>
-                <li>socials to keep us connected and grounded</li>
-                <li>Peer mentoring from undergrads and PhDs</li>
-                <li>professor connections and help getting started with research</li>
+                <li>Socials to connect you to new friends and find community</li>
+                <li>Peer mentoring for guidance throughout your time at UH</li>
+                <li>Workshops to help build your skills and explore interests</li>
               </ul>
             </article>
           </div>
