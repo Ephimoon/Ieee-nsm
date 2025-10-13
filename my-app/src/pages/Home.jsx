@@ -25,12 +25,12 @@ import bluelinkedin from '../images/linkedin.png';*/
 // commenting out these imports because they cause ESLint issues, lmk if we actually needed them or not pls :heart:
 
 const PARTNERS = [
-  {
-    name: "CSgirls",
-    href: "https://www.csgirls.org/",
-    img: CSGirlsLogo,
-    alt: "CSgirls logo",
-  },
+  // {
+  //   name: "CSgirls",
+  //   href: "https://www.csgirls.org/",
+  //   img: CSGirlsLogo,
+  //   alt: "CSgirls logo",
+  // },
   {
     name: "CodeCoogs",
     href: "https://www.codecoogs.com/",
@@ -43,12 +43,12 @@ const PARTNERS = [
     img: ColorStackLogo,
     alt: "ColorStack @ UH logo",
   },
-  {
-    name: "Cougarettes",
-    href: "https://uhcougarettes.com/",
-    img: CougarettesLogo,
-    alt: "Cougarettes logo",
-  },
+  // {
+  //   name: "Cougarettes",
+  //   href: "https://uhcougarettes.com/",
+  //   img: CougarettesLogo,
+  //   alt: "Cougarettes logo",
+  // },
   {
     name: "IEEE University of Houston",
     href: "https://ieeeuh.org/",
