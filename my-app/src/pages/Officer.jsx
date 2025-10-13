@@ -31,7 +31,8 @@ import DanImage from "../images/officer-images/DanImage.jpg";
 import GraceImage from "../images/officer-images/GraceImage.jpg";
 import EthanImage from "../images/officer-images/EthanImage.jpg";
 import RishanImage from "../images/officer-images/RishanImage.jpg";
-import AshmalImage from "../images/officer-images/AshmalImage.jpg";
+// import AshmalImage from "../images/officer-images/AshmalImage.jpg";
+import JulioImage from "../images/officer-images/JulioImage.jpg";
 
 class OfficerInfo {
   constructor(
@@ -59,12 +60,19 @@ const officers = [
     livImage,
     "https://www.linkedin.com/in/olivia-n-wright/"
   ),
+  // new OfficerInfo(
+  //   2,
+  //   "Vice President",
+  //   "Vincent DyCruz",
+  //   vincentImage,
+  //   "https://www.linkedin.com/in/vincent-dycruz/"
+  // ),
   new OfficerInfo(
     2,
     "Vice President",
-    "Vincent DyCruz",
-    vincentImage,
-    "https://www.linkedin.com/in/vincent-dycruz/"
+    "Grace Roper",
+    GraceImage,
+    "https://www.linkedin.com/in/grace-roper-443206364/"
   ),
   new OfficerInfo(
     4,
@@ -100,13 +108,6 @@ const officers = [
     "Gabriel Galvez",
     gabrielImage,
     "https://www.linkedin.com/in/gabriel-galvez-/"
-  ),
-  new OfficerInfo(
-    16,
-    "Events Chair",
-    "Grace Roper",
-    GraceImage,
-    "https://www.linkedin.com/in/grace-roper-443206364/"
   ),
   new OfficerInfo(
     11,
@@ -187,6 +188,13 @@ const officers = [
     "https://www.linkedin.com/in/naomi-thomas-625385291/"
   ),
   new OfficerInfo(
+    12,
+    "Communications Coordinator",
+    "Julio Amaya",
+    JulioImage,
+    "https://www.linkedin.com/in/julioamaya1/"
+  ),
+  new OfficerInfo(
     19,
     "Research Chair",
     "Joshua Novak",
@@ -206,43 +214,12 @@ const officers = [
 
 const coogChallengers = [
   new OfficerInfo(
-    102,
-    "Data Science Lead",
-    "Tan Tran",
-    TanImage,
-    "https://www.linkedin.com/in/tan-h-tran/",
-    ""
-  ),
-  new OfficerInfo(
     105,
     "Competitions Chair",
     "Angela Abrea",
     AngelaImage,
     "https://www.linkedin.com/in/angelam-abrea/",
     ""
-  ),
-  new OfficerInfo(
-    103,
-    "Data Structures Lead",
-    "Gabriela Romero Ramirez",
-    GabrielaImage,
-    "https://www.linkedin.com/in/gabriela-romero-ramirez/",
-    ""
-  ),
-  new OfficerInfo(
-    109,
-    "Coorporate Relations",
-    "Ashmal Macknojia",
-    AshmalImage,
-    "https://www.linkedin.com/in/gabriela-romero-ramirez/",
-    ""
-  ),
-  new OfficerInfo(
-    108,
-    "Operations Manager",
-    "Ethan Ma",
-    EthanImage,
-    "https://www.linkedin.com/in/etanma"
   ),
   new OfficerInfo(
     106,
@@ -253,11 +230,35 @@ const coogChallengers = [
     ""
   ),
   new OfficerInfo(
-    107,
-    "Outreach & Engagement Director",
-    "Sam Khudairi",
-    samImage,
-    "https://www.linkedin.com/in/sam-khudairi-b51b74317/"
+    102,
+    "Data Science Lead",
+    "Tan Tran",
+    TanImage,
+    "https://www.linkedin.com/in/tan-h-tran/",
+    ""
+  ),
+  new OfficerInfo(
+    103,
+    "Data Structures Lead",
+    "Gabriela Romero Ramirez",
+    GabrielaImage,
+    "https://www.linkedin.com/in/gabriela-romero-ramirez/",
+    ""
+  ),
+  // new OfficerInfo(
+  //   109,
+  //   "Coorporate Relations",
+  //   "Ashmal Macknojia",
+  //   AshmalImage,
+  //   "https://www.linkedin.com/in/gabriela-romero-ramirez/",
+  //   ""
+  // ),
+  new OfficerInfo(
+    108,
+    "Operations Manager",
+    "Ethan Ma",
+    EthanImage,
+    "https://www.linkedin.com/in/etanma"
   ),
   new OfficerInfo(
     101,
