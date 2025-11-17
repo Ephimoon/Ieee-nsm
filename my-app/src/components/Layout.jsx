@@ -54,6 +54,13 @@ const Layout = ({ children }) => {
               Home
             </Link>
             <Link
+              to="/bm"
+              className="nav-link"
+              onClick={() => setMenuOpen(false)}
+            >
+              Become a Member
+            </Link>
+            <Link
               to="/officers"
               className="nav-link"
               onClick={() => setMenuOpen(false)}
