@@ -49,64 +49,67 @@ const officers = [
   new OfficerInfo(
     1,
     "President",
-    "Olivia Wright",
-    livImage,
-    "https://www.linkedin.com/in/olivia-n-wright/"
+    "Grace Roper",
+    defaultImage,
+    "https://www.linkedin.com/in/grace-roper-443206364/"
   ),
   new OfficerInfo(
     2,
-    "Vice President",
-    "Vincent DyCruz",
-    vincentImage,
-    "https://www.linkedin.com/in/vincent-dycruz/"
+    "Vice President Internal",
+    "Dominic McDonald",
+    dominicImage,
+    "https://www.linkedin.com/in/dominic-mcdonald-uh/"
   ),
   new OfficerInfo(
     3,
-    "Treasurer",
-    "Sam Khudairi",
-    samImage,
-    "https://www.linkedin.com/in/sam-khudairi-b51b74317/"
+    "Vice President External",
+    "Dan Bizman",
+    defaultImage,
+    "",
+    "@iamdanjamin"
   ),
   new OfficerInfo(
     4,
+    "Treasurer",
+    "Maryam Ahmed",
+    MaryamImage,
+    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
+    ""
+  ),
+  new OfficerInfo(
+    5,
     "Secretary",
     "Carl Aguinaldo",
     carlImage,
     "https://www.linkedin.com/in/carl425/"
   ),
   new OfficerInfo(
-    5,
+    6,
     "Historian",
     "Mia Borbon",
     miaImage,
     "https://www.linkedin.com/in/dillianemiaborbon/"
   ),
   new OfficerInfo(
-    6,
-    "Executive Advisor",
-    "Gabriel Galvez",
-    gabrielImage,
-    "https://www.linkedin.com/in/gabriel-galvez-/"
-  ),
-  new OfficerInfo(
     7,
-    "Executive Advisor",
-    "Dominic McDonald",
-    dominicImage,
-    "https://www.linkedin.com/in/dominic-mcdonald-uh/"
+    "Events Chair",
+    "Jaden Binh",
+    defaultImage,
+    "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     8,
-    "Marketing Committee",
-    "Nikolaos Polycrates",
-    defaultImage
-  ),
-  new OfficerInfo(
-    9,
-    "Marketing Chair",
+    "Events Committee",
     "Emma Nguyen",
     EmmaImage,
     "https://www.linkedin.com/in/emma-nguyen05/"
+  ),
+  new OfficerInfo(
+    9,
+    "Events Committee",
+    "Naomi Thomas",
+    NaomiImage,
+    "https://www.linkedin.com/in/naomi-thomas-625385291/"
   ),
   new OfficerInfo(
     10,
@@ -117,64 +120,55 @@ const officers = [
   ),
   new OfficerInfo(
     11,
-    "Events Committee",
-    "Erin Bryant",
-    ErinImage,
-    "https://www.linkedin.com/in/eebryant/"
+    "Marketing Committee",
+    "Zaria Saeed",
+    defaultImage,
+    "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     12,
-    "Collaborations Director",
-    "Naomi Thomas",
-    NaomiImage,
-    "https://www.linkedin.com/in/naomi-thomas-625385291/"
+    "Graphic Designer",
+    "Aidan Bolton",
+    defaultImage,
+    "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     13,
-    "Webmaster",
-    "Oreoluwapo Oyede",
-    OreImage,
-    "https://www.linkedin.com/in/oreoyede/"
+    "Graphic Designer",
+    "Ciara Miles",
+    defaultImage,
+    "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     14,
-    "Co-Webmaster",
-    "Fariha Adil",
-    FarihaImage,
-    "https://www.linkedin.com/in/fariha-adil-844496277/"
+    "Graphic Designer",
+    "Claudette Sanchez",
+    defaultImage,
+    "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     15,
-    "Co-Webmaster",
+    "Webmaster",
     "Melanie Escobar Marulanda",
     MelanieImage,
     "https://www.linkedin.com/in/melanie-escobar-marulanda/"
   ),
   new OfficerInfo(
     16,
-    "Activities Director",
-    "Grace Roper",
-    defaultImage,
-    "https://www.linkedin.com/in/grace-roper-443206364/"
+    "Co-Webmaster",
+    "Fariha Adil",
+    FarihaImage,
+    "https://www.linkedin.com/in/fariha-adil-844496277/"
   ),
   new OfficerInfo(
     17,
-    "Events Committee",
-    "Dan Bizman",
+    "Co-Webmaster",
+    "Rishan Sivakumar",
     defaultImage,
-    "",
-    "@iamdanjamin"
+    "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     18,
-    "Events Committee",
-    "Maryam Ahmed",
-    MaryamImage,
-    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
-    ""
-  ),
-  new OfficerInfo(
-    19,
     "Research Chair",
     "Joshua Novak",
     JoshImage,
@@ -182,69 +176,54 @@ const officers = [
     ""
   ),
   new OfficerInfo(
-    20,
+    19,
     "Research Chair",
     "Pavankumar Gali",
     PavanImage,
     "https://www.linkedin.com/in/pavankumar-gali/"
   ),
-  new OfficerInfo(
-    21,
-    "Co-Competitions Chair",
-    "Jacqueline Tran",
-    JacquelineImage,
-    "https://www.linkedin.com/in/jacqueline-tran-319a28288/"
-  ),
 ];
 
-const coogChallengers = [
+const ieeeNSMCompetitions = [
   new OfficerInfo(
     101,
-    "Event Coordinator",
-    "Jacqueline Tran",
-    JacquelineImage,
-    "https://www.linkedin.com/in/jacqueline-tran-319a28288/",
+    "Competitions Branch Head",
+    "Mohamed",
+    defaultImage,
+    "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
     102,
-    "Social Media Director",
-    "Angela Abrea",
-    AngelaImage,
-    "https://www.linkedin.com/in/angelam-abrea/",
+    "Competitions Branch Committee",
+    "Zariah Arrington",
+    defaultImage,
+    "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
     103,
-    "Data Structures Lead",
-    "Gabriela Romero Ramirez",
-    GabrielaImage,
-    "https://www.linkedin.com/in/gabriela-romero-ramirez/",
+    "Competitions Branch Committee",
+    "Kyron Castellanos",
+    defaultImage,
+    "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
     104,
-    "Data Structures Lead",
-    "Maryam Ahmed",
+    "Competitions Branch Committee",
+    "Danish Jamal",
     MaryamImage,
-    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
+    "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
     105,
-    "Data Science Coordinator",
-    "Tan Ngo",
+    "Competitions Branch Committee",
+    "Duy Bao Nguyen",
     TanImage,
-    "https://www.linkedin.com/in/tanng0/",
+    "https://www.linkedin.com/",
     ""
-  ),
-  new OfficerInfo(
-    106,
-    "Technical Director",
-    "Jacqueline Sanchez",
-    defaultImage,
-    "",
-    "jupiter.js"
   ),
 ];
 
@@ -368,19 +347,19 @@ function Officer() {
           </section>
         </div>
 
-        {/* CoogChallengers Section */}
+        {/* ieeeNSMCompetitions Section */}
         <div className="officer-section">
           <div className="officer-title-container">
             <div className="officer-title-wrapper">
               <div className="officer-title-shadow"></div>
               <div className="officer-title-box">
                 <span className="officer-title-bold">Meet the </span>
-                <span className="officer-title-blue">CoogChallengers</span>
+                <span className="officer-title-blue">IEEE-NSM Competitions</span>
               </div>
             </div>
           </div>
           <section className="officer-grid">
-            {coogChallengers.map((officer) => (
+            {ieeeNSMCompetitions.map((officer) => (
               <OfficerCard key={officer.id} officer={officer} />
             ))}
           </section>
