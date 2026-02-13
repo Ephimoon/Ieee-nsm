@@ -47,7 +47,6 @@ body.has-fixed-nav .events-hero {
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overscroll-behavior: contain;
   padding-right: .25rem;
 }
 .up-page {
@@ -64,6 +63,9 @@ body.has-fixed-nav .events-hero {
   gap: 1rem;
   padding: 1rem 1.1rem;
   border-radius: 12px;
+  background: #fff;
+  border: 2px solid transparent;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
 }
 
 .up-card::after {
@@ -76,6 +78,25 @@ body.has-fixed-nav .events-hero {
   background: #0a4b8c;
   opacity: .45;
   border-radius: 999px;
+}
+
+.up-card--coog {
+  background: linear-gradient(180deg, rgba(255,241,242,.92), #fff 60%);
+  border-color: rgba(220, 38, 38, 0.45);
+}
+.up-card--coog::after {
+  background: rgba(220, 38, 38, 0.7);
+  opacity: 1;
+}
+.up-card--coog .up-date {
+  border-right-color: rgba(248, 113, 113, 0.55);
+}
+.up-card--coog .up-date-month,
+.up-card--coog .up-date-day {
+  color: #b91c1c;
+}
+.up-card--coog .up-meta {
+  color: #b91c1c;
 }
 
 /* remove line only from the true last card */
@@ -167,6 +188,13 @@ body.has-fixed-nav .events-hero {
   display: grid;
   grid-template-rows: 180px auto;
   min-height: 320px;
+  border: 2px solid transparent;
+}
+.past-card--coog {
+  border-color: rgba(220, 38, 38, 0.45);
+}
+.past-card--coog .past-content {
+  background: linear-gradient(180deg, rgba(255,241,242,.92), #fff 60%);
 }
 .past-cover { width: 100%; height: 100%; object-fit: cover; }
 .past-content { padding: .9rem .95rem 1rem; }

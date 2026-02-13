@@ -35,6 +35,31 @@
   font-size: 12px;
   margin-top: 4px;
 }
+.member-form-radio-group {
+  border: none;
+  margin: 0 0 20px;
+  padding: 0;
+}
+.member-form-radio-group legend {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.member-form-radio-options {
+  display: grid;
+  gap: 10px;
+}
+.member-form-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+}
+.member-form-radio-option input[type='radio'] {
+  width: 16px;
+  height: 16px;
+  padding: 0;
+}
 .member-form-submit {
   background: #1f7aa7;
   color: #fff;
@@ -50,6 +75,14 @@
 .member-form-success {
   background: #e8f5e9;
   color: #2e7d32;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.member-form-error {
+  background: #fdecea;
+  color: #b71c1c;
   padding: 12px 16px;
   border-radius: 4px;
   margin-bottom: 20px;

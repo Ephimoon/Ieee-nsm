@@ -7,6 +7,8 @@ import linkedin from "../images/image 10.png";
 import discord from "../images/image 11.png";
 
 const Layout = ({ children }) => {
+  const bmFormUrl = process.env.REACT_APP_BM_FORM_URL?.trim();
+
   // State to manage mobile menu open/close
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -53,13 +55,23 @@ const Layout = ({ children }) => {
             >
               Home
             </Link>
-            <Link
-              to="/bm"
-              className="nav-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Become a Member
-            </Link>
+            {bmFormUrl ? (
+              <a
+                href={bmFormUrl}
+                className="nav-link"
+                onClick={() => setMenuOpen(false)}
+              >
+                Become a Member
+              </a>
+            ) : (
+              <Link
+                to="/bm"
+                className="nav-link"
+                onClick={() => setMenuOpen(false)}
+              >
+                Become a Member
+              </Link>
+            )}
             <Link
               to="/officers"
               className="nav-link"

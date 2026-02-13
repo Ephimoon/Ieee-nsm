@@ -59,6 +59,9 @@ const formats = {
     `${l.format(start, 'EEE MMM d')} — ${l.format(end, 'EEE MMM d')}`,
 };
 
+const isCoogChallengersEvent = (title = '') =>
+  typeof title === 'string' && title.toLowerCase().includes('coogchallengers:');
+
 // ------------ MODAL ----------------------------------------------
 const EventModal = ({ event, onClose }) => {
   if (!event) return null;
@@ -318,12 +321,46 @@ const CalendarComponent = () => {
           style={{ minHeight: '600px', height: 'auto' }}
           onSelectEvent={handleEventClick}
           eventPropGetter={(event) => {
+            const baseClass = event.allDay ? 'all-day-event' : 'timed-event';
+            const isCoogEvent = isCoogChallengersEvent(event.title);
+
             if (view === 'month') {
-              return event.allDay
-                ? { className: 'all-day-event', style: { backgroundColor: '#3385AD' } }
-                : { className: 'timed-event',   style: { color: '#004B96' } };
+              const baseStyle = event.allDay
+                ? { backgroundColor: '#3385AD', color: '#fff' }
+                : { color: '#004B96' };
+              const highlightStyle = event.allDay
+                ? {
+                    backgroundColor: '#FFE4E6',
+                    color: '#991B1B',
+                    border: '1px solid rgba(220, 38, 38, 0.45)',
+                  }
+                : {
+                    backgroundColor: '#FFF5F5',
+                    color: '#B91C1C',
+                    borderRadius: '6px',
+                    padding: '4px 6px',
+                    border: '1px solid rgba(248, 113, 113, 0.6)',
+                    fontWeight: 600,
+                  };
+
+              return {
+                className: `${baseClass}${isCoogEvent ? ' coog-event' : ''}`.trim(),
+                style: isCoogEvent ? highlightStyle : baseStyle,
+              };
             }
-            return {};
+
+            if (isCoogEvent) {
+              return {
+                className: `${baseClass} coog-event`.trim(),
+                style: {
+                  backgroundColor: '#FFE4E6',
+                  color: '#991B1B',
+                  border: '1px solid rgba(220, 38, 38, 0.3)',
+                },
+              };
+            }
+
+            return { className: baseClass };
           }}
         />
 

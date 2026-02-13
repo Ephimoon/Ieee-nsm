@@ -73,6 +73,9 @@ const fmtTimeOnly = (startIso, endIso) => {
   return `Ends ${endDate}, ${end.toLocaleTimeString([], timeFmt)}`;
 };
 
+const isCoogEvent = (title = '') =>
+  typeof title === 'string' && title.toLowerCase().includes('coogchallengers:');
+
 const useIsMobile = (bp = 700) => {
   const [is, setIs] = useState(false);
   useEffect(() => {
@@ -193,11 +196,13 @@ const UpcomingCard = React.memo(function UpcomingCard({ ev, onOpen, isPast = fal
   const metaLine = isPast
     ? fmtDateTimeRange(ev.start_iso, ev.end_iso)
     : fmtTimeOnly(ev.start_iso, ev.end_iso);
+  const isCoog = isCoogEvent(ev.title);
+  const cardClass = ['up-card', 'is-clickable', isCoog && 'up-card--coog'].filter(Boolean).join(' ');
 
   return (
     <article
       id={ev.slug}
-      className="up-card is-clickable"
+      className={cardClass}
       onClick={() => onOpen(ev)}
       role="button"
       tabIndex={0}
@@ -232,11 +237,13 @@ const PastCard = React.memo(function PastCard({ ev, onOpen }) {
   const displaySummary = ev.short_summary?.trim() || clamp3(ev.summary || '');
   const cover = ev.images?.[0];
   const onKey = (e) => (e.key === 'Enter' || e.key === ' ') && onOpen(ev);
+  const isCoog = isCoogEvent(ev.title);
+  const cardClass = ['past-card', 'is-clickable', isCoog && 'past-card--coog'].filter(Boolean).join(' ');
 
   return (
     <article
       id={`past-${ev.slug}`}
-      className="past-card is-clickable"
+      className={cardClass}
       onClick={() => onOpen(ev)}
       role="button"
       tabIndex={0}
