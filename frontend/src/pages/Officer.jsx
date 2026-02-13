@@ -5,7 +5,6 @@ import linkedinLogo from "../images/image 10.png";
 import discordIcon from "../images/discord-icon.png";
 import defaultImage from "../images/white ieensm logo (1).png";
 import livImage from "../images/officer-images/LivImage.jpg";
-import vincentImage from "../images/officer-images/VincentImage.jpg";
 import samImage from "../images/officer-images/SamImage.jpg";
 import carlImage from "../images/officer-images/CarlImage.jpg";
 import miaImage from "../images/officer-images/MiaImage.jpg";

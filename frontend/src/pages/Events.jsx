@@ -158,7 +158,7 @@ function EventModal({ ev, onClose, fmtDateRange, fmtTimeOnly }) {
             <img
               key={idx}
               src={gallery[idx]}
-              alt={`${ev.title} image ${idx + 1} of ${gallery.length}`}
+              alt={`${ev.title} ${idx + 1} of ${gallery.length}`}
               className="carousel-img"
               loading="lazy"
               referrerPolicy="no-referrer"
@@ -310,21 +310,23 @@ const Events = () => {
     return () => { cancelled = true; clearInterval(id); };
   }, []);
 
-  // compute upcoming/past FIRST (before upPages)
-  const now = Date.now();
-  const isUpcoming = (ev) => new Date(ev.end_iso).getTime() >= now;
-
   const upcoming = useMemo(
-    () => rows
-      .filter(isUpcoming)
-      .sort((a, b) => new Date(a.start_iso) - new Date(b.start_iso)),
+    () => {
+      const now = Date.now();
+      return rows
+        .filter(ev => new Date(ev.end_iso).getTime() >= now)
+        .sort((a, b) => new Date(a.start_iso) - new Date(b.start_iso));
+    },
     [rows]
   );
 
   const past = useMemo(
-    () => rows
-      .filter(ev => !isUpcoming(ev))
-      .sort((a, b) => new Date(b.start_iso) - new Date(a.start_iso)),
+    () => {
+      const now = Date.now();
+      return rows
+        .filter(ev => new Date(ev.end_iso).getTime() < now)
+        .sort((a, b) => new Date(b.start_iso) - new Date(a.start_iso));
+    },
     [rows]
   );
 
@@ -414,14 +416,6 @@ const Events = () => {
   }, [isMobile, upPages.length]);
 
   const hasPast = past.length > 0;
-
-  const feed = useMemo(() => {
-    if (!isMobile) return [];
-    return [
-      ...upcoming.map(ev => ({ ...ev, _isPast: false })),
-      ...past.map(ev => ({ ...ev, _isPast: true })),
-    ];
-  }, [isMobile, upcoming, past]);
 
   return (
     <Layout>

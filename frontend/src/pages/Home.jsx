@@ -12,7 +12,6 @@ import table from "../images/working at table.jpg";
 import CSGirlsLogo from "../images/CSgirlsLOGO.png";
 import CodeCoogsLogo from "../images/CodeCoogsLOGO.png";
 import ColorStackLogo from "../images/ColorStackLOGO.jpg";
-import CougarettesLogo from "../images/CougarettesLOGO.png";
 import IEEEUHLogo from "../images/IEEEUHLOGO.png";
 
 const DISCORD_URL = "https://discord.gg/2KtqWSP8t2";
@@ -354,7 +353,7 @@ function Home() {
           <div className="partners-inner">
             <h3 id="partners-heading">Partnerships</h3>
 
-            <ul className="partners-grid" role="list">
+            <ul className="partners-grid">
               {PARTNERS.map((p) => (
                 <li key={p.name} className="partner-card">
                   <a
