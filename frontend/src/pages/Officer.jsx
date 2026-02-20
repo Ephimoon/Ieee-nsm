@@ -83,97 +83,126 @@ const officers = [
   ),
   new OfficerInfo(
     5,
+    "Treasurer",
+    "Maryam Ahmed",
+    MaryamImage,
+    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
+    ""
+  ),
+  new OfficerInfo(
+    6,
     "Secretary",
     "Carl Aguinaldo",
     carlImage,
     "https://www.linkedin.com/in/carl425/"
   ),
   new OfficerInfo(
-    6,
+    7,
     "Historian",
     "Mia Borbon",
     miaImage,
     "https://www.linkedin.com/in/dillianemiaborbon/"
   ),
   new OfficerInfo(
-    7,
+    8,
     "Events Chair",
     "Jaden Binh",
     defaultImage,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    8,
+    9,
     "Events Committee",
     "Emma Nguyen",
     EmmaImage,
     "https://www.linkedin.com/in/emma-nguyen05/"
   ),
   new OfficerInfo(
-    9,
+    10,
     "Events Committee",
     "Naomi Thomas",
     NaomiImage,
     "https://www.linkedin.com/in/naomi-thomas-625385291/"
   ),
   new OfficerInfo(
-    10,
+    11,
+    "Events Committee",
+    "Naomi Thomas",
+    NaomiImage,
+    "https://www.linkedin.com/in/naomi-thomas-625385291/"
+  ),
+  new OfficerInfo(
+    12,
     "Marketing Chair",
     "Isabella Truong",
     IsabellaImage,
     "https://www.linkedin.com/in/isabella-truong/"
   ),
   new OfficerInfo(
-    11,
+    13,
     "Marketing Committee",
     "Zaria Saeed",
     defaultImage,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    12,
+    14,
+    "Marketing Committee",
+    "Zaria Saeed",
+    defaultImage,
+    "https://www.linkedin.com/"
+  ),
+  new OfficerInfo(
+    15,
     "Graphic Designer",
     "Aidan Bolton",
     defaultImage,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    13,
+    16,
     "Graphic Designer",
     "Ciara Miles",
     defaultImage,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    14,
+    17,
+    "Graphic Designer",
+    "Ciara Miles",
+    defaultImage,
+    "https://www.linkedin.com/"
+  ),
+  new OfficerInfo(
+    18,
     "Graphic Designer",
     "Claudette Sanchez",
     defaultImage,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    15,
+    19,
     "Webmaster",
     "Melanie Escobar Marulanda",
     MelanieImage,
     "https://www.linkedin.com/in/melanie-escobar-marulanda/"
   ),
   new OfficerInfo(
-    16,
+    20,
     "Co-Webmaster",
     "Fariha Adil",
     FarihaImage,
     "https://www.linkedin.com/in/fariha-adil-844496277/"
   ),
   new OfficerInfo(
-    17,
+    21,
     "Co-Webmaster",
     "Rishan Sivakumar",
     RishanImage,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    18,
+    22,
     "Research Chair",
     "Joshua Novak",
     JoshImage,
@@ -181,7 +210,7 @@ const officers = [
     ""
   ),
   new OfficerInfo(
-    19,
+    23,
     "Research Chair",
     "Pavankumar Gali",
     PavanImage,
