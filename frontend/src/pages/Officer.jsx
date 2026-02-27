@@ -240,7 +240,7 @@ const ieeeNSMCompetitions = [
     104,
     "Competitions Branch Committee",
     "Danish Jamal",
-    MaryamImage,
+    defaultImage,
     "https://www.linkedin.com/",
     ""
   ),
@@ -248,7 +248,7 @@ const ieeeNSMCompetitions = [
     105,
     "Competitions Branch Committee",
     "Duy Bao Nguyen",
-    TanImage,
+    defaultImage,
     "https://www.linkedin.com/",
     ""
   ),
