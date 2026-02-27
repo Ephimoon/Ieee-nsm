@@ -24,7 +24,7 @@ import PavanImage from "../images/officer-images/PavankumarImage.png";
 //import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
 //import AngelaImage from "../images/officer-images/AngelaImage.jpg";
 //import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
-import TanImage from "../images/officer-images/TanImage.jpg";
+//import TanImage from "../images/officer-images/TanImage.jpg";
 import classroomImage from "../images/classroom-with-background.png";
 import GraceImage from "../images/officer-images/GraceImage.jpg";
 import MohamedImage from "../images/officer-images/MohamedImage.jpg";
