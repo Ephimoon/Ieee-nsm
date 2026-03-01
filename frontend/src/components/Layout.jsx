@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./Layout.css";
-import whiteieee from "../images/white ieensm logo (1).png";
-import insta from "../images/Group 3.png";
-import linkedin from "../images/image 10.png";
-import discord from "../images/image 11.png";
+import whiteieee from "../images/logos/white IEEE-NSM logo.png";
+import insta from "../images/logos/instagram-logo.png";
+import linkedin from "../images/logos/linkedin-logo.png";
+import discord from "../images/logos/discord-logo.png";
+
 
 const Layout = ({ children }) => {
   const bmFormUrl = process.env.REACT_APP_BM_FORM_URL?.trim();

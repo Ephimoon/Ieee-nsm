@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Layout from '../components/Layout';
-import heroImg from '../images/events-hero.jpg';
+import heroImg from '../images/event-images/events-hero.jpg';
 import './Events.css';
 
 const EVENTS_JSON_URL = process.env.REACT_APP_EVENTS_JSON_URL;
