@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 
 import "./Home.css";
 import CalendarComponent from "../components/CalendarComponent.jsx";
@@ -57,30 +57,32 @@ const PARTNERS = [
 ];
 
 function Home() {
+  const formRef = useRef(null);
   const [contactFormResponse, setContactFormResponse] = useState("");
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = async (formEventData) => {
-    formEventData.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setIsSending(true);
+    setContactFormResponse("Sending...");
+
     try {
-      const result = await fetch("https://www.baddle.fun/api/contact-ieee", {
-        method: "POST",
-        body: JSON.stringify({
-          name: formEventData.target.name.value,
-          email: formEventData.target.email.value,
-          role: formEventData.target.role.value,
-          message: formEventData.target.message.value,
-        }),
-      });
-      console.log(result);
-      if (result.status === 200) setContactFormResponse("Message Sent!");
-      else setContactFormResponse(result.statusText);
-    } catch (e) {
-      setContactFormResponse(
-        "Message failed to send. Please ensure that all fields are valid."
+      await emailjs.sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY }
       );
-      console.log(e);
+
+      setContactFormResponse("Sent successfully! We'll get back to you soon.");
+      formRef.current.reset();
+    } catch (error) {
+      console.error("EmailJS Error:", error); 
+      setContactFormResponse("Something went wrong. Please try again.");
+    } finally {
+      setIsSending(false);
     }
-    setTimeout(() => setContactFormResponse(""), 3000);
   };
 
   return (
@@ -377,17 +379,14 @@ function Home() {
         <section id="contact-form" className="membership-form">
           <div className="form-inner">
             <h3>Contact Us</h3>
-            <form onSubmit={handleSubmit}>
+
+            <form ref={formRef} onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="name">Name (required)</label>
                   <input type="text" name="name" id="name" required />
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value="New submission!"
-                  ></input>
                 </div>
+
                 <div className="form-group">
                   <label htmlFor="email">Email (required)</label>
                   <input type="email" name="email" id="email" required />
@@ -397,7 +396,7 @@ function Home() {
               <div className="form-row">
                 <div className="form-group">
                   <label htmlFor="role">I am...</label>
-                  <select type="role" name="role" id="role">
+                  <select name="role" id="role" required>
                     <option value="">Select...</option>
                     <option value="student">A Student</option>
                     <option value="professional">An Alum</option>
@@ -407,15 +406,22 @@ function Home() {
                     </option>
                   </select>
                 </div>
+
                 <div className="form-group">
-                  <label>Message</label>
-                  <textarea name="message"></textarea>
+                  <label htmlFor="message">Message</label>
+                  <textarea name="message" id="message" required></textarea>
                 </div>
-                <button type="submit" className="submit-btn">
-                  Send
+
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSending}
+                >
+                  {isSending ? "Sending..." : "Send"}
                 </button>
               </div>
             </form>
+
             <div className="form-result-text">{contactFormResponse}</div>
           </div>
         </section>
