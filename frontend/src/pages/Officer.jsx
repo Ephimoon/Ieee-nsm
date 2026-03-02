@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import "./Officer.css";
 import linkedinLogo from "../images/logos/linkedin-logo.png";
 import discordIcon from "../images/logos/discord-logo.png";
-import defaultImage from "../images/logos/white IEEE-NSM logo.png";
+import ieeelogo from "../images/logos/IEEE-NSM Logo.png";
 //import livImage from "../images/officer-images/LivImage.jpg";
 //import vincentImage from "../images/officer-images/VincentImage.jpg";
 //import samImage from "../images/officer-images/SamImage.jpg";
@@ -37,7 +37,7 @@ class OfficerInfo {
     id,
     position,
     name,
-    img = defaultImage,
+    img = ieeelogo,
     linkedinUrl = "",
     discordUsername = ""
   ) {
@@ -99,7 +99,7 @@ const officers = [
     7,
     "Events Chair",
     "Jaden Binh",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
@@ -127,28 +127,28 @@ const officers = [
     11,
     "Marketing Committee",
     "Zaria Saeed",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     12,
     "Graphic Designer",
     "Aidan Bolton",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     13,
     "Graphic Designer",
     "Ciara Miles",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     14,
     "Graphic Designer",
     "Claudette Sanchez",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
@@ -202,7 +202,7 @@ const ieeeNSMCompetitions = [
     102,
     "Competitions Branch Committee",
     "Zariah Arrington",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/",
     ""
   ),
@@ -210,7 +210,7 @@ const ieeeNSMCompetitions = [
     103,
     "Competitions Branch Committee",
     "Kyron Castellanos",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/",
     ""
   ),
@@ -218,7 +218,7 @@ const ieeeNSMCompetitions = [
     104,
     "Competitions Branch Committee",
     "Danish Jamal",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/",
     ""
   ),
@@ -226,7 +226,7 @@ const ieeeNSMCompetitions = [
     105,
     "Competitions Branch Committee",
     "Duy Bao Nguyen",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/",
     ""
   ),
