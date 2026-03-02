@@ -399,9 +399,9 @@ function Home() {
                   <select name="role" id="role" required>
                     <option value="">Select...</option>
                     <option value="student">A Student</option>
-                    <option value="professional">An Alum</option>
-                    <option value="faculty">A Sponsor</option>
-                    <option value="representative">
+                    <option value="alumni">An Alum</option>
+                    <option value="sponsor">A Sponsor</option>
+                    <option value="company representative">
                       A Company Representative
                     </option>
                   </select>
