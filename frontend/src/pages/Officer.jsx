@@ -206,7 +206,7 @@ const ieeeNSMCompetitions = [
     "ICPC-style",
     "Zariah Arrington",
     ZariahImage,
-    "www.linkedin.com/in/zariah-arrington-571843385",
+    "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
