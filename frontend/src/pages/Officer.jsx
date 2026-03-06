@@ -30,6 +30,9 @@ import GraceImage from "../images/officer-images/GraceImage.jpg";
 import MohamedImage from "../images/officer-images/MohamedImage.jpg";
 import DanImage from "../images/officer-images/DanImage.jpg";
 import RishanImage from "../images/officer-images/RishanImage.jpg";
+import DanishImage from "../images/officer-images/DanishImage.jpg";
+import KyronImage from "../images/officer-images/KyronImage.jpg";
+import ZariahImage from "../images/officer-images/ZariahImage.jpg";
 
 
 class OfficerInfo {
@@ -200,26 +203,26 @@ const ieeeNSMCompetitions = [
   ),
   new OfficerInfo(
     102,
-    "Competitions Branch Committee",
+    "ICPC-style",
     "Zariah Arrington",
-    ieeelogo,
-    "https://www.linkedin.com/",
+    ZariahImage,
+    "www.linkedin.com/in/zariah-arrington-571843385",
     ""
   ),
   new OfficerInfo(
     103,
-    "Competitions Branch Committee",
+    "ICPC-style",
     "Kyron Castellanos",
-    ieeelogo,
+    KyronImage,
     "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
     104,
-    "Competitions Branch Committee",
+    "Data Science",
     "Danish Jamal",
-    ieeelogo,
-    "https://www.linkedin.com/",
+    DanishImage,
+    "https://www.linkedin.com/in/danish-jamal-43a45320b",
     ""
   ),
   new OfficerInfo(
