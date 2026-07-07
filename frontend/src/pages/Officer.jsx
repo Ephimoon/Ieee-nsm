@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
 import "./Officer.css";
-import linkedinLogo from "../images/image 10.png";
-import discordIcon from "../images/discord-icon.png";
-import defaultImage from "../images/white ieensm logo (1).png";
+import linkedinLogo from "../images/logos/linkedin-logo.png";
+import discordIcon from "../images/logos/discord-logo.png";
+import ieeelogo from "../images/logos/IEEE-NSM Logo.png";
 //import livImage from "../images/officer-images/LivImage.jpg";
 //import vincentImage from "../images/officer-images/VincentImage.jpg";
 //import samImage from "../images/officer-images/SamImage.jpg";
@@ -24,12 +24,15 @@ import PavanImage from "../images/officer-images/PavankumarImage.png";
 //import JacquelineImage from "../images/officer-images/JacquelineImage.jpg";
 //import AngelaImage from "../images/officer-images/AngelaImage.jpg";
 //import GabrielaImage from "../images/officer-images/GabrielaImage.jpg";
-import TanImage from "../images/officer-images/TanImage.jpg";
-import classroomImage from "../images/classroom-with-background.png";
+//import TanImage from "../images/officer-images/TanImage.jpg";
+import classroomImage from "../images/event-images/classroom-with-background.png";
 import GraceImage from "../images/officer-images/GraceImage.jpg";
 import MohamedImage from "../images/officer-images/MohamedImage.jpg";
 import DanImage from "../images/officer-images/DanImage.jpg";
 import RishanImage from "../images/officer-images/RishanImage.jpg";
+import DanishImage from "../images/officer-images/DanishImage.jpg";
+import KyronImage from "../images/officer-images/KyronImage.jpg";
+import ZariahImage from "../images/officer-images/ZariahImage.jpg";
 
 
 class OfficerInfo {
@@ -37,7 +40,7 @@ class OfficerInfo {
     id,
     position,
     name,
-    img = defaultImage,
+    img = ieeelogo,
     linkedinUrl = "",
     discordUsername = ""
   ) {
@@ -83,119 +86,97 @@ const officers = [
   ),
   new OfficerInfo(
     5,
-    "Treasurer",
-    "Maryam Ahmed",
-    MaryamImage,
-    "https://www.linkedin.com/in/maryam-ahmed-54b471215/",
-    ""
-  ),
-  new OfficerInfo(
-    6,
     "Secretary",
     "Carl Aguinaldo",
     carlImage,
     "https://www.linkedin.com/in/carl425/"
   ),
   new OfficerInfo(
-    7,
+    6,
     "Historian",
     "Mia Borbon",
     miaImage,
     "https://www.linkedin.com/in/dillianemiaborbon/"
   ),
   new OfficerInfo(
-    8,
+    7,
     "Events Chair",
     "Jaden Binh",
-    defaultImage,
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    9,
+    8,
     "Events Committee",
     "Emma Nguyen",
     EmmaImage,
     "https://www.linkedin.com/in/emma-nguyen05/"
   ),
   new OfficerInfo(
-    10,
+    9,
     "Events Committee",
     "Naomi Thomas",
     NaomiImage,
     "https://www.linkedin.com/in/naomi-thomas-625385291/"
   ),
   new OfficerInfo(
-    11,
+    10,
     "Marketing Chair",
     "Isabella Truong",
     IsabellaImage,
     "https://www.linkedin.com/in/isabella-truong/"
   ),
   new OfficerInfo(
-    12,
+    11,
     "Marketing Committee",
     "Zaria Saeed",
-    defaultImage,
+    ieeelogo,
+    "https://www.linkedin.com/"
+  ),
+  new OfficerInfo(
+    12,
+    "Graphic Designer",
+    "Aidan Bolton",
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     13,
-    "Marketing Committee",
-    "Zaria Saeed",
-    defaultImage,
+    "Graphic Designer",
+    "Ciara Miles",
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     14,
     "Graphic Designer",
-    "Aidan Bolton",
-    defaultImage,
+    "Claudette Sanchez",
+    ieeelogo,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
     15,
-    "Graphic Designer",
-    "Ciara Miles",
-    defaultImage,
-    "https://www.linkedin.com/"
-  ),
-  new OfficerInfo(
-    16,
-    "Graphic Designer",
-    "Ciara Miles",
-    defaultImage,
-    "https://www.linkedin.com/"
-  ),
-  new OfficerInfo(
-    17,
-    "Graphic Designer",
-    "Claudette Sanchez",
-    defaultImage,
-    "https://www.linkedin.com/"
-  ),
-  new OfficerInfo(
-    18,
     "Webmaster",
     "Melanie Escobar Marulanda",
     MelanieImage,
     "https://www.linkedin.com/in/melanie-escobar-marulanda/"
   ),
   new OfficerInfo(
-    19,
+    16,
     "Co-Webmaster",
     "Fariha Adil",
     FarihaImage,
     "https://www.linkedin.com/in/fariha-adil-844496277/"
   ),
   new OfficerInfo(
-    20,
+    17,
     "Co-Webmaster",
     "Rishan Sivakumar",
     RishanImage,
     "https://www.linkedin.com/"
   ),
   new OfficerInfo(
-    21,
+    18,
     "Research Chair",
     "Joshua Novak",
     JoshImage,
@@ -203,7 +184,7 @@ const officers = [
     ""
   ),
   new OfficerInfo(
-    22,
+    19,
     "Research Chair",
     "Pavankumar Gali",
     PavanImage,
@@ -222,33 +203,33 @@ const ieeeNSMCompetitions = [
   ),
   new OfficerInfo(
     102,
-    "Competitions Branch Committee",
+    "ICPC-style",
     "Zariah Arrington",
-    defaultImage,
+    ZariahImage,
     "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
     103,
-    "Competitions Branch Committee",
+    "ICPC-style",
     "Kyron Castellanos",
-    defaultImage,
+    KyronImage,
     "https://www.linkedin.com/",
     ""
   ),
   new OfficerInfo(
     104,
-    "Competitions Branch Committee",
+    "Data Science",
     "Danish Jamal",
-    MaryamImage,
-    "https://www.linkedin.com/",
+    DanishImage,
+    "https://www.linkedin.com/in/danish-jamal-43a45320b",
     ""
   ),
   new OfficerInfo(
     105,
     "Competitions Branch Committee",
     "Duy Bao Nguyen",
-    TanImage,
+    ieeelogo,
     "https://www.linkedin.com/",
     ""
   ),

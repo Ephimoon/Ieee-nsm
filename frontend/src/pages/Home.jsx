@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import emailjs from "@emailjs/browser";
 
 import "./Home.css";
 import Layout from "../components/Layout";
 import galentines from "../images/galentines.jpg";
-import friends from "../images/smiling friends (1).png";
+import friends from "../images/socials.jpg";
 import matcha from "../images/matcha.png";
 import officers from "../images/officers.jpg";
 import officers2 from "../images/officers2.jpg";
@@ -12,10 +13,10 @@ import research from "../images/research.jpg";
 import social2 from "../images/social2.jpg";
 import socials from "../images/socials.jpg";
 import working from "../images/working.png";
-import CSGirlsLogo from "../images/CSgirlsLOGO.png";
-import CodeCoogsLogo from "../images/CodeCoogsLOGO.png";
-import ColorStackLogo from "../images/ColorStackLOGO.jpg";
-import IEEEUHLogo from "../images/IEEEUHLOGO.png";
+import CSGirlsLogo from "../images/logos/CSgirlsLOGO.png";
+import CodeCoogsLogo from "../images/logos/CodeCoogsLOGO.png";
+import ColorStackLogo from "../images/logos/ColorStackLOGO.jpg";
+import IEEEUHLogo from "../images/logos/IEEEUHLOGO.png";
 import VariableProximity from "../components/VariableProximity";
 
 const DISCORD_URL = "https://discord.gg/nXx9UtEeyy";
@@ -91,6 +92,7 @@ const HERO_SLIDES = [
 const HERO_TYPED_TEXT = "IEEE-NSM";
 
 function Home() {
+  const formRef = useRef(null);
   const [contactFormResponse, setContactFormResponse] = useState("");
   const bmFormUrl = process.env.REACT_APP_BM_FORM_URL?.trim();
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
@@ -191,29 +193,30 @@ function Home() {
 
     return () => window.clearTimeout(typingId);
   }, [typedHeroText, isHeroVisible, typingRunKey]);
+  const [isSending, setIsSending] = useState(false);
 
-  const handleSubmit = async (formEventData) => {
-    formEventData.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setIsSending(true);
+    setContactFormResponse("Sending...");
+
     try {
-      const result = await fetch("https://www.baddle.fun/api/contact-ieee", {
-        method: "POST",
-        body: JSON.stringify({
-          name: formEventData.target.name.value,
-          email: formEventData.target.email.value,
-          role: formEventData.target.role.value,
-          message: formEventData.target.message.value,
-        }),
-      });
-      console.log(result);
-      if (result.status === 200) setContactFormResponse("Message Sent!");
-      else setContactFormResponse(result.statusText);
-    } catch (e) {
-      setContactFormResponse(
-        "Message failed to send. Please ensure that all fields are valid."
+      await emailjs.sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY }
       );
-      console.log(e);
+
+      setContactFormResponse("Sent successfully! We'll get back to you soon.");
+      formRef.current.reset();
+    } catch (error) {
+      console.error("EmailJS Error:", error); 
+      setContactFormResponse("Something went wrong. Please try again.");
+    } finally {
+      setIsSending(false);
     }
-    setTimeout(() => setContactFormResponse(""), 3000);
   };
 
   return (
@@ -595,8 +598,12 @@ function Home() {
                   <textarea name="message" id="message" required></textarea>
                 </div>
 
-                <button type="submit" className="submit-btn">
-                  Send Message
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSending}
+                >
+                  {isSending ? "Sending..." : "Send"}
                 </button>
               </form>
               <div className="form-result-text">{contactFormResponse}</div>

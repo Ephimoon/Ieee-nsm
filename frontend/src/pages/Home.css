@@ -44,6 +44,18 @@ html {
   padding: 0 var(--site-inline-pad, 1rem);
   display: grid;
   grid-template-columns: minmax(280px, 2fr) minmax(520px, 3fr);
+.post-pillars-link-icon.is-discord::before {
+  -webkit-mask-image: url("../images/logos/discord-logo.png");
+  mask-image: url("../images/logos/discord-logo.png");
+}
+.post-pillars-link-icon.is-instagram::before {
+  -webkit-mask-image: url("../images/logos/instagram-logo.png");
+  mask-image: url("../images/logos/instagram-logo.png");
+}
+.post-pillars-link-icon.is-linkedin::before {
+  -webkit-mask-image: url("../images/logos/linkedin-logo.png");
+  mask-image: url("../images/logos/linkedin-logo.png");
+}
   align-items: center;
   gap: clamp(1rem, 3vw, 2.8rem);
 }
@@ -1278,18 +1290,18 @@ html {
 }
 
 .post-pillars-link-icon.is-discord::before {
-  -webkit-mask-image: url("../images/image 11.png");
-  mask-image: url("../images/image 11.png");
+  -webkit-mask-image: url("../images/logos/discord-logo.png");
+  mask-image: url("../images/logos/discord-logo.png");
 }
 
 .post-pillars-link-icon.is-instagram::before {
-  -webkit-mask-image: url("../images/Group 3.png");
-  mask-image: url("../images/Group 3.png");
+  -webkit-mask-image: url("../images/logos/instagram-logo.png");
+  mask-image: url("../images/logos/instagram-logo.png");
 }
 
 .post-pillars-link-icon.is-linkedin::before {
-  -webkit-mask-image: url("../images/image 10.png");
-  mask-image: url("../images/image 10.png");
+  -webkit-mask-image: url("../images/logos/linkedin-logo.png");
+  mask-image: url("../images/logos/linkedin-logo.png");
 }
 
 .post-pillars-link-label {
