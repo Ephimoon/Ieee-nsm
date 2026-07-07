@@ -1,22 +1,27 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./Home.css";
-import CalendarComponent from "../components/CalendarComponent.jsx";
-import FullScreenCarousel from "../pages/FullScreenCarousel";
 import Layout from "../components/Layout";
-import banner from "../images/ieee nsm banner (1).png";
-import olivia from "../images/Olivia holding image.png";
+import galentines from "../images/galentines.jpg";
 import friends from "../images/smiling friends (1).png";
-import table from "../images/working at table.jpg";
+import matcha from "../images/matcha.png";
+import officers from "../images/officers.jpg";
+import officers2 from "../images/officers2.jpg";
+import research from "../images/research.jpg";
+import social2 from "../images/social2.jpg";
+import socials from "../images/socials.jpg";
+import working from "../images/working.png";
 import CSGirlsLogo from "../images/CSgirlsLOGO.png";
 import CodeCoogsLogo from "../images/CodeCoogsLOGO.png";
 import ColorStackLogo from "../images/ColorStackLOGO.jpg";
 import IEEEUHLogo from "../images/IEEEUHLOGO.png";
+import VariableProximity from "../components/VariableProximity";
 
-const DISCORD_URL = "https://discord.gg/2KtqWSP8t2";
-const INSTAGRAM_URL = "https://www.instagram.com/ieee_nsm";
-const LINKEDIN_URL = "https://www.linkedin.com/company/ieee-nsm/";
+const DISCORD_URL = "https://discord.gg/nXx9UtEeyy";
+const INSTAGRAM_URL = "https://www.instagram.com/ieee_nsm/";
+const LINKEDIN_URL =
+  "https://www.linkedin.com/company/ieee-nsm/posts/?feedView=all";
 
 /*import bluediscord from '../images/discord.png'
 import bluelinkedin from '../images/linkedin.png';*/
@@ -56,8 +61,136 @@ const PARTNERS = [
   },
 ];
 
+const HERO_SLIDES = [
+  {
+    src: officers2,
+    alt: "IEEE-NSM officers together",
+  },
+  {
+    src: galentines,
+    alt: "IEEE-NSM members at the Galentines event",
+  },
+  {
+    src: matcha,
+    alt: "IEEE-NSM members at the matcha social",
+  },
+  {
+    src: officers,
+    alt: "IEEE-NSM officers at a chapter event",
+  },
+  {
+    src: social2,
+    alt: "IEEE-NSM members at a social event",
+  },
+  {
+    src: working,
+    alt: "IEEE-NSM members working together",
+  },
+];
+
+const HERO_TYPED_TEXT = "IEEE-NSM";
+
 function Home() {
   const [contactFormResponse, setContactFormResponse] = useState("");
+  const bmFormUrl = process.env.REACT_APP_BM_FORM_URL?.trim();
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
+  const [typedHeroText, setTypedHeroText] = useState("");
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
+  const [typingRunKey, setTypingRunKey] = useState(0);
+  const heroSectionRef = useRef(null);
+  const missionTextRef = useRef(null);
+  const wasHeroVisibleRef = useRef(false);
+
+  useEffect(() => {
+    if (!isHeroVisible) return undefined;
+
+    const sliderId = window.setInterval(() => {
+      setActiveHeroSlide((current) => (current + 1) % HERO_SLIDES.length);
+    }, 4000);
+
+    return () => window.clearInterval(sliderId);
+  }, [isHeroVisible]);
+
+  useEffect(() => {
+    if (!heroSectionRef.current) return;
+    if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
+      setIsHeroVisible(true);
+      return undefined;
+    }
+
+    const heroObserver = new IntersectionObserver(
+      ([entry]) => {
+        const isVisible = entry.isIntersecting;
+        setIsHeroVisible(isVisible);
+
+        if (isVisible && !wasHeroVisibleRef.current) {
+          setTypedHeroText("");
+          setTypingRunKey((current) => current + 1);
+        }
+
+        wasHeroVisibleRef.current = isVisible;
+      },
+      { threshold: 0.4 }
+    );
+
+    heroObserver.observe(heroSectionRef.current);
+    return () => heroObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll(".pillar-card"));
+    if (!cards.length) return undefined;
+
+    cards.forEach((card) => card.classList.remove("is-visible"));
+
+    if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
+      cards.forEach((card) => card.classList.add("is-visible"));
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const targetCard = entry.target;
+          const shouldShow =
+            entry.isIntersecting && entry.intersectionRatio >= 0.12;
+
+          if (shouldShow) {
+            if (targetCard.classList.contains("is-visible")) return;
+            window.requestAnimationFrame(() => {
+              targetCard.classList.add("is-visible");
+            });
+            return;
+          }
+
+          targetCard.classList.remove("is-visible");
+        });
+      },
+      {
+        threshold: [0, 0.12, 0.3],
+        rootMargin: "0px 0px -4% 0px",
+      }
+    );
+
+    cards.forEach((card, index) => {
+      card.style.setProperty("--pillar-delay", `${index * 90}ms`);
+      observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isHeroVisible) return;
+    if (typedHeroText === HERO_TYPED_TEXT) return;
+
+    const typingId = window.setTimeout(() => {
+      const nextLength = typedHeroText.length + 1;
+      setTypedHeroText(HERO_TYPED_TEXT.slice(0, nextLength));
+    }, 110);
+
+    return () => window.clearTimeout(typingId);
+  }, [typedHeroText, isHeroVisible, typingRunKey]);
 
   const handleSubmit = async (formEventData) => {
     formEventData.preventDefault();
@@ -86,263 +219,285 @@ function Home() {
   return (
     <Layout>
       <div className="home-container">
-        {/* Hero Banner with Dark Overlay */}
-        <div className="hero-banner">
-          <div className="banner-overlay"></div>
-          <img src={banner} alt="IEEE Banner" className="banner-image" />
-          <div className="hero-content">
-            <p>University of Houston</p>
-            <h1>Institute of Electrical and Electronics Engineers</h1>
+        {/* Hero */}
+        <section
+          className="landing-hero"
+          aria-label="IEEE-NSM hero"
+          ref={heroSectionRef}
+        >
+          <div className="landing-hero-wrap">
+            <div className="landing-hero-left">
+              <p className="landing-hero-kicker">University of Houston</p>
+              <h1 className="landing-hero-title">
+                <span>{typedHeroText}</span>
+                <span className="landing-hero-cursor" aria-hidden="true">
+                  |
+                </span>
+              </h1>
+              <p className="landing-hero-tagline">
+                Research, competitions, and community.
+              </p>
+
+              <div className="landing-hero-actions">
+                {bmFormUrl ? (
+                  <a className="landing-hero-btn hero-primary" href={bmFormUrl}>
+                    Become a Member
+                  </a>
+                ) : (
+                  <Link className="landing-hero-btn hero-primary" to="/bm">
+                    Become a Member
+                  </Link>
+                )}
+                <a className="landing-hero-btn hero-secondary" href="#contact-form">
+                  Contact Us
+                </a>
+              </div>
+            </div>
+
+            <div className="landing-hero-right">
+              <div className="landing-hero-slides">
+                <img
+                  src={HERO_SLIDES[activeHeroSlide].src}
+                  alt={HERO_SLIDES[activeHeroSlide].alt}
+                  className="landing-hero-slide is-active"
+                  loading="eager"
+                  decoding="async"
+                />
+                <div className="landing-hero-dots" aria-label="Hero slideshow">
+                  {HERO_SLIDES.map((slide, index) => (
+                    <button
+                      key={`hero-dot-${slide.alt}`}
+                      className={`landing-hero-dot${
+                        index === activeHeroSlide ? " is-active" : ""
+                      }`}
+                      onClick={() => setActiveHeroSlide(index)}
+                      aria-label={`Go to slide ${index + 1}`}
+                      aria-current={index === activeHeroSlide}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
         {/* Mission Section */}
         <section className="mission-section">
           <div className="mission-content">
             <h3>Our Mission</h3>
-            <p>
-              IEEE-NSM helps students grow technical skills through{" "}
-              <b>research</b> opportunities, <b>competitive programming</b>, and
-              a supportive <b>community</b> so you can learn by doing, publish
-              and present, and land great opportunities.
+            <p className="mission-proximity-paragraph">
+              <span ref={missionTextRef} className="mission-proximity-container">
+                <VariableProximity
+                  label="The Institute of Electrical and Electronics Engineers at the Natural Sciences and Mathematics Department exists to foster technological innovation and excellence for the benefit of humanity. We strive to create a space where students find community and gain more accessible opportunities for research and competitions."
+                  className="mission-variable-proximity"
+                  fromFontVariationSettings="'wght' 420, 'opsz' 10"
+                  toFontVariationSettings="'wght' 920, 'opsz' 40"
+                  containerRef={missionTextRef}
+                  radius={110}
+                  falloff="linear"
+                />
+              </span>
             </p>
           </div>
         </section>
 
         {/* Pillars */}
         <section className="pillars-section" aria-label="What we offer">
-          <div className="pillars-wrap">
-            <article className="pillar-card" aria-labelledby="pillar-research">
-              <div className="pillar-icon" aria-hidden="true">
-                {/* magnifying glass */}
-                <svg viewBox="0 0 24 24">
-                  <circle
-                    cx="11"
-                    cy="11"
-                    r="6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
+          <div className="pillars-shell">
+            <h3 className="pillars-heading">What we offer</h3>
+            <p className="pillars-subtext">
+              Explore the opportunities and resources available to IEEE-NSM
+              members.
+            </p>
+            <div className="pillars-wrap">
+              <article
+                className="pillar-card pillar-card-research"
+                aria-labelledby="pillar-research"
+              >
+                <figure className="pillar-photo">
+                  <img
+                    src={research}
+                    alt="IEEE-NSM members collaborating on research at a table"
+                    loading="lazy"
+                    decoding="async"
                   />
-                  <line
-                    x1="16"
-                    y1="16"
-                    x2="21"
-                    y2="21"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </div>
-              <h4 id="pillar-research">Research</h4>
-              <p>
-                Connect students to research opportunities and help them take
-                their first steps into academia
-              </p>
-              <ul>
-                <li>work directly with professors</li>
-                <li>gain hands-on experience</li>
-                <li>
-                  workshops to demystify research and assist throughout research
-                  process
-                </li>
-              </ul>
-            </article>
+                  <figcaption id="pillar-research" className="pillar-photo-title">
+                    <span className="pillar-title-icon" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 21h8" />
+                        <path d="M7 21v-3l2-2 2 2v3" />
+                        <path d="M11 8 8 5" />
+                        <path d="m14 11 5-5" />
+                        <path d="M12 10h4" />
+                        <path d="M14 8v4" />
+                        <circle cx="17.5" cy="6.5" r="2.5" />
+                      </svg>
+                    </span>
+                    <span className="pillar-title-text">Research</span>
+                  </figcaption>
+                </figure>
+                <div className="pillar-content">
+                  <p>
+                    Connect students to faculty-led research opportunities and
+                    guide their first steps into academia.
+                  </p>
+                  <ul>
+                    <li>Work directly with professors</li>
+                    <li>Gain hands-on technical experience</li>
+                    <li>
+                      Join workshops that demystify the full research process
+                    </li>
+                  </ul>
+                </div>
+              </article>
 
-            <article className="pillar-card" aria-labelledby="pillar-cp">
-              <div className="pillar-icon" aria-hidden="true">
-                {/* code brackets */}
-                <svg viewBox="0 0 24 24">
-                  <polyline
-                    points="9 18 3 12 9 6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
+              <article
+                className="pillar-card pillar-card-competitions"
+                aria-labelledby="pillar-cp"
+              >
+                <figure className="pillar-photo">
+                  <img
+                    src={friends}
+                    alt="IEEE-NSM member presenting chapter activities"
+                    loading="lazy"
+                    decoding="async"
                   />
-                  <polyline
-                    points="15 6 21 12 15 18"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-              <h4 id="pillar-cp">Competitive Programming</h4>
-              <p>Sharpen problem-solving and core DS&A skills</p>
-              <ul>
-                <li>
-                  LeetCode Support Group to learn patterns and how to conquer
-                  LeetCode problems
-                </li>
-                <li>LeetCode support group</li>
-                <li>ICPC preparation and support</li>
-              </ul>
-            </article>
+                  <figcaption id="pillar-cp" className="pillar-photo-title">
+                    <span
+                      className="pillar-title-icon pillar-title-icon-code"
+                      aria-hidden="true"
+                    >
+                      &lt;/&gt;
+                    </span>
+                    <span className="pillar-title-text">
+                      Competitions
+                    </span>
+                  </figcaption>
+                </figure>
+                <div className="pillar-content">
+                  <p>Sharpen problem-solving and core DS&amp;A skills.</p>
+                  <ul>
+                    <li>
+                      Learn key patterns in our LeetCode Support Group
+                    </li>
+                    <li>Practice consistently with peers and mentors</li>
+                    <li>Train for ICPC and other coding competitions</li>
+                  </ul>
+                  <a
+                    className="pillar-branch-btn"
+                    href="https://discord.gg/gqrymuagzC"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Join Competitions Discord
+                  </a>
+                </div>
+              </article>
 
-            <article className="pillar-card" aria-labelledby="pillar-community">
-              <div className="pillar-icon" aria-hidden="true">
-                {/* people */}
-                <svg viewBox="0 0 24 24">
-                  <circle
-                    cx="8"
-                    cy="8"
-                    r="3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
+              <article
+                className="pillar-card pillar-card-community"
+                aria-labelledby="pillar-community"
+              >
+                <figure className="pillar-photo">
+                  <img
+                    src={socials}
+                    alt="IEEE-NSM members smiling together in community"
+                    loading="lazy"
+                    decoding="async"
                   />
-                  <circle
-                    cx="16"
-                    cy="8"
-                    r="3"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M3 20c0-3 3-5 5-5s5 2 5 5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                  <path
-                    d="M11 20c0-3 3-5 5-5s5 2 5 5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  />
-                </svg>
-              </div>
-              <h4 id="pillar-community">Community & Mentorship</h4>
-              <p>
-                We're a small, supportive organization focused on helping you
-                grow while we grow
-              </p>
-              <ul>
-                <li>
-                  Socials to connect you to new friends and find community
-                </li>
-                <li>Peer mentoring for guidance throughout your time at UH</li>
-                <li>
-                  Workshops to help build your skills and explore interests
-                </li>
-              </ul>
-            </article>
-          </div>
-        </section>
-
-        {/* Image Collage */}
-        <section className="gallery-section">
-          <div className="collage-wrap">
-            <div className="collage">
-              <figure className="card left">
-                <img src={olivia} alt="" />
-              </figure>
-              <figure className="card center">
-                <img src={friends} alt="" />
-              </figure>
-              <figure className="card right">
-                <img src={table} alt="" />
-              </figure>
+                  <figcaption
+                    id="pillar-community"
+                    className="pillar-photo-title"
+                  >
+                    <span className="pillar-title-icon" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="9" cy="8" r="2.8" />
+                        <circle cx="16" cy="8.5" r="2.4" />
+                        <path d="M3.8 19.5v-.8a5.4 5.4 0 0 1 10.8 0v.8" />
+                        <path d="M13.6 19.5v-.6a4.5 4.5 0 0 1 7.2-3.6" />
+                      </svg>
+                    </span>
+                    <span className="pillar-title-text">
+                      Community
+                    </span>
+                  </figcaption>
+                </figure>
+                <div className="pillar-content">
+                  <p>
+                    Join a supportive community focused on helping you grow
+                    academically, professionally, and personally.
+                  </p>
+                  <ul>
+                    <li>Meet peers through socials and chapter events</li>
+                    <li>Get guidance through peer mentoring at UH</li>
+                    <li>Build confidence through technical and career workshops</li>
+                  </ul>
+                </div>
+              </article>
             </div>
           </div>
-
-          <FullScreenCarousel images={[olivia, friends, table]} />
-
-          {/* action buttons */}
-          <div className="cta-row">
-            <a className="join-btn" href="#contact-form">
-              <svg className="icon" viewBox="0 0 24 24" aria-hidden="true">
-                <rect
-                  x="3"
-                  y="5"
-                  width="18"
-                  height="14"
-                  rx="2"
-                  ry="2"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-                <polyline
-                  points="3,7 12,13 21,7"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-              </svg>
-              Contact Us
-            </a>
-
-            <a
-              className="join-btn"
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg
-                className="icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  fill="currentColor"
-                  d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.0371 19.7363 19.7363 0 00-4.8852 1.5152.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.793 8.18 1.793 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9551-2.4189 2.157-2.4189 1.2108 0 2.1757 1.095 2.1568 2.419 0 1.3332-.955 2.4189-2.1569 2.4189zm7.9582 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.955-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.095 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"
-                />
-              </svg>
-              Discord
-            </a>
-
-            <a
-              className="join-btn"
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg
-                className="icon"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <path d="M17.5 6.5h.01" />
-              </svg>
-              Instagram
-            </a>
-
-            <a
-              className="join-btn"
-              href={LINKEDIN_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                fill="currentColor"
-                className="bi bi-linkedin"
-                viewBox="0 0 16 16"
-              >
-                <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z" />
-              </svg>
-              LinkedIn
-            </a>
-          </div>
         </section>
 
-        {/*Events Section*/}
-        <section className="events-section">
-          <CalendarComponent />
+        <section className="post-pillars-links-section" aria-label="Stay connected">
+          <div className="post-pillars-links-inner">
+            <h3 className="post-pillars-links-heading">Ways To Stay Updated</h3>
+            <p className="post-pillars-links-subtext">
+              Check us out across our channels for announcements, highlights,
+              and chapter updates.
+            </p>
+
+            <div className="post-pillars-links-wrap">
+              <a
+                className="post-pillars-link-item is-discord-card"
+                href={DISCORD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Discord"
+              >
+                <span className="post-pillars-link-icon is-discord" aria-hidden="true" />
+                <span className="post-pillars-link-label">Discord</span>
+                <span className="post-pillars-link-note">Join our community</span>
+              </a>
+
+              <a
+                className="post-pillars-link-item is-instagram-card"
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Instagram"
+              >
+                <span className="post-pillars-link-icon is-instagram" aria-hidden="true" />
+                <span className="post-pillars-link-label">Instagram</span>
+                <span className="post-pillars-link-note">Follow us for updates</span>
+              </a>
+
+              <a
+                className="post-pillars-link-item is-linkedin-card"
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open LinkedIn"
+              >
+                <span className="post-pillars-link-icon is-linkedin" aria-hidden="true" />
+                <span className="post-pillars-link-label">LinkedIn</span>
+                <span className="post-pillars-link-note">Connect professionally</span>
+              </a>
+            </div>
+          </div>
         </section>
 
         {/* Partners Section */}
@@ -351,7 +506,11 @@ function Home() {
           aria-labelledby="partners-heading"
         >
           <div className="partners-inner">
-            <h3 id="partners-heading">Partnerships</h3>
+            <h3 id="partners-heading">Our Partners</h3>
+            <p className="partners-description">
+              We are grateful to these organizations for partnering with us on
+              events, workshops, and student opportunities.
+            </p>
 
             <ul className="partners-grid">
               {PARTNERS.map((p) => (
@@ -375,48 +534,73 @@ function Home() {
 
         {/* Membership Form */}
         <section id="contact-form" className="membership-form">
-          <div className="form-inner">
-            <h3>Contact Us</h3>
-            <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="name">Name (required)</label>
-                  <input type="text" name="name" id="name" required />
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value="New submission!"
-                  ></input>
-                </div>
-                <div className="form-group">
-                  <label htmlFor="email">Email (required)</label>
-                  <input type="email" name="email" id="email" required />
-                </div>
-              </div>
+          <div className="form-inner contact-form-grid">
+            <div className="contact-copy">
+              <h3>Contact Us</h3>
+              <p>
+                If you&apos;re a company interested in sponsoring IEEE-NSM, a
+                student organization looking to collaborate, or a student/alum
+                reaching out, fill out the form and we&apos;ll get back to you.
+              </p>
+            </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="role">I am...</label>
-                  <select type="role" name="role" id="role">
-                    <option value="">Select...</option>
-                    <option value="student">A Student</option>
-                    <option value="professional">An Alum</option>
-                    <option value="faculty">A Sponsor</option>
-                    <option value="representative">
-                      A Company Representative
-                    </option>
-                  </select>
+            <div className="contact-form-card">
+              <form onSubmit={handleSubmit} className="contact-form">
+                <div className="form-grid-two">
+                  <div className="form-group">
+                    <label htmlFor="name">Name</label>
+                    <input type="text" name="name" id="name" required />
+                    <input
+                      type="hidden"
+                      name="_subject"
+                      value="New submission!"
+                    ></input>
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" id="email" required />
+                  </div>
                 </div>
+
+                <fieldset className="role-toggle-fieldset">
+                  <legend>I am...</legend>
+                  <div className="role-toggle-grid">
+                    <label className="role-toggle-option">
+                      <input
+                        type="radio"
+                        name="role"
+                        value="faculty"
+                        defaultChecked
+                        required
+                      />
+                      <span>Sponsor</span>
+                    </label>
+                    <label className="role-toggle-option">
+                      <input type="radio" name="role" value="representative" />
+                      <span>Company Rep</span>
+                    </label>
+                    <label className="role-toggle-option">
+                      <input type="radio" name="role" value="student" />
+                      <span>Student</span>
+                    </label>
+                    <label className="role-toggle-option">
+                      <input type="radio" name="role" value="professional" />
+                      <span>Alum</span>
+                    </label>
+                  </div>
+                </fieldset>
+
                 <div className="form-group">
-                  <label>Message</label>
-                  <textarea name="message"></textarea>
+                  <label htmlFor="message">Message</label>
+                  <textarea name="message" id="message" required></textarea>
                 </div>
+
                 <button type="submit" className="submit-btn">
-                  Send
+                  Send Message
                 </button>
-              </div>
-            </form>
-            <div className="form-result-text">{contactFormResponse}</div>
+              </form>
+              <div className="form-result-text">{contactFormResponse}</div>
+            </div>
           </div>
         </section>
       </div>

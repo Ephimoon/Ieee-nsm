@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import BecomeMember from './pages/BM';
 import Officer from './pages/Officer';
 import Events from './pages/Events';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -29,6 +30,7 @@ function App() {
         />
         <Route path="/officers" element={<Officer/>}></Route>
         <Route path="/events" element={<Events/>}></Route>
+        <Route path="/privacy-policy" element={<PrivacyPolicy/>}></Route>
       </Routes>
     </Router>
   );

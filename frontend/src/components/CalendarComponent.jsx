@@ -17,6 +17,8 @@ const CALENDAR_ID = process.env.REACT_APP_GOOGLE_CALENDAR_ID;
 const locales = { 'en-US': enUS };
 const localizer = dateFnsLocalizer({ format, parse, startOfWeek, getDay, locales }); 
 const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const MOBILE_BREAKPOINT = 600;
+const isValidDate = (value) => value instanceof Date && !Number.isNaN(value.getTime());
 
 // ------------ HELPERS -------------------------------------------
 function formatDateForGoogle(start, end) {
@@ -148,7 +150,9 @@ const AgendaEvent = ({ event }) => (
 );
 
 //-------------- main ------------------------------------------------
-export const getGoogleCalendarEvents = async () => {
+export const getGoogleCalendarEvents = async (signal) => {
+  if (!API_KEY || !CALENDAR_ID) return [];
+
   const now = new Date();
   const oneYearAgo = new Date(now);  oneYearAgo.setFullYear(now.getFullYear() - 1);
   const oneYearAhead = new Date(now); oneYearAhead.setFullYear(now.getFullYear() + 1);
@@ -158,85 +162,113 @@ export const getGoogleCalendarEvents = async () => {
     `/events?key=${API_KEY}&timeMin=${oneYearAgo.toISOString()}&timeMax=${oneYearAhead.toISOString()}` +
     `&singleEvents=true&orderBy=startTime`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { signal });
+  if (!response.ok) {
+    throw new Error(`Google Calendar request failed (${response.status})`);
+  }
   const data = await response.json();
 
-  return (data.items || []).map((event) => {
-    const isAllDay = !!event.start.date;
+  return (data.items || [])
+    .map((event) => {
+      const rawStart = event?.start?.dateTime || event?.start?.date;
+      const rawEnd = event?.end?.dateTime || event?.end?.date;
+      if (!rawStart || !rawEnd) return null;
 
-    const rawStart = event.start.dateTime || event.start.date;   // ISO in UTC/Z or date
-    const rawEnd   = event.end.dateTime   || event.end.date;
+      const parsedStart = parseISO(rawStart);
+      const parsedEnd = parseISO(rawEnd);
+      if (!isValidDate(parsedStart) || !isValidDate(parsedEnd)) return null;
 
-    // local times for display
-    const start = utcToZonedTime(parseISO(rawStart), userTimeZone);
-    const end   = utcToZonedTime(parseISO(rawEnd),   userTimeZone);
+      const start = utcToZonedTime(parsedStart, userTimeZone);
+      const end = utcToZonedTime(parsedEnd, userTimeZone);
+      if (!isValidDate(start) || !isValidDate(end)) return null;
 
-    // *UTC* start ISO for matching with the sheet
-    const startIsoUtc = parseISO(rawStart).toISOString();
-    const mergeKey = `${(event.summary || '').trim().toLowerCase()}__${startIsoUtc}`;
+      const startIsoUtc = parsedStart.toISOString();
+      const mergeKey = `${(event.summary || '').trim().toLowerCase()}__${startIsoUtc}`;
 
-    return {
-      title: event.summary,
-      start,
-      end,
-      allDay: isAllDay,
-      description: event.description,
-      location: event.location,
+      return {
+        title: event.summary || "Untitled Event",
+        start,
+        end,
+        allDay: !!event?.start?.date,
+        description: event.description,
+        location: event.location,
 
-      // internal field used only for merging; not shown in UI
-      __mergeKey: mergeKey,
-    };
-  });
+        // internal field used only for merging; not shown in UI
+        __mergeKey: mergeKey,
+      };
+    })
+    .filter(Boolean);
 };
 
 const CalendarComponent = () => {
+  const isClient = typeof window !== 'undefined';
+  const initialIsMobile = isClient ? window.innerWidth < MOBILE_BREAKPOINT : false;
   const [events, setEvents] = useState([]);
-  const [view, setView] = useState(() => window.innerWidth < 600 ? 'agenda' : 'month');
+  const [view, setView] = useState(() => (initialIsMobile ? 'agenda' : 'month'));
   const [date, setDate] = useState(new Date());
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 600);
+  const [isMobile, setIsMobile] = useState(initialIsMobile);
   const [metaMap, setMetaMap] = useState(null);
 
   // Load sheet
   useEffect(() => {
+    const controller = new AbortController();
+
     (async () => {
       try {
         if (!EVENTS_JSON_URL) { setMetaMap(new Map()); return; }
-        const rows = await (await fetch(EVENTS_JSON_URL)).json();
+        const response = await fetch(EVENTS_JSON_URL, { signal: controller.signal });
+        const rawRows = await response.json();
+        const rows = Array.isArray(rawRows) ? rawRows : [];
         const map = new Map();
-        rows.forEach(r => {
-          const key = `${(r.title || '').trim().toLowerCase()}__${new Date(r.start_iso).toISOString()}`;
+        rows.forEach((r) => {
+          const startIso = new Date(r?.start_iso);
+          if (!r?.title || !isValidDate(startIso)) return;
+          const key = `${(r.title || '').trim().toLowerCase()}__${startIso.toISOString()}`;
           map.set(key, r);
         });
         setMetaMap(map);
       } catch (e) {
+        if (e?.name === 'AbortError') return;
         console.error(e);
         setMetaMap(new Map()); // still trigger downstream effect
       }
     })();
+
+    return () => controller.abort();
   }, []);
 
   // Merge + set (runs even if metaMap is an empty Map)
   useEffect(() => {
     if (!metaMap || !API_KEY || !CALENDAR_ID) return;
+
+    const controller = new AbortController();
     (async () => {
-      const raw = await getGoogleCalendarEvents();
-      const merged = raw.map(ev => {
-        const meta = metaMap.get(ev.__mergeKey);
-        return {
-          title: ev.title,
-          start: ev.start,
-          end: ev.end,
-          allDay: ev.allDay,
-          description: ev.description,
-          location: ev.location,
-          published: !!meta?.published,
-          detailSlug: meta?.slug || null,
-          detailUrl: meta?.event_link || null,
-        };
-      });
-      setEvents(merged);
+      try {
+        const raw = await getGoogleCalendarEvents(controller.signal);
+        const merged = raw.map((ev) => {
+          const meta = metaMap.get(ev.__mergeKey);
+          return {
+            title: ev.title,
+            start: ev.start,
+            end: ev.end,
+            allDay: ev.allDay,
+            description: ev.description,
+            location: ev.location,
+            published: !!meta?.published,
+            detailSlug: meta?.slug || null,
+            detailUrl: meta?.event_link || null,
+          };
+        });
+        setEvents(merged);
+      } catch (e) {
+        if (e?.name === 'AbortError') return;
+        console.error("Failed to load Google Calendar events", e);
+        setEvents([]);
+      }
     })();
+
+    return () => controller.abort();
   }, [metaMap]);
 
     const CustomToolbar = (toolbarProps) => {
@@ -270,8 +302,10 @@ const CalendarComponent = () => {
 
 
   useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
     const handleResize = () => {
-      const mobile = window.innerWidth < 600;
+      const mobile = window.innerWidth < MOBILE_BREAKPOINT;
       setIsMobile(mobile);
 
       if (mobile && view !== 'agenda') {
@@ -281,6 +315,7 @@ const CalendarComponent = () => {
       }
     };
 
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [view]);
@@ -296,7 +331,6 @@ const CalendarComponent = () => {
   return (
     <div className="calendar-outer-wrapper">
       <div className="calendar-container">
-        <h1>Don't Miss Out on Our Upcoming Events</h1>
         <Calendar
           className={`custom-calendar view-${view}`}
           components={{

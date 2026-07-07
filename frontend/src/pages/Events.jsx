@@ -5,6 +5,7 @@ import heroImg from '../images/events-hero.jpg';
 import './Events.css';
 
 const EVENTS_JSON_URL = process.env.REACT_APP_EVENTS_JSON_URL;
+const CalendarComponent = React.lazy(() => import('../components/CalendarComponent.jsx'));
 
 /* ================= utils ================= */
 const clamp3 = (txt = '') =>
@@ -278,6 +279,17 @@ const Events = () => {
   const [selected, setSelected] = useState(null);
   const viewportRef = useRef(null);
   const isMobile = useIsMobile(700);
+  const calendarSection = (
+    <section className="events-calendar-section" aria-label="Events calendar">
+      <React.Suspense
+        fallback={
+          <div className="events-calendar-loading">Loading calendar...</div>
+        }
+      >
+        <CalendarComponent />
+      </React.Suspense>
+    </section>
+  );
 
   // fetch + cache
   useEffect(() => {
@@ -430,6 +442,7 @@ const Events = () => {
 
           {/* --- Upcoming (mobile) --- */}
           <h2 className="events-heading">Upcoming Events</h2>
+          {calendarSection}
           <div className="feed-list" aria-label="Upcoming events">
             {upcoming.length ? (
               upcoming.map(ev => (
@@ -471,6 +484,7 @@ const Events = () => {
         /* keep your existing desktop/tablet block exactly as you have it */
         <>
           <h1 className="events-heading">Upcoming Events</h1>
+          {calendarSection}
           <div ref={viewportRef} className="up-viewport" aria-label="Upcoming events (paged)">
             {upPages.length ? (
               upPages.map((page, idx) => (

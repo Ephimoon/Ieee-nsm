@@ -37,6 +37,24 @@ body.has-fixed-nav .events-hero {
   margin-bottom: 1rem;
 }
 
+.events-calendar-section {
+  width: calc(100% - 2rem);
+  max-width: 1200px;
+  margin: 0 auto 1.6rem;
+}
+
+.events-calendar-loading {
+  min-height: 240px;
+  display: grid;
+  place-items: center;
+  color: #0a4b8c;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-weight: 600;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+
 /* =========================================================
    Upcoming (3-per-page vertical viewport)
    ========================================================= */
@@ -296,6 +314,7 @@ body.has-fixed-nav .events-hero {
   .events-hero { width: calc(100% - 2rem); border-radius: 16px; }
   .events-hero-img { height: clamp(180px, 40vw, 300px); }
   .modal { padding: 1rem .75rem; }
+  .events-calendar-section { width: calc(100% - 1.25rem); }
 }
 
 

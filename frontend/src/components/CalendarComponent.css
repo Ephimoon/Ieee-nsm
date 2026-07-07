@@ -15,16 +15,6 @@
   overflow-x: auto;
 }
 
-/* Heading */
-.calendar-container h1 {
-  font-size: 2rem;
-  color: #3385AD;
-  margin-bottom: 2rem;
-  text-align: center;
-  font-family: "Merriweather", serif;
-  font-weight: 500;
-}
-
 /* ============= Toolbar ===================================== */
 .custom-calendar .rbc-toolbar {
   display: flex;

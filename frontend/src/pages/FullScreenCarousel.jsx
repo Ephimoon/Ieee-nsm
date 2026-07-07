@@ -77,7 +77,7 @@ export default function FullScreenCarousel({ images = [] }) {
       >
         {slides.map((src, i) => (
           <figure className="fs-slide" key={`${i}-${src}`}>
-            <img src={src} alt="" />
+            <img src={src} alt="" loading="lazy" decoding="async" />
           </figure>
         ))}
       </div>

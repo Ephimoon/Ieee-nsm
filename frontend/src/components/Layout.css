@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cactus+Classical+Serif&family=Gloock&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Noto+Sans+Mono:wdth,wght@75,100..900&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&family=Merriweather:wght@400;500;700;900&display=swap");
 
 
 * {
@@ -10,41 +10,54 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  --site-max-width: 1200px;
+  --site-inline-pad: clamp(1rem, 3.8vw, 2.6rem);
 }
 
 /* Navbar Styling */
 .logo-title-group {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.6rem;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
-  text-decoration: none; /* ensures no underline on title */
+  gap: 0.6rem;
+  text-decoration: none;
 }
 
 .navbar {
-  background-color: #004B96; /* Blue-600 */
+  background: linear-gradient(90deg, #004B96 0%, #0059ad 52%, #0068c4 100%);
   color: white;
-  padding: 1rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  box-shadow: none;
+  border-bottom: 0;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
+  transition: box-shadow 0.22s ease;
+}
+
+.navbar.navbar-scrolled {
+  box-shadow: 0 8px 24px rgba(0, 42, 89, 0.22);
 }
 
 .nav-title{
-  margin: 0; /* Removes default margin */
-  font-size: 1.5rem; /* Adjust size as needed */
+  margin: 0;
+  font-size: clamp(1.45rem, 2.9vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: white;
-  white-space: nowrap; /* Prevents text from wrapping */
+  white-space: nowrap;
 }
 
 .nav-container {
-  padding: 0;
+  width: 100%;
+  max-width: var(--site-max-width);
+  padding: 0 var(--site-inline-pad);
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -52,43 +65,95 @@
 }
 
 .whitelogo{
-  width: 70px;
-}
-
-.logo-title-group{
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  width: 64px;
 }
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
-  padding-right: 20px;
-  font-size: clamp(1rem, 2.5vw, 1.3rem);
-  font-weight: 500;
+  align-items: center;
+  gap: 1.15rem;
+  padding: 0;
 }
 
 .nav-link {
+  position: relative;
+  display: inline-block;
+  padding: 0.3rem 0.1rem;
   color: white;
   text-decoration: none;
-  transition: text-decoration 0.2s;
+  transition: opacity 0.2s ease;
   font-family: "Kantumruy Pro", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
+  font-size: 1.1rem;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.25rem;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.95);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link-active {
+  font-weight: 700;
+  opacity: 1;
+}
+
+.nav-link-active::after {
+  transform: scaleX(1);
+}
+
+.nav-link-cta {
+  padding: 0.52rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.nav-link-cta:hover {
+  background: rgba(255, 255, 255, 0.23);
+}
+
+.nav-link-cta::after {
+  display: none;
 }
 
 /* Mobile Menu Button (Hidden on Desktop) */
 .mobile-menu-btn {
   display: none;
-  background: none;
-  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.12);
   color: white;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.mobile-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-menu-btn:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
 }
 
 .hamburger-icon {
@@ -98,41 +163,169 @@
 
 /* Main Content */
 .main-content {
+  position: relative;
   flex-grow: 1;
   width: 100%;
   margin: 0 auto;
   padding: 0rem;
+  background-image: linear-gradient(90deg, #004B96 0%, #0059ad 52%, #0068c4 100%);
+  background-repeat: no-repeat;
+  background-size: 100% var(--nav-height, 74px);
+  background-position: top left;
 }
 
 /* Footer */
 .footer {
-  background-color: #004B96;
+  background: linear-gradient(90deg, #004B96 0%, #0059ad 52%, #0068c4 100%);
   color: white;
-  padding: 2rem 1rem;
+  padding: 2.6rem 0 1.2rem;
 }
 
 .footer-content {
-  padding: 0;
+  max-width: var(--site-max-width);
+  width: 100%;
+  padding: 0 var(--site-inline-pad);
   margin: 0 auto;
+}
+
+.footer-top {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.footer-logo {
+  width: fit-content;
+  gap: 0.6rem;
+}
+
+.footer-logo .whitelogo {
+  width: 54px;
+}
+
+.footer-brand-name {
+  margin: 0;
+  color: white;
+  font-size: clamp(1.55rem, 2.8vw, 1.95rem);
+  letter-spacing: 0.02em;
+}
+
+.footer-links-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  gap: 1.8rem;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, 0.95);
+  text-decoration: none;
+  font-family: "Kantumruy Pro", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.15;
+  width: fit-content;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .social-icons {
   display: flex;
-  gap: 1rem; /* Increased space between icons */
+  align-items: center;
+  gap: 1.1rem;
 }
 
 .social-icon {
-  height: 35px; /* Smaller icon size */
-  width: auto;
+  height: 34px;
+  width: 34px;
   transition: transform 0.3s ease;
 }
 
-.social-icon:hover {
-  transform: scale(1.1); /* Subtle hover effect */
+.social-link {
+  color: white;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0.96;
+}
+
+.social-link:hover {
+  opacity: 1;
+}
+
+.social-link:hover .social-icon {
+  transform: scale(1.09);
+}
+
+.footer-bottom {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+  font-family: "Kantumruy Pro", sans-serif;
+}
+
+@media (min-width: 1440px){
+  .layout-container {
+    --site-max-width: 1320px;
+  }
+
+  .nav-container{
+    max-width: var(--site-max-width);
+    padding: 0 var(--site-inline-pad);
+  }
+  .nav-title {
+    font-size: 2.05rem;
+  }
+
+  .whitelogo {
+    width: 72px;
+  }
+
+  .nav-link {
+    font-size: 1.16rem;
+  }
+  .footer-content {
+    max-width: var(--site-max-width);
+  }
+
+  .social-icon {
+    height: 36px;
+    width: 36px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .footer-links-row {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.75rem 1.35rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.35rem;
+  }
+
+  .footer-links-row {
+    justify-content: flex-start;
+    gap: 0.75rem 1.25rem;
+  }
 }
 
 /* Responsive Design (Mobile) */
@@ -140,13 +333,18 @@
   .nav-links {
     display: none;
     flex-direction: column;
-    gap: 1rem;
-    background-color: #004B96;
+    align-items: stretch;
+    gap: 0.4rem;
+    background: linear-gradient(90deg, #004B96 0%, #0059ad 52%, #0068c4 100%);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 14px;
     position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    padding: 1rem 2rem;
+    top: calc(100% + 0.45rem);
+    left: 1rem;
+    right: 1rem;
+    width: auto;
+    padding: 0.65rem;
+    box-shadow: 0 10px 24px rgba(0, 28, 67, 0.3);
     z-index: 999;
   }
 
@@ -154,41 +352,60 @@
     display: flex;
   }
 
-  .mobile-menu-btn {
-    display: block;
-  }
-}
-
-
-
-
-
-@media (min-width: 1440px){
-  .nav-container{
-    width: 100%;
-    padding: 0;
-  }
-  .nav-title {
-    font-size: 1.8rem;
-  }
-
-  .whitelogo {
-    width: 80px;
-  }
-
-  .nav-links {
-    gap: 2rem;
-  }
-
   .nav-link {
+    display: flex;
+    justify-content: center;
+    padding: 0.6rem 0.7rem;
+    border-radius: 8px;
+    min-height: 2.3rem;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .nav-link:hover,
+  .nav-link-active {
+    background: rgba(255, 255, 255, 0.14);
+    opacity: 1;
+  }
+
+  .nav-link-cta {
+    min-height: 2.5rem;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer {
+    padding: 2rem 0 1rem;
+  }
+
+  .footer-brand-name {
+    font-size: 1.55rem;
+  }
+
+  .footer-link {
     font-size: 1.1rem;
   }
-  .footer-content {
-    width: 100%;
-    padding: 0;
+
+  .footer-bottom-row {
+    margin-top: 1.7rem;
+  }
+
+  .social-icons {
+    gap: 0.8rem;
   }
 
   .social-icon {
-    height: 40px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .footer-bottom {
+    font-size: 1rem;
   }
 }

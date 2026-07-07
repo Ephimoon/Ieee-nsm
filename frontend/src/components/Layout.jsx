@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Layout.css";
 import whiteieee from "../images/white ieensm logo (1).png";
 import insta from "../images/Group 3.png";
@@ -8,9 +8,11 @@ import discord from "../images/image 11.png";
 
 const Layout = ({ children }) => {
   const bmFormUrl = process.env.REACT_APP_BM_FORM_URL?.trim();
+  const currentYear = new Date().getFullYear();
 
   // State to manage mobile menu open/close
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
   const [navHeight, setNavHeight] = useState(0);
@@ -18,25 +20,54 @@ const Layout = ({ children }) => {
 
   // Close menu on resize to desktop
   useEffect(() => {
+    const updateNavHeight = () => {
+      if (!navRef.current) return;
+      // Use precise measured height and round up to avoid 1px seam/gaps.
+      const height = Math.ceil(navRef.current.getBoundingClientRect().height);
+      setNavHeight(height);
+    };
+
     const handleResize = () => {
       if (window.innerWidth > 768) {
         setMenuOpen(false);
       }
-      if (navRef.current) {
-        setNavHeight(navRef.current.offsetHeight);
-      }
+      updateNavHeight();
     };
 
     window.addEventListener("resize", handleResize);
-    // Initial set
+
+    let resizeObserver;
+    if (window.ResizeObserver && navRef.current) {
+      resizeObserver = new ResizeObserver(() => updateNavHeight());
+      resizeObserver.observe(navRef.current);
+    }
+
+    updateNavHeight();
     handleResize();
 
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      resizeObserver?.disconnect();
+    };
+  }, []);
+
+  // Show bottom shadow only after page is scrolled
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 4);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
-    <div className="layout-container">
-      <nav className="navbar" ref={navRef}>
+    <div
+      className="layout-container"
+      style={{ "--nav-height": `${navHeight}px` }}
+    >
+      <nav className={`navbar${isScrolled ? " navbar-scrolled" : ""}`} ref={navRef}>
         <div className="nav-container">
           {/* Logo and Title Group */}
           <div className="logo-title-group">
@@ -48,48 +79,62 @@ const Layout = ({ children }) => {
 
           {/* Desktop + Mobile Navigation */}
           <div className={`nav-links ${menuOpen ? "active" : ""}`}>
-            <Link
+            <NavLink
+              end
               to="/"
-              className="nav-link"
+              className={({ isActive }) =>
+                `nav-link${isActive ? " nav-link-active" : ""}`
+              }
               onClick={() => setMenuOpen(false)}
             >
               Home
-            </Link>
+            </NavLink>
+            <NavLink
+              to="/officers"
+              className={({ isActive }) =>
+                `nav-link${isActive ? " nav-link-active" : ""}`
+              }
+              onClick={() => setMenuOpen(false)}
+            >
+              Officers
+            </NavLink>
+            <NavLink
+              to="/events"
+              className={({ isActive }) =>
+                `nav-link${isActive ? " nav-link-active" : ""}`
+              }
+              onClick={() => setMenuOpen(false)}
+            >
+              Events
+            </NavLink>
             {bmFormUrl ? (
               <a
                 href={bmFormUrl}
-                className="nav-link"
+                className="nav-link nav-link-cta"
                 onClick={() => setMenuOpen(false)}
               >
                 Become a Member
               </a>
             ) : (
-              <Link
+              <NavLink
                 to="/bm"
-                className="nav-link"
+                className={({ isActive }) =>
+                  `nav-link nav-link-cta${isActive ? " nav-link-active" : ""}`
+                }
                 onClick={() => setMenuOpen(false)}
               >
                 Become a Member
-              </Link>
+              </NavLink>
             )}
-            <Link
-              to="/officers"
-              className="nav-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Officers
-            </Link>
-            <Link
-              to="/events"
-              className="nav-link"
-              onClick={() => setMenuOpen(false)}
-            >
-              Events
-            </Link>
           </div>
 
           {/* Mobile Menu Button (Hamburger) */}
-          <button className="mobile-menu-btn" onClick={toggleMenu}>
+          <button
+            className="mobile-menu-btn"
+            onClick={toggleMenu}
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+          >
             {menuOpen ? (
               // "X" Icon
               <svg
@@ -126,41 +171,82 @@ const Layout = ({ children }) => {
       </nav>
 
       {/* Page Content */}
-      <main className="main-content" style={{ paddingTop: `${navHeight}px` }}>
+      <main
+        className="main-content"
+        style={{
+          paddingTop: "var(--nav-height)",
+        }}
+      >
         {children}
       </main>
 
-      {/* Footer with Social Icons */}
+      {/* Footer */}
       <footer className="footer">
         <div className="footer-content">
-          <div className="logo-title-group">
-            <Link to="/" className="nav-logo">
-              <img src={whiteieee} className="whitelogo" alt="logo" />
+          <div className="footer-top">
+            <Link to="/" className="nav-logo footer-logo">
+              <img src={whiteieee} className="whitelogo" alt="IEEE-NSM logo" />
+              <h2 className="footer-brand-name">IEEE-NSM</h2>
             </Link>
-            <h1 className="nav-title">IEEE-NSM</h1>
+
+            <div className="footer-links-row">
+              <Link to="/" className="footer-link">
+                Home
+              </Link>
+              <Link to="/officers" className="footer-link">
+                Officers
+              </Link>
+              <Link to="/events" className="footer-link">
+                Events
+              </Link>
+              {bmFormUrl ? (
+                <a href={bmFormUrl} className="footer-link">
+                  Become a Member
+                </a>
+              ) : (
+                <Link to="/bm" className="footer-link">
+                  Become a Member
+                </Link>
+              )}
+              <Link to="/privacy-policy" className="footer-link">
+                Privacy Policy
+              </Link>
+            </div>
           </div>
-          <div className="social-icons">
-            <a
-              href="https://www.instagram.com/ieee_nsm/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={insta} alt="Instagram" className="social-icon" />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/ieee-nsm/posts/?feedView=all"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={linkedin} alt="LinkedIn" className="social-icon" />
-            </a>
-            <a
-              href="https://discord.gg/nXx9UtEeyy"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={discord} alt="Discord" className="social-icon" />
-            </a>
+
+          <div className="footer-bottom-row">
+            <div className="social-icons">
+              <a
+                href="https://www.instagram.com/ieee_nsm/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="Instagram"
+              >
+                <img src={insta} alt="Instagram" className="social-icon" />
+              </a>
+              <a
+                href="https://www.linkedin.com/company/ieee-nsm/posts/?feedView=all"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="LinkedIn"
+              >
+                <img src={linkedin} alt="LinkedIn" className="social-icon" />
+              </a>
+              <a
+                href="https://discord.gg/nXx9UtEeyy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="social-link"
+                aria-label="Discord"
+              >
+                <img src={discord} alt="Discord" className="social-icon" />
+              </a>
+            </div>
+            <p className="footer-bottom">
+              &copy; {currentYear} IEEE-NSM.
+            </p>
           </div>
         </div>
       </footer>
