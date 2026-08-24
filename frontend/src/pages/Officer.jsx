@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import "./Officer.css";
 import linkedinLogo from "../images/logos/linkedin-logo.png";
 import discordIcon from "../images/logos/discord-logo.png";
-import ieeelogo from "../images/logos/IEEE-NSM Logo.png";
+import ieeelogo from "../images/logos/IEEE-CS Logo.png";
 //import livImage from "../images/officer-images/LivImage.jpg";
 //import vincentImage from "../images/officer-images/VincentImage.jpg";
 //import samImage from "../images/officer-images/SamImage.jpg";
@@ -192,7 +192,7 @@ const officers = [
   ),
 ];
 
-const ieeeNSMCompetitions = [
+const ieeeCSCompetitions = [
   new OfficerInfo(
     101,
     "Competitions Branch Head",
@@ -319,7 +319,7 @@ function Officer() {
           <div id="left">
             <h1>Who We Are</h1>
             <p>
-              We’re IEEE NSM — a student-led organization for CS students in the
+              We’re IEEE CS — a student-led organization for CS students in the
               Natural Sciences and Math college at UH. We host coding
               competitions, workshops, and help connect students with research
               opportunities. Whether you’re new to code or training for ICPC,
@@ -355,19 +355,19 @@ function Officer() {
           </section>
         </div>
 
-        {/* ieeeNSMCompetitions Section */}
+        {/* ieeeCSCompetitions Section */}
         <div className="officer-section">
           <div className="officer-title-container">
             <div className="officer-title-wrapper">
               <div className="officer-title-shadow"></div>
               <div className="officer-title-box">
                 <span className="officer-title-bold">Meet the </span>
-                <span className="officer-title-blue">IEEE-NSM Competitions</span>
+                <span className="officer-title-blue">IEEE-CS Competitions</span>
               </div>
             </div>
           </div>
           <section className="officer-grid">
-            {ieeeNSMCompetitions.map((officer) => (
+            {ieeeCSCompetitions.map((officer) => (
               <OfficerCard key={officer.id} officer={officer} />
             ))}
           </section>

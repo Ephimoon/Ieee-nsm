@@ -34,7 +34,17 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          CI: false 
+          CI: false
+          REACT_APP_GOOGLE_API_KEY: ${{ secrets.REACT_APP_GOOGLE_API_KEY }}
+          REACT_APP_GOOGLE_CALENDAR_ID: ${{ vars.REACT_APP_GOOGLE_CALENDAR_ID }}
+          REACT_APP_EVENTS_JSON_URL: ${{ vars.REACT_APP_EVENTS_JSON_URL }}
+          REACT_APP_BM_JSON_URL: ${{ vars.REACT_APP_BM_JSON_URL }}
+          REACT_APP_SUPABASE_URL: ${{ vars.REACT_APP_SUPABASE_URL }}
+          REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.REACT_APP_SUPABASE_ANON_KEY }}
+          REACT_APP_EMAILJS_SERVICE_ID: ${{ secrets.REACT_APP_EMAILJS_SERVICE_ID }}
+          REACT_APP_EMAILJS_TEMPLATE_ID: ${{ secrets.REACT_APP_EMAILJS_TEMPLATE_ID }}
+          REACT_APP_EMAILJS_PUBLIC_KEY: ${{ secrets.REACT_APP_EMAILJS_PUBLIC_KEY }}
+
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v4
         with:

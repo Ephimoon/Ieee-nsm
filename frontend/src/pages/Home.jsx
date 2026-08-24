@@ -65,31 +65,31 @@ const PARTNERS = [
 const HERO_SLIDES = [
   {
     src: officers2,
-    alt: "IEEE-NSM officers together",
+    alt: "IEEE-CS officers together",
   },
   {
     src: galentines,
-    alt: "IEEE-NSM members at the Galentines event",
+    alt: "IEEE-CS members at the Galentines event",
   },
   {
     src: matcha,
-    alt: "IEEE-NSM members at the matcha social",
+    alt: "IEEE-CS members at the matcha social",
   },
   {
     src: officers,
-    alt: "IEEE-NSM officers at a chapter event",
+    alt: "IEEE-CS officers at a chapter event",
   },
   {
     src: social2,
-    alt: "IEEE-NSM members at a social event",
+    alt: "IEEE-CS members at a social event",
   },
   {
     src: working,
-    alt: "IEEE-NSM members working together",
+    alt: "IEEE-CS members working together",
   },
 ];
 
-const HERO_TYPED_TEXT = "IEEE-NSM";
+const HERO_TYPED_TEXT = "IEEE-CS";
 
 function Home() {
   const formRef = useRef(null);
@@ -132,7 +132,7 @@ function Home() {
 
         wasHeroVisibleRef.current = isVisible;
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
 
     heroObserver.observe(heroSectionRef.current);
@@ -171,7 +171,7 @@ function Home() {
       {
         threshold: [0, 0.12, 0.3],
         rootMargin: "0px 0px -4% 0px",
-      }
+      },
     );
 
     cards.forEach((card, index) => {
@@ -206,13 +206,13 @@ function Home() {
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
         process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
         formRef.current,
-        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY }
+        { publicKey: process.env.REACT_APP_EMAILJS_PUBLIC_KEY },
       );
 
       setContactFormResponse("Sent successfully! We'll get back to you soon.");
       formRef.current.reset();
     } catch (error) {
-      console.error("EmailJS Error:", error); 
+      console.error("EmailJS Error:", error);
       setContactFormResponse("Something went wrong. Please try again.");
     } finally {
       setIsSending(false);
@@ -225,7 +225,7 @@ function Home() {
         {/* Hero */}
         <section
           className="landing-hero"
-          aria-label="IEEE-NSM hero"
+          aria-label="IEEE-CS hero"
           ref={heroSectionRef}
         >
           <div className="landing-hero-wrap">
@@ -251,7 +251,10 @@ function Home() {
                     Become a Member
                   </Link>
                 )}
-                <a className="landing-hero-btn hero-secondary" href="#contact-form">
+                <a
+                  className="landing-hero-btn hero-secondary"
+                  href="#contact-form"
+                >
                   Contact Us
                 </a>
               </div>
@@ -289,9 +292,12 @@ function Home() {
           <div className="mission-content">
             <h3>Our Mission</h3>
             <p className="mission-proximity-paragraph">
-              <span ref={missionTextRef} className="mission-proximity-container">
+              <span
+                ref={missionTextRef}
+                className="mission-proximity-container"
+              >
                 <VariableProximity
-                  label="The Institute of Electrical and Electronics Engineers at the Natural Sciences and Mathematics Department exists to foster technological innovation and excellence for the benefit of humanity. We strive to create a space where students find community and gain more accessible opportunities for research and competitions."
+                  label="The Institute of Electrical and Electronics Engineers at the CS Department exists to foster technological innovation and excellence for the benefit of humanity. We strive to create a space where students find community and gain more accessible opportunities for research and competitions."
                   className="mission-variable-proximity"
                   fromFontVariationSettings="'wght' 420, 'opsz' 10"
                   toFontVariationSettings="'wght' 920, 'opsz' 40"
@@ -309,7 +315,7 @@ function Home() {
           <div className="pillars-shell">
             <h3 className="pillars-heading">What we offer</h3>
             <p className="pillars-subtext">
-              Explore the opportunities and resources available to IEEE-NSM
+              Explore the opportunities and resources available to IEEE-CS
               members.
             </p>
             <div className="pillars-wrap">
@@ -320,11 +326,14 @@ function Home() {
                 <figure className="pillar-photo">
                   <img
                     src={research}
-                    alt="IEEE-NSM members collaborating on research at a table"
+                    alt="IEEE-CS members collaborating on research at a table"
                     loading="lazy"
                     decoding="async"
                   />
-                  <figcaption id="pillar-research" className="pillar-photo-title">
+                  <figcaption
+                    id="pillar-research"
+                    className="pillar-photo-title"
+                  >
                     <span className="pillar-title-icon" aria-hidden="true">
                       <svg
                         viewBox="0 0 24 24"
@@ -368,7 +377,7 @@ function Home() {
                 <figure className="pillar-photo">
                   <img
                     src={friends}
-                    alt="IEEE-NSM member presenting chapter activities"
+                    alt="IEEE-CS member presenting chapter activities"
                     loading="lazy"
                     decoding="async"
                   />
@@ -379,17 +388,13 @@ function Home() {
                     >
                       &lt;/&gt;
                     </span>
-                    <span className="pillar-title-text">
-                      Competitions
-                    </span>
+                    <span className="pillar-title-text">Competitions</span>
                   </figcaption>
                 </figure>
                 <div className="pillar-content">
                   <p>Sharpen problem-solving and core DS&amp;A skills.</p>
                   <ul>
-                    <li>
-                      Learn key patterns in our LeetCode Support Group
-                    </li>
+                    <li>Learn key patterns in our LeetCode Support Group</li>
                     <li>Practice consistently with peers and mentors</li>
                     <li>Train for ICPC and other coding competitions</li>
                   </ul>
@@ -411,7 +416,7 @@ function Home() {
                 <figure className="pillar-photo">
                   <img
                     src={socials}
-                    alt="IEEE-NSM members smiling together in community"
+                    alt="IEEE-CS members smiling together in community"
                     loading="lazy"
                     decoding="async"
                   />
@@ -434,9 +439,7 @@ function Home() {
                         <path d="M13.6 19.5v-.6a4.5 4.5 0 0 1 7.2-3.6" />
                       </svg>
                     </span>
-                    <span className="pillar-title-text">
-                      Community
-                    </span>
+                    <span className="pillar-title-text">Community</span>
                   </figcaption>
                 </figure>
                 <div className="pillar-content">
@@ -447,7 +450,9 @@ function Home() {
                   <ul>
                     <li>Meet peers through socials and chapter events</li>
                     <li>Get guidance through peer mentoring at UH</li>
-                    <li>Build confidence through technical and career workshops</li>
+                    <li>
+                      Build confidence through technical and career workshops
+                    </li>
                   </ul>
                 </div>
               </article>
@@ -455,7 +460,10 @@ function Home() {
           </div>
         </section>
 
-        <section className="post-pillars-links-section" aria-label="Stay connected">
+        <section
+          className="post-pillars-links-section"
+          aria-label="Stay connected"
+        >
           <div className="post-pillars-links-inner">
             <h3 className="post-pillars-links-heading">Ways To Stay Updated</h3>
             <p className="post-pillars-links-subtext">
@@ -471,9 +479,14 @@ function Home() {
                 rel="noopener noreferrer"
                 aria-label="Open Discord"
               >
-                <span className="post-pillars-link-icon is-discord" aria-hidden="true" />
+                <span
+                  className="post-pillars-link-icon is-discord"
+                  aria-hidden="true"
+                />
                 <span className="post-pillars-link-label">Discord</span>
-                <span className="post-pillars-link-note">Join our community</span>
+                <span className="post-pillars-link-note">
+                  Join our community
+                </span>
               </a>
 
               <a
@@ -483,9 +496,14 @@ function Home() {
                 rel="noopener noreferrer"
                 aria-label="Open Instagram"
               >
-                <span className="post-pillars-link-icon is-instagram" aria-hidden="true" />
+                <span
+                  className="post-pillars-link-icon is-instagram"
+                  aria-hidden="true"
+                />
                 <span className="post-pillars-link-label">Instagram</span>
-                <span className="post-pillars-link-note">Follow us for updates</span>
+                <span className="post-pillars-link-note">
+                  Follow us for updates
+                </span>
               </a>
 
               <a
@@ -495,9 +513,14 @@ function Home() {
                 rel="noopener noreferrer"
                 aria-label="Open LinkedIn"
               >
-                <span className="post-pillars-link-icon is-linkedin" aria-hidden="true" />
+                <span
+                  className="post-pillars-link-icon is-linkedin"
+                  aria-hidden="true"
+                />
                 <span className="post-pillars-link-label">LinkedIn</span>
-                <span className="post-pillars-link-note">Connect professionally</span>
+                <span className="post-pillars-link-note">
+                  Connect professionally
+                </span>
               </a>
             </div>
           </div>

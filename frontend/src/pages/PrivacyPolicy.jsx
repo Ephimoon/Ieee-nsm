@@ -13,14 +13,14 @@ export default function PrivacyPolicy() {
           <p className="privacy-updated">Last updated: {LAST_UPDATED}</p>
 
           <p>
-            IEEE-NSM respects your privacy. This page explains what information
+            IEEE-CS respects your privacy. This page explains what information
             we collect through this website and how we use it.
           </p>
 
           <h2>Information We Collect</h2>
           <ul>
             <li>Contact form details such as your name, email, and message.</li>
-            <li>Membership form details you submit to join IEEE-NSM.</li>
+            <li>Membership form details you submit to join IEEE-CS.</li>
             <li>
               Basic technical data such as browser type and page activity for
               site reliability.
@@ -37,7 +37,7 @@ export default function PrivacyPolicy() {
           <h2>Data Sharing</h2>
           <p>
             We do not sell your personal information. We only share information
-            with trusted services required to run IEEE-NSM operations, such as
+            with trusted services required to run IEEE-CS operations, such as
             event tools and form-processing services.
           </p>
 
@@ -50,7 +50,7 @@ export default function PrivacyPolicy() {
           <h2>Your Choices</h2>
           <p>
             If you want your submitted data updated or removed, contact an
-            IEEE-NSM officer through our official communication channels.
+            IEEE-CS officer through our official communication channels.
           </p>
 
           <h2>Policy Updates</h2>

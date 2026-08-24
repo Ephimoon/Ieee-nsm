@@ -438,7 +438,7 @@ const Events = () => {
 
       {isMobile ? (
         <>
-          <h1 className="events-heading">IEEE-NSM Events</h1>
+          <h1 className="events-heading">IEEE-CS Events</h1>
 
           {/* --- Upcoming (mobile) --- */}
           <h2 className="events-heading">Upcoming Events</h2>

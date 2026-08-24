@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Layout.css";
-import ieeelogo from "../images/logos/IEEE-NSM Logo.png";
+import ieeelogo from "../images/logos/IEEE-CS Logo.png";
 import insta from "../images/logos/instagram-logo.png";
 import linkedin from "../images/logos/linkedin-logo.png";
 import discord from "../images/logos/discord-logo.png";
@@ -74,7 +74,7 @@ const Layout = ({ children }) => {
           <div className="logo-title-group">
             <Link to="/" className="nav-logo">
               <img src={ieeelogo} className="whitelogo" alt="logo" />
-              <h1 className="nav-title">IEEE-NSM</h1>
+              <h1 className="nav-title">IEEE-CS</h1>
             </Link>
           </div>
 
@@ -186,8 +186,8 @@ const Layout = ({ children }) => {
         <div className="footer-content">
           <div className="footer-top">
             <Link to="/" className="nav-logo footer-logo">
-              <img src={ieeelogo} className="whitelogo" alt="IEEE-NSM logo" />
-              <h2 className="footer-brand-name">IEEE-NSM</h2>
+              <img src={ieeelogo} className="whitelogo" alt="IEEE-CS logo" />
+              <h2 className="footer-brand-name">IEEE-CS</h2>
             </Link>
 
             <div className="footer-links-row">
@@ -246,7 +246,7 @@ const Layout = ({ children }) => {
               </a>
             </div>
             <p className="footer-bottom">
-              &copy; {currentYear} IEEE-NSM.
+              &copy; {currentYear} IEEE-CS.
             </p>
           </div>
         </div>
