@@ -9,6 +9,10 @@ permissions:
   id-token: write
   contents: read
 
+defaults:
+  run:
+    working-directory: frontend
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
