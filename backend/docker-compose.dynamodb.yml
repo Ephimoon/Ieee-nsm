@@ -6,7 +6,9 @@ services:
       - "8000:8000"
     working_dir: /home/dynamodblocal
     volumes:
-      - dynamodb-data:/home/dynamodblocal/data
-
-volumes:
-  dynamodb-data:
+      # Bind mount (not a named volume) so the data survives `docker compose
+      # down -v` / `docker system prune` and stays inspectable on the host.
+      # The container runs as a non-root user, so .dynamodb-data must be
+      # world-writable — see its setup below. It's throwaway local dev
+      # data, not a security boundary.
+      - ./.dynamodb-data:/home/dynamodblocal/data

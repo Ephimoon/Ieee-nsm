@@ -109,7 +109,7 @@ const schema = {
     },
     COGNITO_DOMAIN: { type: "string" },
     COGNITO_CLIENT_SECRET: { type: "string" },
-    OAUTH_REDIRECT_URI: { type: "string" },
+    OAUTH_REDIRECT_URI: { type: "string", default: "http://localhost:3001/auth/callback" },
     APP_BASE_URL: { type: "string" },
     COOKIE_SECRET: { type: "string" },
     AWS_ACCOUNT_ID: { type: "string" },
