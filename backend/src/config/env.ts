@@ -55,6 +55,19 @@ export interface EnvConfig {
   APP_BASE_URL: string;
   // Signs/verifies the transient PKCE+state cookie used across the redirect
   COOKIE_SECRET: string;
+  // AWS account id and region used to build resource ARNs (e.g. DynamoDB
+  // table ARNs — see lib/arn.ts). Table *names* are versioned code
+  // constants (config/tables.ts), not env vars, since they're the same
+  // across every environment; only account id/region actually vary per
+  // deployment. On Lambda, AWS_REGION is auto-populated by the runtime.
+  AWS_ACCOUNT_ID: string;
+  AWS_REGION: string;
+  // How long a minted session lives before DynamoDB TTL reaps it
+  SESSION_TTL_SECONDS: number;
+  // Optional. Set to point the DynamoDB client at a local instance (e.g.
+  // http://localhost:8000 for DynamoDB Local via Docker) instead of real
+  // AWS. Leave unset in every real deployment.
+  DYNAMODB_ENDPOINT_URL?: string;
 }
 
 declare module "fastify" {
@@ -74,6 +87,8 @@ const schema = {
     "OAUTH_REDIRECT_URI",
     "APP_BASE_URL",
     "COOKIE_SECRET",
+    "AWS_ACCOUNT_ID",
+    "AWS_REGION",
   ],
   properties: {
     PORT: { type: "number", default: 3001 },
@@ -97,6 +112,10 @@ const schema = {
     OAUTH_REDIRECT_URI: { type: "string" },
     APP_BASE_URL: { type: "string" },
     COOKIE_SECRET: { type: "string" },
+    AWS_ACCOUNT_ID: { type: "string" },
+    AWS_REGION: { type: "string" },
+    SESSION_TTL_SECONDS: { type: "number", default: 12 * 60 * 60 },
+    DYNAMODB_ENDPOINT_URL: { type: "string" },
   },
 };
 

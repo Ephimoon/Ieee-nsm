@@ -12,9 +12,14 @@
     "lint": "eslint src --ext .ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "package:lambda": "bash scripts/package-lambda.sh"
+    "package:lambda": "bash scripts/package-lambda.sh",
+    "dynamodb:up": "docker compose -f docker-compose.dynamodb.yml up -d",
+    "dynamodb:down": "docker compose -f docker-compose.dynamodb.yml down",
+    "dynamodb:setup-table": "bash scripts/create-local-sessions-table.sh"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1119.0",
+    "@aws-sdk/lib-dynamodb": "^3.1119.0",
     "@fastify/autoload": "^6.0.3",
     "@fastify/aws-lambda": "^6.4.1",
     "@fastify/cookie": "^11.1.2",

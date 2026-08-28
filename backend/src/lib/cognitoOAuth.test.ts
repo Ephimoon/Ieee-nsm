@@ -1,28 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { EnvConfig } from "../config/env.js";
+import { makeTestConfig as makeConfig } from "../test-utils/envConfig.js";
 import { buildAuthorizeUrl, buildLogoutUrl } from "./cognitoOAuth.js";
 
 // exchangeCodeForTokens is exercised only by the /auth/callback route and is
 // intentionally left untested here for now.
-
-function makeConfig(overrides: Partial<EnvConfig> = {}): EnvConfig {
-  return {
-    PORT: 3001,
-    HOST: "0.0.0.0",
-    NODE_ENV: "test",
-    CORS_ORIGIN: "http://localhost:3000",
-    COGNITO_USER_POOL_ID: "us-east-1_testPool123",
-    COGNITO_CLIENT_ID: "test-client-id",
-    COGNITO_REGION: "us-east-1",
-    COGNITO_TOKEN_USE: "access",
-    COGNITO_DOMAIN: "my-app.auth.us-east-1.amazoncognito.com",
-    COGNITO_CLIENT_SECRET: "test-secret",
-    OAUTH_REDIRECT_URI: "http://localhost:3001/auth/callback",
-    APP_BASE_URL: "http://localhost:3000",
-    COOKIE_SECRET: "test-cookie-secret",
-    ...overrides,
-  };
-}
 
 describe("buildAuthorizeUrl", () => {
   it("points at the Hosted UI /oauth2/authorize endpoint over https", () => {

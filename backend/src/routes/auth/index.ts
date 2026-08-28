@@ -17,6 +17,11 @@ import {
 const PKCE_COOKIE = "oauth_pkce";
 const PKCE_COOKIE_MAX_AGE_SECONDS = 5 * 60;
 
+// Long-lived cookie holding only an opaque session id — the SPA never sees
+// a Cognito JWT. The session record itself (claims + tokens) lives in
+// DynamoDB, looked up by this id.
+const SESSION_COOKIE = "session";
+
 interface PkceCookiePayload {
   state: string;
   codeVerifier: string;
@@ -109,18 +114,43 @@ const authRoutes: FastifyPluginAsync = async (fastify) => {
       return reply.code(502).send({ error: "Received an invalid token from Cognito" });
     }
 
-    // TODO: mint and persist this backend's own session (e.g. a DynamoDB-backed
-    // session id in an HttpOnly cookie) instead of returning claims directly.
-    // The SPA must never see `tokens` or raw Cognito JWTs — everything above
-    // this line is the verified PKCE exchange; everything below is where
-    // session issuance takes over.
-    request.log.info({ sub: claims.sub }, "Cognito login verified");
-    return reply.send({ status: "verified", claims });
+    // Everything above this line is the verified PKCE exchange. The SPA must
+    // never see `tokens` or raw Cognito JWTs — from here on we mint our own
+    // opaque session and hand the browser only that.
+    const sessionId = await fastify.sessionStore.createSession({
+      claims,
+      tokens: {
+        accessToken: tokens.access_token,
+        idToken: tokens.id_token,
+        refreshToken: tokens.refresh_token,
+      },
+    });
+
+    reply.cookie(SESSION_COOKIE, sessionId, {
+      path: "/",
+      httpOnly: true,
+      secure: isProduction,
+      sameSite: "lax",
+      signed: true,
+      maxAge: fastify.config.SESSION_TTL_SECONDS,
+    });
+
+    request.log.info({ sub: claims.sub }, "Cognito login verified, session created");
+
+    const dashboardUrl = new URL("/officers/dashboard", fastify.config.APP_BASE_URL);
+    return reply.redirect(dashboardUrl.toString());
   });
 
-  fastify.get("/logout", async (_request, reply) => {
-    // TODO: once sessions exist, destroy the backend session here before
-    // redirecting to Cognito's logout endpoint.
+  fastify.get("/logout", async (request, reply) => {
+    const rawSessionCookie = request.cookies[SESSION_COOKIE];
+    if (rawSessionCookie) {
+      const unsigned = request.unsignCookie(rawSessionCookie);
+      if (unsigned.valid && unsigned.value) {
+        await fastify.sessionStore.deleteSession(unsigned.value);
+      }
+    }
+    reply.clearCookie(SESSION_COOKIE, { path: "/" });
+
     return reply.redirect(buildLogoutUrl(fastify.config));
   });
 };

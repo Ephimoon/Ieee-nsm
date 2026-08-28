@@ -8,6 +8,7 @@ import sensible from "@fastify/sensible";
 import { TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
 import envPlugin from "./config/env.js";
 import authenticatePlugin from "./plugins/authenticate.js";
+import sessionStorePlugin from "./plugins/sessionStore.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -28,6 +29,7 @@ export async function buildApp() {
     secret: app.config.COOKIE_SECRET,
   });
   await app.register(authenticatePlugin);
+  await app.register(sessionStorePlugin);
 
   // Auto-register every route module in src/routes, using folder names as prefixes
   // e.g. src/routes/events/index.ts -> /events
