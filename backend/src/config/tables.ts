@@ -5,4 +5,4 @@
 // region (which do vary per deployment) come from the environment — see
 // config/env.ts and lib/arn.ts.
 
-export const SESSION_TABLE_NAME = "backend-sessions";
+export const SESSION_TABLE_NAME = "IEEE-CS-Sessions";
