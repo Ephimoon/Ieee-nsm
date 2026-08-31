@@ -201,6 +201,11 @@ function Home() {
     setIsSending(true);
     setContactFormResponse("Sending...");
 
+    console.log("formref: " + formRef.current);
+    console.log(
+      "emailjs service id: " + process.env.REACT_APP_EMAILJS_SERVICE_ID,
+    );
+
     try {
       await emailjs.sendForm(
         process.env.REACT_APP_EMAILJS_SERVICE_ID,
@@ -571,7 +576,11 @@ function Home() {
             </div>
 
             <div className="contact-form-card">
-              <form onSubmit={handleSubmit} className="contact-form">
+              <form
+                onSubmit={handleSubmit}
+                ref={formRef}
+                className="contact-form"
+              >
                 <div className="form-grid-two">
                   <div className="form-group">
                     <label htmlFor="name">Name</label>
